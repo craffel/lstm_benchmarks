@@ -1,0 +1,7401 @@
+task = classification
+
+network:
+task = classification
+13MultilayerNet
+------------------------------
+10 layers:
+10InputLayer "input" 1D (+) size 39
+(R) 9LstmLayerI4TanhS0_8LogisticE "hidden_0_0" 1D (-) inputSize 624 outputSize 156 source "input" 468 peeps
+(R) 9LstmLayerI4TanhS0_8LogisticE "hidden_0_1" 1D (+) inputSize 624 outputSize 156 source "input" 468 peeps
+11GatherLayer "gather_0" 1D (+) size 312 source "hidden_0_0"
+(R) 9LstmLayerI4TanhS0_8LogisticE "hidden_1_0" 1D (-) inputSize 1200 outputSize 300 source "gather_0" 900 peeps
+(R) 9LstmLayerI4TanhS0_8LogisticE "hidden_1_1" 1D (+) inputSize 1200 outputSize 300 source "gather_0" 900 peeps
+11GatherLayer "gather_1" 1D (+) size 600 source "hidden_1_0"
+(R) 9LstmLayerI4TanhS0_8LogisticE "hidden_2_0" 1D (-) inputSize 408 outputSize 102 source "gather_1" 306 peeps
+(R) 9LstmLayerI4TanhS0_8LogisticE "hidden_2_1" 1D (+) inputSize 408 outputSize 102 source "gather_1" 306 peeps
+29MulticlassClassificationLayer "output" 1D (+) size 51 source "hidden_2_0"
+------------------------------
+21 connections:
+"bias_to_hidden_0_1" (624 wts)
+"hidden_0_1_to_hidden_0_1_delay_-1" (97344 wts)
+"input_to_hidden_0_1" (24336 wts)
+"bias_to_hidden_1_0" (1200 wts)
+"hidden_1_0_to_hidden_1_0_delay_1" (360000 wts)
+"gather_0_to_hidden_1_0" (374400 wts)
+"bias_to_hidden_1_1" (1200 wts)
+"hidden_1_1_to_hidden_1_1_delay_-1" (360000 wts)
+"gather_0_to_hidden_1_1" (374400 wts)
+"bias_to_hidden_2_0" (408 wts)
+"hidden_2_0_to_hidden_2_0_delay_1" (41616 wts)
+"gather_1_to_hidden_2_0" (244800 wts)
+"bias_to_hidden_2_1" (408 wts)
+"hidden_2_1_to_hidden_2_1_delay_-1" (41616 wts)
+"gather_1_to_hidden_2_1" (244800 wts)
+"bias_to_output" (51 wts)
+"hidden_2_0_to_output" (5202 wts)
+"hidden_2_1_to_output" (5202 wts)
+"bias_to_hidden_0_0" (624 wts)
+"hidden_0_0_to_hidden_0_0_delay_1" (97344 wts)
+"input_to_hidden_0_0" (24336 wts)
+------------------------------
+bidirectional = true
+symmetry = false
+2303259 weights
+
+setting random seed to 2439786875
+
+2303259 uninitialised weights randomised uniformly in [-0.1,0.1]
+trainer:
+epoch = 0
+savename = classification@2014.10.25-07.51.41.157093
+batchLearn = false
+seqsPerWeightUpdate = 1
+maxTestsNoBest = 20
+
+training data:
+numSequences = 1000
+numTimesteps = 148668
+avg timesteps/seq = 148.668
+1 filenames
+../data/train_1_speaker.nc
+inputSize = 39
+outputSize = 51
+numDims = 1
+task = classification
+shuffled = true
+51 target labels
+0 a (586 = 0.394167%)
+1 again (7334 = 4.93314%)
+2 at (2330 = 1.56725%)
+3 b (606 = 0.40762%)
+4 bin (6350 = 4.27126%)
+5 blue (6152 = 4.13808%)
+6 by (4232 = 2.84661%)
+7 c (1048 = 0.704926%)
+8 d (536 = 0.360535%)
+9 e (560 = 0.376678%)
+10 eight (1828 = 1.22959%)
+11 f (658 = 0.442597%)
+12 five (2078 = 1.39775%)
+13 four (2902 = 1.952%)
+14 g (534 = 0.35919%)
+15 green (6752 = 4.54166%)
+16 h (1100 = 0.739904%)
+17 i (756 = 0.508516%)
+18 in (3014 = 2.02734%)
+19 j (760 = 0.511206%)
+20 k (682 = 0.45874%)
+21 l (592 = 0.398203%)
+22 lay (10612 = 7.13805%)
+23 m (618 = 0.415691%)
+24 n (654 = 0.439906%)
+25 nine (2252 = 1.51478%)
+26 now (7028 = 4.72731%)
+27 o (706 = 0.474884%)
+28 one (2056 = 1.38295%)
+29 p (448 = 0.301343%)
+30 place (8516 = 5.7282%)
+31 please (8830 = 5.93941%)
+32 q (906 = 0.609412%)
+33 r (752 = 0.505825%)
+34 red (5318 = 3.5771%)
+35 s (868 = 0.583851%)
+36 set (10634 = 7.15285%)
+37 seven (2958 = 1.98967%)
+38 six (3588 = 2.41343%)
+39 soon (7706 = 5.18336%)
+40 t (782 = 0.526004%)
+41 three (2014 = 1.3547%)
+42 two (2328 = 1.56591%)
+43 u (628 = 0.422418%)
+44 v (828 = 0.556946%)
+45 white (6688 = 4.49861%)
+46 with (2564 = 1.72465%)
+47 x (1172 = 0.788334%)
+48 y (1118 = 0.752011%)
+49 z (844 = 0.567708%)
+50 zero (3862 = 2.59773%)
+totalTargetStringLength = 0
+------------------------------
+validation data:
+numSequences = 102
+numTimesteps = 13878
+avg timesteps/seq = 136.059
+1 filenames
+../data/val_1_speaker.nc
+inputSize = 39
+outputSize = 51
+numDims = 1
+task = classification
+shuffled = false
+51 target labels
+0 a (198 = 1.42672%)
+1 again (882 = 6.35538%)
+2 at (366 = 2.63727%)
+3 b (252 = 1.81582%)
+4 bin (756 = 5.44747%)
+5 blue (276 = 1.98876%)
+6 by (96 = 0.691742%)
+7 c (0 = 0%)
+8 d (0 = 0%)
+9 e (78 = 0.562041%)
+10 eight (234 = 1.68612%)
+11 f (192 = 1.38348%)
+12 five (318 = 2.2914%)
+13 four (174 = 1.25378%)
+14 g (0 = 0%)
+15 green (1062 = 7.6524%)
+16 h (0 = 0%)
+17 i (102 = 0.734976%)
+18 in (390 = 2.8102%)
+19 j (66 = 0.475573%)
+20 k (234 = 1.68612%)
+21 l (0 = 0%)
+22 lay (426 = 3.06961%)
+23 m (84 = 0.605275%)
+24 n (0 = 0%)
+25 nine (288 = 2.07523%)
+26 now (834 = 6.00951%)
+27 o (0 = 0%)
+28 one (114 = 0.821444%)
+29 p (66 = 0.475573%)
+30 place (870 = 6.26891%)
+31 please (606 = 4.36662%)
+32 q (0 = 0%)
+33 r (0 = 0%)
+34 red (486 = 3.50195%)
+35 s (126 = 0.907912%)
+36 set (840 = 6.05275%)
+37 seven (378 = 2.72374%)
+38 six (594 = 4.28016%)
+39 soon (846 = 6.09598%)
+40 t (0 = 0%)
+41 three (270 = 1.94553%)
+42 two (150 = 1.08085%)
+43 u (0 = 0%)
+44 v (150 = 1.08085%)
+45 white (546 = 3.93428%)
+46 with (336 = 2.4211%)
+47 x (0 = 0%)
+48 y (0 = 0%)
+49 z (0 = 0%)
+50 zero (192 = 1.38348%)
+totalTargetStringLength = 0
+
+adding noise to input data, std dev 0.6
+
+------------------------------
+steepest descent
+learnRate = 1e-05
+momentum = 0.9
+------------------------------
+
+autosave filename classification@2014.10.25-07.51.41.157093.last.save
+best save filename root classification@2014.10.25-07.51.41.157093.best
+
+training...
+
+epoch 0 took 12 minutes 53.09 seconds (0.77309 secs/seq, 192.304 its/sec, 1323.61 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.102643
+_again 0.204315
+_at 0.0647199
+_b 0.0995605
+_bin 0.194931
+_blue 0.162633
+_by 0.104733
+_c 0.156141
+_d 0.106012
+_e 0.102095
+_eight 0.147892
+_f 0.11982
+_five 0.164915
+_four 0.172547
+_g 0.124852
+_green 0.166105
+_h 0.151733
+_i 0.139802
+_in 0.0727835
+_j 0.130214
+_k 0.134433
+_l 0.111509
+_lay 0.125384
+_m 0.122187
+_n 0.111482
+_nine 0.155701
+_now 0.153573
+_o 0.111867
+_one 0.139133
+_p 0.111485
+_place 0.219228
+_please 0.14321
+_q 0.136641
+_r 0.149544
+_red 0.151327
+_s 0.140561
+_set 0.160088
+_seven 0.205015
+_six 0.20745
+_soon 0.22654
+_t 0.123526
+_three 0.156522
+_two 0.163968
+_u 0.115848
+_v 0.123143
+_white 0.172398
+_with 0.082325
+_x 0.147419
+_y 0.13076
+_z 0.140138
+_zero 0.217019
+classificationError 90.0982%
+crossEntropyError 542.028
+------------------------------
+validation errors:
+_a 0.120186
+_again 0.217732
+_at 0.076723
+_b 0.0972749
+_bin 0.189713
+_blue 0.157801
+_by 0.125984
+_e 0.115044
+_eight 0.143499
+_f 0.11584
+_five 0.196429
+_four 0.226562
+_green 0.150387
+_i 0.130769
+_in 0.0917188
+_j 0.0846154
+_k 0.14647
+_lay 0.137219
+_m 0.110236
+_nine 0.190088
+_now 0.20753
+_one 0.146154
+_p 0.0763889
+_place 0.209056
+_please 0.176113
+_red 0.160688
+_s 0.161538
+_set 0.00976456
+_seven 0.213268
+_six 0.228699
+_soon 0.255441
+_three 0.159682
+_two 0.221239
+_v 0.0890071
+_white 0.139057
+_with 0.0822382
+_zero 0.228571
+classificationError 90.4256%
+crossEntropyError 470.332
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 1 took 12 minutes 53.06 seconds (0.77306 secs/seq, 192.311 its/sec, 1323.66 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.102643
+_again 0.188628
+_at 0.0656352
+_b 0.0995605
+_bin 0.188798
+_blue 0.115958
+_by 0.104708
+_c 0.156141
+_d 0.106012
+_e 0.102095
+_eight 0.147892
+_f 0.11982
+_five 0.164915
+_four 0.172547
+_g 0.124852
+_green 0.0992601
+_h 0.151733
+_i 0.139802
+_in 0.0729751
+_j 0.130559
+_k 0.134433
+_l 0.112428
+_lay 0.159355
+_m 0.122187
+_n 0.111482
+_nine 0.155701
+_now 0.0972875
+_o 0.111867
+_one 0.139133
+_p 0.111485
+_place 0.217131
+_please 0.0768087
+_q 0.136641
+_r 0.149544
+_red 0.151274
+_s 0.140561
+_set 0.0953417
+_seven 0.205015
+_six 0.20745
+_soon 0.183997
+_t 0.123526
+_three 0.156844
+_two 0.163968
+_u 0.115848
+_v 0.123143
+_white 0.0783437
+_with 0.082325
+_x 0.147419
+_y 0.13076
+_z 0.140138
+_zero 0.217073
+classificationError 79.3205%
+crossEntropyError 460.456
+------------------------------
+validation errors:
+_a 0.120186
+_again 0.165341
+_at 0.076723
+_b 0.0972749
+_bin 0.177248
+_blue 0.123653
+_by 0.125984
+_e 0.115044
+_eight 0.143499
+_f 0.11584
+_five 0.196429
+_four 0.226562
+_green 0.0769263
+_i 0.130769
+_in 0.0917188
+_j 0.0846154
+_k 0.14647
+_lay 0.0988297
+_m 0.110236
+_nine 0.190088
+_now 0.0684425
+_one 0.146154
+_p 0.0763889
+_place 0.191139
+_please 0.226558
+_red 0.157803
+_s 0.161538
+_set 0.0686622
+_seven 0.213268
+_six 0.228699
+_soon 0.0885192
+_three 0.159682
+_two 0.221239
+_v 0.0890071
+_white 0.0203595
+_with 0.0822382
+_zero 0.228571
+classificationError 75.2839%
+crossEntropyError 393.593
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 2 took 12 minutes 49.13 seconds (0.76913 secs/seq, 193.294 its/sec, 1330.43 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.102643
+_again 0.121055
+_at 0.0656352
+_b 0.0995605
+_bin 0.127742
+_blue 0.0994491
+_by 0.0750354
+_c 0.156141
+_d 0.106012
+_e 0.102095
+_eight 0.147892
+_f 0.11982
+_five 0.164769
+_four 0.168442
+_g 0.124852
+_green 0.0834627
+_h 0.150796
+_i 0.139802
+_in 0.070698
+_j 0.130559
+_k 0.134433
+_l 0.112428
+_lay 0.128483
+_m 0.122187
+_n 0.111482
+_nine 0.155427
+_now 0.0568369
+_o 0.111867
+_one 0.138776
+_p 0.111485
+_place 0.15579
+_please 0.0985719
+_q 0.136641
+_r 0.149544
+_red 0.102507
+_s 0.140561
+_set 0.0685632
+_seven 0.203883
+_six 0.148074
+_soon 0.0940042
+_t 0.123526
+_three 0.15509
+_two 0.162265
+_u 0.115848
+_v 0.123143
+_white 0.0459277
+_with 0.0817212
+_x 0.147292
+_y 0.13076
+_z 0.140138
+_zero 0.199851
+classificationError 66.0305%
+crossEntropyError 352.308
+------------------------------
+validation errors:
+_a 0.120186
+_again 0.14716
+_at 0.076723
+_b 0.0972749
+_bin 0.115414
+_blue 0.137563
+_by 0.0380577
+_e 0.115044
+_eight 0.143499
+_f 0.11584
+_five 0.196429
+_four 0.174479
+_green 0.034497
+_i 0.130769
+_in 0.0798412
+_j 0.0846154
+_k 0.14647
+_lay 0.0550642
+_m 0.110236
+_nine 0.190088
+_now 0.0747995
+_one 0.146154
+_p 0.0763889
+_place 0.151298
+_please 0.144211
+_red 0.0862406
+_s 0.161538
+_set 0.0568963
+_seven 0.157255
+_six 0.0702761
+_soon 0.0986096
+_three 0.159682
+_two 0.221239
+_v 0.0890071
+_white 0.0340006
+_with 0.081489
+_zero 0.0702381
+classificationError 61.1535%
+crossEntropyError 283.495
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 3 took 12 minutes 53.04 seconds (0.77304 secs/seq, 192.316 its/sec, 1323.7 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.102643
+_again 0.0837183
+_at 0.0620952
+_b 0.0995605
+_bin 0.0690399
+_blue 0.0954991
+_by 0.0337926
+_c 0.15039
+_d 0.106012
+_e 0.102095
+_eight 0.137445
+_f 0.11982
+_five 0.141518
+_four 0.0767603
+_g 0.124852
+_green 0.0699857
+_h 0.146016
+_i 0.139802
+_in 0.0560063
+_j 0.129404
+_k 0.134433
+_l 0.112428
+_lay 0.0878767
+_m 0.122187
+_n 0.111033
+_nine 0.132607
+_now 0.0496816
+_o 0.111867
+_one 0.123208
+_p 0.111485
+_place 0.0719946
+_please 0.0528564
+_q 0.131957
+_r 0.149544
+_red 0.0601482
+_s 0.140416
+_set 0.0542056
+_seven 0.143319
+_six 0.0731735
+_soon 0.0612327
+_t 0.122056
+_three 0.131071
+_two 0.123208
+_u 0.115848
+_v 0.123143
+_white 0.0431827
+_with 0.0591773
+_x 0.126582
+_y 0.130419
+_z 0.139813
+_zero 0.105031
+classificationError 49.3436%
+crossEntropyError 249.678
+------------------------------
+validation errors:
+_a 0.120186
+_again 0.0952593
+_at 0.0738194
+_b 0.0972749
+_bin 0.060465
+_blue 0.0425909
+_by 0.0328084
+_e 0.115044
+_eight 0.0985374
+_f 0.11584
+_five 0.194048
+_four 0.0520833
+_green 0.123105
+_i 0.130769
+_in 0.0369523
+_j 0.0846154
+_k 0.14647
+_lay 0.148482
+_m 0.110236
+_nine 0.18941
+_now 0.0639577
+_one 0.146154
+_p 0.0763889
+_place 0.0366239
+_please 0.0705017
+_red 0.0537838
+_s 0.161538
+_set 0.0275329
+_seven 0.16953
+_six 0.0202323
+_soon 0.0893093
+_three 0.132986
+_two 0.207965
+_v 0.0860309
+_white 0.0277482
+_with 0.0768172
+_zero 0.0297619
+classificationError 51.1566%
+crossEntropyError 213.185
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 4 took 12 minutes 53.14 seconds (0.77314 secs/seq, 192.291 its/sec, 1323.53 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.102643
+_again 0.0596479
+_at 0.0578858
+_b 0.0993807
+_bin 0.0417198
+_blue 0.0730916
+_by 0.0244706
+_c 0.091902
+_d 0.104961
+_e 0.102095
+_eight 0.0889426
+_f 0.119089
+_five 0.11906
+_four 0.0597941
+_g 0.124606
+_green 0.0659888
+_h 0.135639
+_i 0.13556
+_in 0.0457978
+_j 0.128724
+_k 0.133113
+_l 0.112428
+_lay 0.0547491
+_m 0.122187
+_n 0.103887
+_nine 0.115797
+_now 0.0400721
+_o 0.111867
+_one 0.100867
+_p 0.111485
+_place 0.0288588
+_please 0.0206269
+_q 0.10646
+_r 0.134767
+_red 0.0409788
+_s 0.133064
+_set 0.031977
+_seven 0.107424
+_six 0.0587517
+_soon 0.0268509
+_t 0.118643
+_three 0.100498
+_two 0.0964193
+_u 0.112634
+_v 0.0950335
+_white 0.0289802
+_with 0.0491514
+_x 0.109965
+_y 0.107442
+_z 0.131713
+_zero 0.0668791
+classificationError 37.7015%
+crossEntropyError 189.028
+------------------------------
+validation errors:
+_a 0.120186
+_again 0.0779462
+_at 0.0647613
+_b 0.0961012
+_bin 0.0736548
+_blue 0.117622
+_by 0.0511811
+_e 0.115044
+_eight 0.0968852
+_f 0.11584
+_five 0.150092
+_four 0.0390625
+_green 0.0831471
+_i 0.130769
+_in 0.0466257
+_j 0.0846154
+_k 0.143473
+_lay 0.062517
+_m 0.110236
+_nine 0.157948
+_now 0.064752
+_one 0.146154
+_p 0.0763889
+_place 0.0497118
+_please 0.0668695
+_red 0.038158
+_s 0.133333
+_set 0.0121623
+_seven 0.0616472
+_six 0.114724
+_soon 0.0524278
+_three 0.0866099
+_two 0.144543
+_v 0.0783139
+_white 0.00395473
+_with 0.0650564
+_zero 0.0297619
+classificationError 44.8535%
+crossEntropyError 192.264
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 5 took 12 minutes 53.14 seconds (0.77314 secs/seq, 192.291 its/sec, 1323.53 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.102285
+_again 0.0416802
+_at 0.0525766
+_b 0.0992519
+_bin 0.0378869
+_blue 0.0513968
+_by 0.0200041
+_c 0.0625212
+_d 0.104897
+_e 0.102095
+_eight 0.0761302
+_f 0.114673
+_five 0.0791176
+_four 0.049702
+_g 0.12385
+_green 0.049605
+_h 0.124482
+_i 0.136977
+_in 0.0386577
+_j 0.116949
+_k 0.124278
+_l 0.112428
+_lay 0.0373431
+_m 0.122187
+_n 0.101608
+_nine 0.0903521
+_now 0.0346022
+_o 0.0994763
+_one 0.0863909
+_p 0.111485
+_place 0.0178922
+_please 0.0146508
+_q 0.0917946
+_r 0.125965
+_red 0.0320047
+_s 0.115984
+_set 0.0186068
+_seven 0.066892
+_six 0.0403416
+_soon 0.0139206
+_t 0.106899
+_three 0.0690985
+_two 0.0688442
+_u 0.112918
+_v 0.0831268
+_white 0.0266684
+_with 0.0483554
+_x 0.0963935
+_y 0.0738916
+_z 0.123891
+_zero 0.054124
+classificationError 30.6414%
+crossEntropyError 154.751
+------------------------------
+validation errors:
+_a 0.112315
+_again 0.0485183
+_at 0.0694035
+_b 0.0972749
+_bin 0.0204273
+_blue 0.0428415
+_by 0.0406824
+_e 0.115044
+_eight 0.0553449
+_f 0.113917
+_five 0.162088
+_four 0.0664062
+_green 0.0677584
+_i 0.130769
+_in 0.0635073
+_j 0.0820513
+_k 0.129684
+_lay 0.0920718
+_m 0.110236
+_nine 0.173332
+_now 0.0541067
+_one 0.0974359
+_p 0.0763889
+_place 0.0481796
+_please 0.0592853
+_red 0.0367001
+_s 0.115385
+_set 0.0302474
+_seven 0.0447734
+_six 0.0583165
+_soon 0.0264602
+_three 0.0430351
+_two 0.10472
+_v 0.040949
+_white 0.0101786
+_with 0.0586155
+_zero 0.0369048
+classificationError 38.2663%
+crossEntropyError 168.329
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 6 took 12 minutes 40.25 seconds (0.76025 secs/seq, 195.551 its/sec, 1345.97 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.101158
+_again 0.0340566
+_at 0.0471155
+_b 0.097694
+_bin 0.0341965
+_blue 0.0376538
+_by 0.019174
+_c 0.0534366
+_d 0.103422
+_e 0.101695
+_eight 0.0593477
+_f 0.101537
+_five 0.0695912
+_four 0.038963
+_g 0.122157
+_green 0.0336026
+_h 0.110817
+_i 0.12779
+_in 0.0343004
+_j 0.116131
+_k 0.117876
+_l 0.111369
+_lay 0.0263825
+_m 0.117176
+_n 0.0946777
+_nine 0.0707937
+_now 0.0311471
+_o 0.0902287
+_one 0.0624233
+_p 0.111485
+_place 0.0163035
+_please 0.0118009
+_q 0.0745246
+_r 0.0910042
+_red 0.0303065
+_s 0.104357
+_set 0.0145989
+_seven 0.0413933
+_six 0.0250404
+_soon 0.0104226
+_t 0.10254
+_three 0.053196
+_two 0.0468084
+_u 0.11238
+_v 0.0685784
+_white 0.0234925
+_with 0.0400337
+_x 0.0859696
+_y 0.0745093
+_z 0.0958346
+_zero 0.0483374
+classificationError 25.9092%
+crossEntropyError 131.42
+------------------------------
+validation errors:
+_a 0.120186
+_again 0.0969673
+_at 0.0536507
+_b 0.0913818
+_bin 0.0868259
+_blue 0.0703947
+_by 0.0249344
+_e 0.115044
+_eight 0.0234922
+_f 0.111353
+_five 0.0303114
+_four 0.0377604
+_green 0.100074
+_i 0.130769
+_in 0.0622706
+_j 0.0730769
+_k 0.144569
+_lay 0.0573824
+_m 0.110236
+_nine 0.1867
+_now 0.0569057
+_one 0.146154
+_p 0.0763889
+_place 0.0508272
+_please 0.0447708
+_red 0.025641
+_s 0.102564
+_set 0.0124726
+_seven 0.0335039
+_six 0.051356
+_soon 0.0407882
+_three 0.0876157
+_two 0.128319
+_v 0.0605201
+_white 0.011069
+_with 0.0561287
+_zero 0.047619
+classificationError 40.5692%
+crossEntropyError 172.292
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 7 took 12 minutes 13.94 seconds (0.73394 secs/seq, 202.562 its/sec, 1394.22 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.100485
+_again 0.0285673
+_at 0.0413644
+_b 0.0920522
+_bin 0.0308717
+_blue 0.027697
+_by 0.0170823
+_c 0.0422611
+_d 0.0968416
+_e 0.100339
+_eight 0.0455971
+_f 0.10214
+_five 0.0564909
+_four 0.0303669
+_g 0.117389
+_green 0.0297924
+_h 0.0822097
+_i 0.117277
+_in 0.0315931
+_j 0.0977673
+_k 0.10784
+_l 0.104273
+_lay 0.0275153
+_m 0.121592
+_n 0.0802793
+_nine 0.0583047
+_now 0.0257491
+_o 0.0830934
+_one 0.0576427
+_p 0.111485
+_place 0.0113442
+_please 0.00993387
+_q 0.0724398
+_r 0.105619
+_red 0.0262753
+_s 0.098205
+_set 0.0129641
+_seven 0.0319406
+_six 0.0242852
+_soon 0.00532038
+_t 0.0993923
+_three 0.0406475
+_two 0.0383986
+_u 0.109869
+_v 0.0681898
+_white 0.0225749
+_with 0.0409594
+_x 0.0829969
+_y 0.0578829
+_z 0.0893278
+_zero 0.0383217
+classificationError 22.9669%
+crossEntropyError 116.207
+------------------------------
+validation errors:
+_a 0.117476
+_again 0.0719511
+_at 0.0446439
+_b 0.0972749
+_bin 0.0623107
+_blue 0.0357299
+_by 0.0223097
+_e 0.115044
+_eight 0.0161701
+_f 0.113276
+_five 0.109066
+_four 0.0299479
+_green 0.0435353
+_i 0.130769
+_in 0.0289837
+_j 0.0820513
+_k 0.129084
+_lay 0.0555665
+_m 0.107612
+_nine 0.190088
+_now 0.0350537
+_one 0.115385
+_p 0.0763889
+_place 0.0237384
+_please 0.0425088
+_red 0.0355457
+_s 0.0769231
+_set 0.0109781
+_seven 0.0380726
+_six 0.038187
+_soon 0.0366728
+_three 0.0465663
+_two 0.0929204
+_v 0.0249325
+_white 0.0115891
+_with 0.069508
+_zero 0.0309524
+classificationError 33.1254%
+crossEntropyError 141.222
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 8 took 12 minutes 14.42 seconds (0.73442 secs/seq, 202.429 its/sec, 1393.31 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0913389
+_again 0.0282874
+_at 0.0372119
+_b 0.0901851
+_bin 0.0274297
+_blue 0.0271488
+_by 0.0164179
+_c 0.033888
+_d 0.0922069
+_e 0.0988687
+_eight 0.0396207
+_f 0.10005
+_five 0.0545401
+_four 0.0267945
+_g 0.120845
+_green 0.0265379
+_h 0.0799045
+_i 0.121325
+_in 0.0275859
+_j 0.0994743
+_k 0.0984661
+_l 0.101004
+_lay 0.0191632
+_m 0.117236
+_n 0.0931616
+_nine 0.0604013
+_now 0.0239226
+_o 0.0611831
+_one 0.0525838
+_p 0.111485
+_place 0.0117102
+_please 0.0101648
+_q 0.065358
+_r 0.0920094
+_red 0.0206039
+_s 0.0834778
+_set 0.00834491
+_seven 0.0235283
+_six 0.020652
+_soon 0.00540742
+_t 0.0786357
+_three 0.0324665
+_two 0.0305748
+_u 0.104426
+_v 0.0611719
+_white 0.0179683
+_with 0.0361644
+_x 0.0803393
+_y 0.0485448
+_z 0.0589892
+_zero 0.0368413
+classificationError 20.7626%
+crossEntropyError 102.685
+------------------------------
+validation errors:
+_a 0.106636
+_again 0.0369348
+_at 0.0622881
+_b 0.0972749
+_bin 0.0421388
+_blue 0.0428258
+_by 0.0223097
+_e 0.115044
+_eight 0.0148339
+_f 0.104943
+_five 0.100183
+_four 0.0403646
+_green 0.0344543
+_i 0.120513
+_in 0.0357547
+_j 0.0333333
+_k 0.121581
+_lay 0.0940659
+_m 0.102362
+_nine 0.116364
+_now 0.0446099
+_one 0.108974
+_p 0.0763889
+_place 0.00956338
+_please 0.0374602
+_red 0.0314585
+_s 0.0782051
+_set 0.0145432
+_seven 0.0175439
+_six 0.0430685
+_soon 0.033946
+_three 0.0820512
+_two 0.0648968
+_v 0.025515
+_white 0.00256407
+_with 0.0616877
+_zero 0.00714286
+classificationError 30.2853%
+crossEntropyError 132.464
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 9 took 12 minutes 14.52 seconds (0.73452 secs/seq, 202.402 its/sec, 1393.12 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.095322
+_again 0.0237884
+_at 0.0362079
+_b 0.0897276
+_bin 0.0265563
+_blue 0.022508
+_by 0.0163622
+_c 0.0328679
+_d 0.0909319
+_e 0.0983572
+_eight 0.0312809
+_f 0.0867588
+_five 0.0455935
+_four 0.0250255
+_g 0.112228
+_green 0.023592
+_h 0.0737181
+_i 0.106434
+_in 0.0257247
+_j 0.0858602
+_k 0.0822098
+_l 0.0934043
+_lay 0.0195992
+_m 0.110315
+_n 0.0789744
+_nine 0.0488582
+_now 0.0213904
+_o 0.059253
+_one 0.0423346
+_p 0.105767
+_place 0.01339
+_please 0.00759644
+_q 0.068495
+_r 0.0770097
+_red 0.0218858
+_s 0.0761126
+_set 0.00772556
+_seven 0.0199645
+_six 0.0174086
+_soon 0.00451453
+_t 0.0789312
+_three 0.0302134
+_two 0.022409
+_u 0.104613
+_v 0.0559742
+_white 0.0180591
+_with 0.0331895
+_x 0.0736942
+_y 0.0499225
+_z 0.0621824
+_zero 0.031862
+classificationError 19.0883%
+crossEntropyError 93.1764
+------------------------------
+validation errors:
+_a 0.0913475
+_again 0.0288603
+_at 0.045427
+_b 0.0898877
+_bin 0.0209614
+_blue 0.0434211
+_by 0.015748
+_e 0.115044
+_eight 0.0689057
+_f 0.104302
+_five 0.119551
+_four 0.0533854
+_green 0.0425072
+_i 0.130769
+_in 0.0327108
+_j 0.0423077
+_k 0.118892
+_lay 0.0515527
+_m 0.110236
+_nine 0.0641703
+_now 0.0337853
+_one 0.0923077
+_p 0.0763889
+_place 0.0191279
+_please 0.0510749
+_red 0.0286221
+_s 0.0551282
+_set 0.0142498
+_seven 0.0208942
+_six 0.0719418
+_soon 0.0292624
+_three 0.0633202
+_two 0.0737463
+_v 0.0623565
+_white 0.00860748
+_with 0.055765
+_zero 0.0130952
+classificationError 29.0293%
+crossEntropyError 129.029
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 10 took 12 minutes 14.45 seconds (0.73445 secs/seq, 202.421 its/sec, 1393.25 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0916452
+_again 0.0231158
+_at 0.0336248
+_b 0.0810956
+_bin 0.024178
+_blue 0.0193324
+_by 0.0145906
+_c 0.0362206
+_d 0.0845779
+_e 0.0971656
+_eight 0.0319741
+_f 0.0846504
+_five 0.0409761
+_four 0.0221103
+_g 0.108087
+_green 0.0216525
+_h 0.0716991
+_i 0.106656
+_in 0.0242387
+_j 0.0696431
+_k 0.0752564
+_l 0.0992713
+_lay 0.020706
+_m 0.112311
+_n 0.0733241
+_nine 0.0446355
+_now 0.0198592
+_o 0.0541359
+_one 0.0350978
+_p 0.100617
+_place 0.00923219
+_please 0.00727027
+_q 0.0513582
+_r 0.0786648
+_red 0.0180068
+_s 0.0764898
+_set 0.0100374
+_seven 0.0195982
+_six 0.0142846
+_soon 0.00447774
+_t 0.0629634
+_three 0.0251568
+_two 0.0262491
+_u 0.085812
+_v 0.0667827
+_white 0.0183012
+_with 0.0300678
+_x 0.0693172
+_y 0.0440008
+_z 0.0466628
+_zero 0.0283729
+classificationError 17.7491%
+crossEntropyError 86.7975
+------------------------------
+validation errors:
+_a 0.093799
+_again 0.042557
+_at 0.0367283
+_b 0.0640742
+_bin 0.0418465
+_blue 0.0351817
+_by 0.0328084
+_e 0.115044
+_eight 0.034796
+_f 0.102379
+_five 0.0926282
+_four 0.0507812
+_green 0.0490894
+_i 0.0782051
+_in 0.0465117
+_j 0.025641
+_k 0.0946165
+_lay 0.0888615
+_m 0.10105
+_nine 0.0800292
+_now 0.0562553
+_one 0.0794872
+_p 0.0763889
+_place 0.0119609
+_please 0.037163
+_red 0.0247759
+_s 0.0948718
+_set 0.0142477
+_seven 0.00289352
+_six 0.0393565
+_soon 0.0188415
+_three 0.0525711
+_two 0.10177
+_v 0.0765873
+_white 0.0119226
+_with 0.0443446
+_zero 0.0107143
+classificationError 28.5095%
+crossEntropyError 124.391
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 11 took 12 minutes 14.52 seconds (0.73452 secs/seq, 202.402 its/sec, 1393.12 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0856568
+_again 0.020067
+_at 0.0292843
+_b 0.0716262
+_bin 0.0205511
+_blue 0.0236196
+_by 0.0146455
+_c 0.0313616
+_d 0.0765622
+_e 0.0927594
+_eight 0.0248048
+_f 0.0728608
+_five 0.0340042
+_four 0.0199731
+_g 0.108876
+_green 0.0217891
+_h 0.0591385
+_i 0.0816146
+_in 0.022728
+_j 0.0673081
+_k 0.0676419
+_l 0.0826331
+_lay 0.0161122
+_m 0.106549
+_n 0.0733237
+_nine 0.0349044
+_now 0.0156662
+_o 0.0466031
+_one 0.0342875
+_p 0.0995479
+_place 0.00636241
+_please 0.00856431
+_q 0.0447996
+_r 0.0700811
+_red 0.0164054
+_s 0.070561
+_set 0.00499821
+_seven 0.0161597
+_six 0.0169806
+_soon 0.00435389
+_t 0.0697738
+_three 0.0261411
+_two 0.0227813
+_u 0.0884215
+_v 0.0733132
+_white 0.0169438
+_with 0.0269628
+_x 0.0569124
+_y 0.044567
+_z 0.0425107
+_zero 0.027909
+classificationError 16.1708%
+crossEntropyError 79.1468
+------------------------------
+validation errors:
+_a 0.0674431
+_again 0.0374468
+_at 0.0517
+_b 0.0950819
+_bin 0.0282522
+_blue 0.0397556
+_by 0.0328084
+_e 0.109145
+_eight 0.0144637
+_f 0.0799426
+_five 0.0903846
+_four 0.0481771
+_green 0.049176
+_i 0.124359
+_in 0.0269931
+_j 0.0371795
+_k 0.119473
+_lay 0.118573
+_m 0.0997375
+_nine 0.118303
+_now 0.0304996
+_one 0.0833333
+_p 0.0729167
+_place 0.0101693
+_please 0.0521821
+_red 0.0296318
+_s 0.0564103
+_set 0.0136567
+_seven 0.0303363
+_six 0.0242132
+_soon 0.0263396
+_three 0.0567413
+_two 0.0943953
+_v 0.0433004
+_white 0.0121398
+_with 0.0434953
+_zero 0.0178571
+classificationError 28.4267%
+crossEntropyError 121.366
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 12 took 12 minutes 14.49 seconds (0.73449 secs/seq, 202.41 its/sec, 1393.17 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0803662
+_again 0.0201797
+_at 0.0290979
+_b 0.0852171
+_bin 0.0158701
+_blue 0.0183943
+_by 0.0139959
+_c 0.0226798
+_d 0.0815714
+_e 0.0912001
+_eight 0.0276686
+_f 0.0748015
+_five 0.0283567
+_four 0.0195333
+_g 0.110873
+_green 0.0207949
+_h 0.0547183
+_i 0.0809324
+_in 0.0211362
+_j 0.0559833
+_k 0.0620769
+_l 0.0752803
+_lay 0.0138786
+_m 0.101913
+_n 0.0661851
+_nine 0.0323507
+_now 0.0172438
+_o 0.039288
+_one 0.0341588
+_p 0.0892655
+_place 0.00746375
+_please 0.00818933
+_q 0.0416107
+_r 0.0660222
+_red 0.015756
+_s 0.0578763
+_set 0.00831173
+_seven 0.015881
+_six 0.0158037
+_soon 0.0033412
+_t 0.0500118
+_three 0.0247881
+_two 0.0228423
+_u 0.0849859
+_v 0.0508015
+_white 0.0148429
+_with 0.0243792
+_x 0.054217
+_y 0.0431572
+_z 0.0344731
+_zero 0.0274451
+classificationError 15.1568%
+crossEntropyError 74.0451
+------------------------------
+validation errors:
+_a 0.08796
+_again 0.0353306
+_at 0.0460986
+_b 0.0818057
+_bin 0.0298424
+_blue 0.0440163
+_by 0.0367454
+_e 0.115044
+_eight 0.0205489
+_f 0.0696862
+_five 0.125092
+_four 0.0664062
+_green 0.0376754
+_i 0.112821
+_in 0.0438022
+_j 0.0461538
+_k 0.0879187
+_lay 0.0602526
+_m 0.0918635
+_nine 0.103195
+_now 0.0489578
+_one 0.0935897
+_p 0.0694444
+_place 0.0100579
+_please 0.0348101
+_red 0.0290872
+_s 0.0820513
+_set 0.0139522
+_seven 0.00344176
+_six 0.0225558
+_soon 0.0233775
+_three 0.037121
+_two 0.10177
+_v 0.0682877
+_white 0.00917347
+_with 0.0463039
+_zero 0.0214286
+classificationError 27.3193%
+crossEntropyError 117.597
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 13 took 12 minutes 14.51 seconds (0.73451 secs/seq, 202.404 its/sec, 1393.13 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0759963
+_again 0.0187335
+_at 0.027003
+_b 0.0750549
+_bin 0.0138852
+_blue 0.0163094
+_by 0.0136064
+_c 0.0252337
+_d 0.0693642
+_e 0.0951463
+_eight 0.0258132
+_f 0.0586902
+_five 0.0210027
+_four 0.0231638
+_g 0.108783
+_green 0.0171939
+_h 0.0523939
+_i 0.0806682
+_in 0.0203198
+_j 0.0402635
+_k 0.045347
+_l 0.058967
+_lay 0.0118645
+_m 0.0944109
+_n 0.0639568
+_nine 0.027916
+_now 0.0144064
+_o 0.0399408
+_one 0.0265503
+_p 0.085125
+_place 0.00418285
+_please 0.00709899
+_q 0.027675
+_r 0.0570651
+_red 0.0135026
+_s 0.0564938
+_set 0.00675607
+_seven 0.0144363
+_six 0.0102007
+_soon 0.00282457
+_t 0.0620775
+_three 0.0236866
+_two 0.0175882
+_u 0.0744056
+_v 0.0654308
+_white 0.0138731
+_with 0.0255444
+_x 0.0585224
+_y 0.0343116
+_z 0.0250908
+_zero 0.0220817
+classificationError 13.6789%
+crossEntropyError 66.6712
+------------------------------
+validation errors:
+_a 0.0831194
+_again 0.0378913
+_at 0.047457
+_b 0.0943509
+_bin 0.027212
+_blue 0.0413221
+_by 0.0301837
+_e 0.106195
+_eight 0.0175695
+_f 0.104302
+_five 0.0727106
+_four 0.0507812
+_green 0.0357171
+_i 0.0679487
+_in 0.0471883
+_j 0.0166667
+_k 0.075207
+_lay 0.0432005
+_m 0.0971129
+_nine 0.143246
+_now 0.0363996
+_one 0.107692
+_p 0.0729167
+_place 0.0141108
+_please 0.0502747
+_red 0.020561
+_s 0.0435897
+_set 0.0130657
+_seven 0.0123355
+_six 0.0376682
+_soon 0.0194706
+_three 0.0412911
+_two 0.0707965
+_v 0.055792
+_white 0.0112149
+_with 0.0425425
+_zero 0.0107143
+classificationError 26.2565%
+crossEntropyError 116.941
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 14 took 12 minutes 14.1 seconds (0.7341 secs/seq, 202.517 its/sec, 1393.91 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0717756
+_again 0.0173066
+_at 0.0259872
+_b 0.0822512
+_bin 0.0132969
+_blue 0.0162051
+_by 0.0128017
+_c 0.0219279
+_d 0.0700752
+_e 0.0841142
+_eight 0.024926
+_f 0.0658397
+_five 0.0347083
+_four 0.0172258
+_g 0.0928097
+_green 0.0177764
+_h 0.045769
+_i 0.0797785
+_in 0.020217
+_j 0.0433901
+_k 0.0436526
+_l 0.061388
+_lay 0.0111671
+_m 0.0896993
+_n 0.0559335
+_nine 0.0273147
+_now 0.0136003
+_o 0.0419494
+_one 0.0283355
+_p 0.0811257
+_place 0.00611074
+_please 0.00599819
+_q 0.0278366
+_r 0.0543403
+_red 0.0131402
+_s 0.0522279
+_set 0.00621846
+_seven 0.0156618
+_six 0.0111658
+_soon 0.00322744
+_t 0.0648373
+_three 0.0182485
+_two 0.0130798
+_u 0.0793254
+_v 0.0474013
+_white 0.0142891
+_with 0.025148
+_x 0.0455836
+_y 0.0403605
+_z 0.0297692
+_zero 0.0186049
+classificationError 13.2851%
+crossEntropyError 63.0251
+------------------------------
+validation errors:
+_a 0.0912807
+_again 0.0391046
+_at 0.0410282
+_b 0.092369
+_bin 0.027952
+_blue 0.0404919
+_by 0.0419948
+_e 0.110619
+_eight 0.0141477
+_f 0.0684042
+_five 0.0846612
+_four 0.0559896
+_green 0.0394372
+_i 0.0948718
+_in 0.0375605
+_j 0.00769231
+_k 0.0926821
+_lay 0.0729955
+_m 0.0774278
+_nine 0.147441
+_now 0.027638
+_one 0.075641
+_p 0.0763889
+_place 0.00864849
+_please 0.0317723
+_red 0.0356422
+_s 0.0564103
+_set 0.0136567
+_seven 0.0289961
+_six 0.015596
+_soon 0.0250383
+_three 0.0490486
+_two 0.10767
+_v 0.0587766
+_white 0.00868209
+_with 0.0446305
+_zero 0.0178571
+classificationError 26.4388%
+crossEntropyError 113.932
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 15 took 12 minutes 13.98 seconds (0.73398 secs/seq, 202.55 its/sec, 1394.14 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0612918
+_again 0.0177785
+_at 0.0219167
+_b 0.0686765
+_bin 0.0116837
+_blue 0.0155765
+_by 0.0116444
+_c 0.020182
+_d 0.0477527
+_e 0.0874379
+_eight 0.0215237
+_f 0.0448523
+_five 0.0196778
+_four 0.0165421
+_g 0.0814801
+_green 0.0172117
+_h 0.0426294
+_i 0.0685029
+_in 0.0184694
+_j 0.0316337
+_k 0.0345243
+_l 0.0507476
+_lay 0.00847377
+_m 0.0792421
+_n 0.0604578
+_nine 0.0226364
+_now 0.0137917
+_o 0.0390536
+_one 0.0240934
+_p 0.0617422
+_place 0.00526866
+_please 0.00446796
+_q 0.0300281
+_r 0.0560368
+_red 0.011513
+_s 0.0465187
+_set 0.00448951
+_seven 0.0135999
+_six 0.011294
+_soon 0.00341358
+_t 0.040604
+_three 0.0202402
+_two 0.0143604
+_u 0.0714832
+_v 0.0556467
+_white 0.0140749
+_with 0.0247024
+_x 0.0380137
+_y 0.0392698
+_z 0.0235491
+_zero 0.0197206
+classificationError 11.877%
+crossEntropyError 57.8457
+------------------------------
+validation errors:
+_a 0.0905408
+_again 0.0293702
+_at 0.0517822
+_b 0.0914758
+_bin 0.0259366
+_blue 0.0487312
+_by 0.0485564
+_e 0.115044
+_eight 0.035753
+_f 0.063917
+_five 0.0790293
+_four 0.0572917
+_green 0.0415479
+_i 0.0602564
+_in 0.0381252
+_j 0.0461538
+_k 0.10738
+_lay 0.0495409
+_m 0.0971129
+_nine 0.126543
+_now 0.0521857
+_one 0.0448718
+_p 0.0694444
+_place 0.0113775
+_please 0.0305729
+_red 0.0436068
+_s 0.0538462
+_set 0.0130636
+_seven 0.0092288
+_six 0.0383569
+_soon 0.0267613
+_three 0.0356835
+_two 0.143068
+_v 0.0641295
+_white 0.00901345
+_with 0.0300143
+_zero 0.025
+classificationError 27.1689%
+crossEntropyError 121.312
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 16 took 12 minutes 13.93 seconds (0.73393 secs/seq, 202.564 its/sec, 1394.24 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.057625
+_again 0.0139988
+_at 0.0226279
+_b 0.0724694
+_bin 0.0138833
+_blue 0.0131962
+_by 0.0120799
+_c 0.0183694
+_d 0.048867
+_e 0.0775026
+_eight 0.0187471
+_f 0.0509761
+_five 0.0178322
+_four 0.0144967
+_g 0.0572051
+_green 0.0155449
+_h 0.037626
+_i 0.0676395
+_in 0.0178842
+_j 0.0265967
+_k 0.0389762
+_l 0.0546103
+_lay 0.00913897
+_m 0.0781482
+_n 0.0555351
+_nine 0.0252394
+_now 0.0133113
+_o 0.0361219
+_one 0.0242066
+_p 0.0614262
+_place 0.00528702
+_please 0.00451803
+_q 0.0193793
+_r 0.050796
+_red 0.0144692
+_s 0.0382066
+_set 0.00565338
+_seven 0.0103604
+_six 0.0122006
+_soon 0.00226894
+_t 0.0405715
+_three 0.0185411
+_two 0.0136391
+_u 0.0643869
+_v 0.0543361
+_white 0.0121169
+_with 0.0210116
+_x 0.0366029
+_y 0.0365892
+_z 0.0295859
+_zero 0.014329
+classificationError 11.2824%
+crossEntropyError 54.3095
+------------------------------
+validation errors:
+_a 0.0803158
+_again 0.0200135
+_at 0.0369438
+_b 0.081846
+_bin 0.0193733
+_blue 0.0428728
+_by 0.0341207
+_e 0.0988201
+_eight 0.0186891
+_f 0.0543185
+_five 0.0614469
+_four 0.0442708
+_green 0.0330369
+_i 0.1
+_in 0.0517961
+_j 0.0358974
+_k 0.0662657
+_lay 0.0521388
+_m 0.0748031
+_nine 0.16231
+_now 0.0198624
+_one 0.0679487
+_p 0.0763889
+_place 0.00986809
+_please 0.0302761
+_red 0.0349047
+_s 0.0448718
+_set 0.0142541
+_seven 0.0498599
+_six 0.040527
+_soon 0.0512784
+_three 0.0424869
+_two 0.0988201
+_v 0.0593803
+_white 0.00315241
+_with 0.0359255
+_zero 0.0190476
+classificationError 24.9219%
+crossEntropyError 110.207
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 17 took 12 minutes 14.4 seconds (0.7344 secs/seq, 202.435 its/sec, 1393.34 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0550816
+_again 0.010463
+_at 0.0193305
+_b 0.0577564
+_bin 0.0142538
+_blue 0.0165662
+_by 0.011766
+_c 0.0191224
+_d 0.0398937
+_e 0.0736907
+_eight 0.0165211
+_f 0.0385886
+_five 0.0198056
+_four 0.0158762
+_g 0.0621526
+_green 0.0163863
+_h 0.0339136
+_i 0.0566977
+_in 0.0166424
+_j 0.0213474
+_k 0.0243339
+_l 0.0494364
+_lay 0.00928016
+_m 0.0639285
+_n 0.0648616
+_nine 0.0207856
+_now 0.00832797
+_o 0.0382655
+_one 0.0204441
+_p 0.0589958
+_place 0.00535561
+_please 0.00483954
+_q 0.0214874
+_r 0.0496329
+_red 0.0120891
+_s 0.0384072
+_set 0.00447768
+_seven 0.0134551
+_six 0.0102618
+_soon 0.00366693
+_t 0.044248
+_three 0.0144215
+_two 0.0103119
+_u 0.0590347
+_v 0.0512147
+_white 0.0116744
+_with 0.0198504
+_x 0.0409313
+_y 0.0366001
+_z 0.0239597
+_zero 0.0144645
+classificationError 10.5474%
+crossEntropyError 50.5937
+------------------------------
+validation errors:
+_a 0.0452191
+_again 0.0373122
+_at 0.0285448
+_b 0.079596
+_bin 0.0410131
+_blue 0.0323935
+_by 0.0577428
+_e 0.113569
+_eight 0.0157999
+_f 0.0709683
+_five 0.0642857
+_four 0.046875
+_green 0.0451333
+_i 0.103846
+_in 0.0480366
+_j 0.0205128
+_k 0.0753616
+_lay 0.0544061
+_m 0.10105
+_nine 0.113925
+_now 0.033616
+_one 0.102564
+_p 0.0740741
+_place 0.00952954
+_please 0.0332683
+_red 0.030738
+_s 0.0371795
+_set 0.0124747
+_seven 0.00834552
+_six 0.0392425
+_soon 0.0185901
+_three 0.0416062
+_two 0.0973451
+_v 0.0587808
+_white 0.00951467
+_with 0.0373628
+_zero 0.0107143
+classificationError 24.9718%
+crossEntropyError 110.128
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 18 took 12 minutes 14.44 seconds (0.73444 secs/seq, 202.424 its/sec, 1393.27 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.052982
+_again 0.0114449
+_at 0.019433
+_b 0.0773385
+_bin 0.00885021
+_blue 0.0127335
+_by 0.0110273
+_c 0.0119496
+_d 0.0391615
+_e 0.0729348
+_eight 0.0149787
+_f 0.050721
+_five 0.0174111
+_four 0.0122199
+_g 0.0642984
+_green 0.0129308
+_h 0.0318159
+_i 0.0553455
+_in 0.0183824
+_j 0.0242683
+_k 0.0251121
+_l 0.0487973
+_lay 0.00608089
+_m 0.0688753
+_n 0.0526061
+_nine 0.0192112
+_now 0.00928724
+_o 0.0271057
+_one 0.023161
+_p 0.0589918
+_place 0.00346018
+_please 0.00535029
+_q 0.020494
+_r 0.053725
+_red 0.0106408
+_s 0.0314081
+_set 0.0030532
+_seven 0.00752611
+_six 0.01055
+_soon 0.00270956
+_t 0.0308948
+_three 0.0165452
+_two 0.0108217
+_u 0.0544715
+_v 0.0420571
+_white 0.0120452
+_with 0.0204845
+_x 0.0350965
+_y 0.0321441
+_z 0.0226916
+_zero 0.0119104
+classificationError 9.81023%
+crossEntropyError 46.727
+------------------------------
+validation errors:
+_a 0.0558631
+_again 0.0338968
+_at 0.04597
+_b 0.074746
+_bin 0.0168847
+_blue 0.0268484
+_by 0.0485564
+_e 0.0707965
+_eight 0.016766
+_f 0.0709683
+_five 0.0618132
+_four 0.0598958
+_green 0.035617
+_i 0.0987179
+_in 0.0404104
+_j 0.0102564
+_k 0.0652213
+_lay 0.0623784
+_m 0.0866142
+_nine 0.156468
+_now 0.0342364
+_one 0.0897436
+_p 0.0763889
+_place 0.0089751
+_please 0.0340108
+_red 0.0327093
+_s 0.0435897
+_set 0.0139522
+_seven 0.0766021
+_six 0.0185313
+_soon 0.021125
+_three 0.0309824
+_two 0.079646
+_v 0.0623522
+_white 0.00289911
+_with 0.0330415
+_zero 0.0142857
+classificationError 24.3551%
+crossEntropyError 108.676
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 19 took 12 minutes 14.38 seconds (0.73438 secs/seq, 202.44 its/sec, 1393.38 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0522667
+_again 0.0110192
+_at 0.0191815
+_b 0.066679
+_bin 0.00976619
+_blue 0.0119323
+_by 0.0096675
+_c 0.0182151
+_d 0.0432819
+_e 0.0661973
+_eight 0.0184026
+_f 0.0443267
+_five 0.0163242
+_four 0.012644
+_g 0.0453788
+_green 0.0121744
+_h 0.0345522
+_i 0.0487831
+_in 0.0156381
+_j 0.0196962
+_k 0.0178756
+_l 0.0366426
+_lay 0.00746365
+_m 0.0679892
+_n 0.0444981
+_nine 0.0186925
+_now 0.0076606
+_o 0.0372897
+_one 0.0213237
+_p 0.0559592
+_place 0.00379102
+_please 0.00479781
+_q 0.015801
+_r 0.0463332
+_red 0.0102191
+_s 0.0260174
+_set 0.00596083
+_seven 0.0148229
+_six 0.00758483
+_soon 0.00287761
+_t 0.0302234
+_three 0.0175591
+_two 0.00885925
+_u 0.0490953
+_v 0.0550134
+_white 0.00978458
+_with 0.0202013
+_x 0.0329567
+_y 0.0271835
+_z 0.0161854
+_zero 0.00955507
+classificationError 9.34481%
+crossEntropyError 44.3425
+------------------------------
+validation errors:
+_a 0.0757649
+_again 0.0347368
+_at 0.0426256
+_b 0.0538294
+_bin 0.0260996
+_blue 0.0470865
+_by 0.0301837
+_e 0.0988201
+_eight 0.0153756
+_f 0.0651991
+_five 0.0624084
+_four 0.0481771
+_green 0.0345597
+_i 0.0576923
+_in 0.0491935
+_j 0.0461538
+_k 0.0768182
+_lay 0.0480915
+_m 0.0734908
+_nine 0.123155
+_now 0.0231331
+_one 0.105128
+_p 0.0648148
+_place 0.0104055
+_please 0.0334397
+_red 0.0262509
+_s 0.0423077
+_set 0.0136567
+_seven 0.014163
+_six 0.0296997
+_soon 0.0275967
+_three 0.0278094
+_two 0.0929204
+_v 0.0665189
+_white 0.00264155
+_with 0.0320057
+_zero 0.00952381
+classificationError 23.3477%
+crossEntropyError 102.631
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 20 took 12 minutes 14.32 seconds (0.73432 secs/seq, 202.457 its/sec, 1393.5 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.042305
+_again 0.00703217
+_at 0.0156601
+_b 0.050727
+_bin 0.0093553
+_blue 0.011061
+_by 0.00966042
+_c 0.0142967
+_d 0.0281962
+_e 0.0628917
+_eight 0.0174524
+_f 0.0382283
+_five 0.0140422
+_four 0.0116337
+_g 0.0341045
+_green 0.0122826
+_h 0.0290489
+_i 0.042568
+_in 0.0152201
+_j 0.0222161
+_k 0.0118609
+_l 0.0431653
+_lay 0.00661882
+_m 0.0616703
+_n 0.0477004
+_nine 0.0168207
+_now 0.00479598
+_o 0.028859
+_one 0.0212493
+_p 0.0439673
+_place 0.00440083
+_please 0.00317591
+_q 0.00871333
+_r 0.0338844
+_red 0.0102437
+_s 0.033514
+_set 0.0026283
+_seven 0.00629772
+_six 0.00833015
+_soon 0.00222536
+_t 0.031256
+_three 0.012564
+_two 0.00845107
+_u 0.0503638
+_v 0.0430191
+_white 0.010312
+_with 0.0200379
+_x 0.0333096
+_y 0.0279253
+_z 0.0138811
+_zero 0.0127761
+classificationError 8.3211%
+crossEntropyError 39.9076
+------------------------------
+validation errors:
+_a 0.0649916
+_again 0.0328003
+_at 0.0367682
+_b 0.0834064
+_bin 0.0262964
+_blue 0.0388471
+_by 0.0393701
+_e 0.115044
+_eight 0.0121705
+_f 0.0557692
+_five 0.0931777
+_four 0.0638021
+_green 0.029825
+_i 0.0923077
+_in 0.0332036
+_j 0.0282051
+_k 0.0808088
+_lay 0.0798896
+_m 0.0774278
+_nine 0.0966385
+_now 0.0222621
+_one 0.0653846
+_p 0.0763889
+_place 0.00871083
+_please 0.0375282
+_red 0.0345842
+_s 0.0320513
+_set 0.00502364
+_seven 0.00746223
+_six 0.0351251
+_soon 0.0146755
+_three 0.0430265
+_two 0.0943953
+_v 0.0552094
+_white 0.000868056
+_with 0.0444155
+_zero 0.0166667
+classificationError 23.4913%
+crossEntropyError 108.153
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 21 took 12 minutes 14.37 seconds (0.73437 secs/seq, 202.443 its/sec, 1393.4 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0384593
+_again 0.00853648
+_at 0.0165152
+_b 0.0643436
+_bin 0.0105664
+_blue 0.0132012
+_by 0.00913311
+_c 0.0161758
+_d 0.0217409
+_e 0.0606959
+_eight 0.0133405
+_f 0.0361945
+_five 0.0178414
+_four 0.00946699
+_g 0.0436567
+_green 0.0144374
+_h 0.0250053
+_i 0.035121
+_in 0.0153426
+_j 0.0187877
+_k 0.0223835
+_l 0.0335477
+_lay 0.00647753
+_m 0.0525106
+_n 0.0404349
+_nine 0.011821
+_now 0.00831736
+_o 0.0254913
+_one 0.0174865
+_p 0.0349926
+_place 0.00325646
+_please 0.00399513
+_q 0.0114725
+_r 0.0433611
+_red 0.00875192
+_s 0.0292167
+_set 0.00275864
+_seven 0.00660518
+_six 0.00858113
+_soon 0.00268701
+_t 0.0243937
+_three 0.0144261
+_two 0.00720744
+_u 0.0496026
+_v 0.0420427
+_white 0.00945984
+_with 0.0185371
+_x 0.027636
+_y 0.0296186
+_z 0.0187499
+_zero 0.0107771
+classificationError 8.2455%
+crossEntropyError 39.2044
+------------------------------
+validation errors:
+_a 0.0679914
+_again 0.0296457
+_at 0.0330617
+_b 0.0927636
+_bin 0.0202022
+_blue 0.0494204
+_by 0.0354331
+_e 0.0958702
+_eight 0.0289906
+_f 0.0600709
+_five 0.0492216
+_four 0.0572917
+_green 0.0283734
+_i 0.0935897
+_in 0.0423654
+_j 0.00769231
+_k 0.0932301
+_lay 0.0586376
+_m 0.0551181
+_nine 0.163665
+_now 0.0343833
+_one 0.0615385
+_p 0.0659722
+_place 0.0098761
+_please 0.0338052
+_red 0.0353699
+_s 0.0358974
+_set 0.0121749
+_seven 0.0297576
+_six 0.0330005
+_soon 0.0162974
+_three 0.0256251
+_two 0.0811209
+_v 0.0546099
+_white 0.00444627
+_with 0.0324218
+_zero 0.0119048
+classificationError 23.6225%
+crossEntropyError 106.929
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 22 took 12 minutes 14.44 seconds (0.73444 secs/seq, 202.424 its/sec, 1393.27 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0326066
+_again 0.00901459
+_at 0.0161269
+_b 0.0562485
+_bin 0.00918375
+_blue 0.0103597
+_by 0.00851799
+_c 0.00802486
+_d 0.0323055
+_e 0.0598759
+_eight 0.0125166
+_f 0.0332227
+_five 0.0149501
+_four 0.0119298
+_g 0.0208627
+_green 0.0118531
+_h 0.0207866
+_i 0.0353223
+_in 0.0151047
+_j 0.016274
+_k 0.0190234
+_l 0.0326302
+_lay 0.00521231
+_m 0.0547021
+_n 0.0369703
+_nine 0.0155327
+_now 0.00587997
+_o 0.0255263
+_one 0.0140794
+_p 0.0323474
+_place 0.00264929
+_please 0.00339061
+_q 0.0108094
+_r 0.0337362
+_red 0.0101866
+_s 0.0277775
+_set 0.0023433
+_seven 0.00824264
+_six 0.00851922
+_soon 0.00200036
+_t 0.0218042
+_three 0.0106629
+_two 0.00792671
+_u 0.0371545
+_v 0.0295411
+_white 0.00970357
+_with 0.017146
+_x 0.0245264
+_y 0.0295501
+_z 0.0121995
+_zero 0.0104217
+classificationError 7.49658%
+crossEntropyError 36.0578
+------------------------------
+validation errors:
+_a 0.0592818
+_again 0.0346626
+_at 0.0348642
+_b 0.0732937
+_bin 0.0130452
+_blue 0.0298246
+_by 0.0328084
+_e 0.0899705
+_eight 0.0106266
+_f 0.0460948
+_five 0.0720238
+_four 0.0598958
+_green 0.030793
+_i 0.0705128
+_in 0.0395865
+_j 0.0397436
+_k 0.0597741
+_lay 0.0922258
+_m 0.0918635
+_nine 0.12204
+_now 0.035545
+_one 0.107692
+_p 0.0601852
+_place 0.0168135
+_please 0.0366375
+_red 0.0262509
+_s 0.0384615
+_set 0.0115797
+_seven 0.0022539
+_six 0.029409
+_soon 0.0171157
+_three 0.0379844
+_two 0.0870206
+_v 0.0581898
+_white 0.00374229
+_with 0.041433
+_zero 0.00952381
+classificationError 23.197%
+crossEntropyError 105.039
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+
+epoch 23 took 12 minutes 14.33 seconds (0.73433 secs/seq, 202.454 its/sec, 1393.48 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0369096
+_again 0.00796221
+_at 0.0163902
+_b 0.0467027
+_bin 0.00879416
+_blue 0.012335
+_by 0.00818384
+_c 0.0165072
+_d 0.0270022
+_e 0.056337
+_eight 0.0123124
+_f 0.0287618
+_five 0.0109585
+_four 0.0113516
+_g 0.0291676
+_green 0.0111358
+_h 0.0298205
+_i 0.026558
+_in 0.0140884
+_j 0.0192276
+_k 0.0208519
+_l 0.029476
+_lay 0.00511894
+_m 0.0483439
+_n 0.0350023
+_nine 0.0137834
+_now 0.00667573
+_o 0.0212055
+_one 0.0169766
+_p 0.0299671
+_place 0.00310951
+_please 0.00436121
+_q 0.00929823
+_r 0.0381673
+_red 0.00897288
+_s 0.0203111
+_set 0.00213387
+_seven 0.00990572
+_six 0.00788601
+_soon 0.00271608
+_t 0.0237212
+_three 0.0108834
+_two 0.0090839
+_u 0.0372796
+_v 0.0462962
+_white 0.00954643
+_with 0.0183327
+_x 0.0203819
+_y 0.02715
+_z 0.0141946
+_zero 0.0116242
+classificationError 7.51919%
+crossEntropyError 35.0051
+------------------------------
+validation errors:
+_a 0.0616041
+_again 0.0451753
+_at 0.0374081
+_b 0.0734783
+_bin 0.0207262
+_blue 0.0164317
+_by 0.0341207
+_e 0.0958702
+_eight 0.00501986
+_f 0.067139
+_five 0.0522436
+_four 0.0442708
+_green 0.0359911
+_i 0.075641
+_in 0.0405959
+_j 0.0384615
+_k 0.0510529
+_lay 0.0953249
+_m 0.0288714
+_nine 0.123322
+_now 0.0304191
+_one 0.102564
+_p 0.0763889
+_place 0.00960792
+_please 0.0331084
+_red 0.0371965
+_s 0.0333333
+_set 0.0136609
+_seven 0.0138584
+_six 0.0254521
+_soon 0.0202812
+_three 0.0502702
+_two 0.0914454
+_v 0.0575946
+_white 0.00318421
+_with 0.0350461
+_zero 0.0142857
+classificationError 23.5056%
+crossEntropyError 108.814
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 24 took 12 minutes 14.45 seconds (0.73445 secs/seq, 202.421 its/sec, 1393.25 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0292792
+_again 0.00771931
+_at 0.0143614
+_b 0.0560447
+_bin 0.00701333
+_blue 0.00942917
+_by 0.0080522
+_c 0.0119979
+_d 0.0202375
+_e 0.0601129
+_eight 0.0129095
+_f 0.0273882
+_five 0.0118241
+_four 0.0094838
+_g 0.0301592
+_green 0.0110524
+_h 0.0158834
+_i 0.0255559
+_in 0.0124358
+_j 0.0126488
+_k 0.011312
+_l 0.0306626
+_lay 0.00544217
+_m 0.0545377
+_n 0.0290979
+_nine 0.0117538
+_now 0.00664892
+_o 0.0179675
+_one 0.0156042
+_p 0.0260522
+_place 0.00302425
+_please 0.00450553
+_q 0.00748727
+_r 0.0315844
+_red 0.00852806
+_s 0.0189134
+_set 0.00211251
+_seven 0.00642893
+_six 0.00666775
+_soon 0.00295251
+_t 0.0243559
+_three 0.0145828
+_two 0.00762735
+_u 0.0350468
+_v 0.0310103
+_white 0.00726253
+_with 0.0154245
+_x 0.021754
+_y 0.0197863
+_z 0.0117106
+_zero 0.011557
+classificationError 6.77595%
+crossEntropyError 31.4866
+------------------------------
+validation errors:
+_a 0.0666988
+_again 0.0233435
+_at 0.0470242
+_b 0.0647917
+_bin 0.0175413
+_blue 0.03125
+_by 0.0275591
+_e 0.109145
+_eight 0.00912784
+_f 0.0608047
+_five 0.0460623
+_four 0.0416667
+_green 0.0257621
+_i 0.0897436
+_in 0.0443399
+_j 0.0166667
+_k 0.0660597
+_lay 0.0778817
+_m 0.0341207
+_nine 0.158922
+_now 0.0252492
+_one 0.0653846
+_p 0.0763889
+_place 0.00710731
+_please 0.0417654
+_red 0.0387026
+_s 0.0358974
+_set 0.00473024
+_seven 0.0336866
+_six 0.0304762
+_soon 0.0234509
+_three 0.0474125
+_two 0.0899705
+_v 0.0605708
+_white 0.000878464
+_with 0.0351691
+_zero 0.0154762
+classificationError 22.972%
+crossEntropyError 112.409
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+
+epoch 25 took 12 minutes 14.41 seconds (0.73441 secs/seq, 202.432 its/sec, 1393.32 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0311767
+_again 0.00568086
+_at 0.0136123
+_b 0.0463117
+_bin 0.00784138
+_blue 0.00860975
+_by 0.00790805
+_c 0.00987446
+_d 0.0243849
+_e 0.0513088
+_eight 0.0133118
+_f 0.0242965
+_five 0.00871116
+_four 0.00887171
+_g 0.0243434
+_green 0.00976899
+_h 0.0140935
+_i 0.0252735
+_in 0.011547
+_j 0.0094949
+_k 0.0137429
+_l 0.0284241
+_lay 0.0046115
+_m 0.0404232
+_n 0.0468843
+_nine 0.0152263
+_now 0.00521646
+_o 0.015913
+_one 0.0134255
+_p 0.0281666
+_place 0.00310121
+_please 0.00337852
+_q 0.00913749
+_r 0.0364053
+_red 0.00795383
+_s 0.0198326
+_set 0.00202555
+_seven 0.00559696
+_six 0.00901563
+_soon 0.00181367
+_t 0.0217514
+_three 0.00759394
+_two 0.00591954
+_u 0.0200003
+_v 0.037521
+_white 0.00738978
+_with 0.0147461
+_x 0.0190046
+_y 0.0197641
+_z 0.0109783
+_zero 0.00706244
+classificationError 6.2633%
+crossEntropyError 29.6689
+------------------------------
+validation errors:
+_a 0.083895
+_again 0.0214035
+_at 0.0435135
+_b 0.0800655
+_bin 0.0158061
+_blue 0.043609
+_by 0.0301837
+_e 0.10767
+_eight 0.0198628
+_f 0.0501856
+_five 0.069185
+_four 0.0455729
+_green 0.026659
+_i 0.0782051
+_in 0.038028
+_j 0.0294872
+_k 0.0582144
+_lay 0.0730857
+_m 0.0800525
+_nine 0.101235
+_now 0.027702
+_one 0.0653846
+_p 0.0729167
+_place 0.0111837
+_please 0.0318065
+_red 0.0343119
+_s 0.0384615
+_set 0.00502786
+_seven 0.0251279
+_six 0.0381403
+_soon 0.0195966
+_three 0.0254006
+_two 0.0914454
+_v 0.0480708
+_white 0.00388222
+_with 0.040196
+_zero 0.00952381
+classificationError 22.5784%
+crossEntropyError 101.814
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 26 took 12 minutes 14.39 seconds (0.73439 secs/seq, 202.437 its/sec, 1393.36 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0291157
+_again 0.00770205
+_at 0.0137313
+_b 0.0418671
+_bin 0.00553133
+_blue 0.0093019
+_by 0.00762597
+_c 0.00925168
+_d 0.0169147
+_e 0.0492059
+_eight 0.0113525
+_f 0.0275028
+_five 0.00717125
+_four 0.00972492
+_g 0.0169176
+_green 0.0103032
+_h 0.0120369
+_i 0.0139804
+_in 0.0107045
+_j 0.0106499
+_k 0.0136139
+_l 0.0240355
+_lay 0.00415785
+_m 0.0408215
+_n 0.0319883
+_nine 0.0101841
+_now 0.00541607
+_o 0.0216341
+_one 0.0100674
+_p 0.0225492
+_place 0.00240794
+_please 0.00373323
+_q 0.00834593
+_r 0.0345957
+_red 0.0070244
+_s 0.0196284
+_set 0.00348645
+_seven 0.00938895
+_six 0.00943044
+_soon 0.0021142
+_t 0.0157775
+_three 0.0131801
+_two 0.00503707
+_u 0.020694
+_v 0.0320134
+_white 0.00769168
+_with 0.0144242
+_x 0.0205133
+_y 0.0169497
+_z 0.00900891
+_zero 0.010987
+classificationError 6.02583%
+crossEntropyError 28.5765
+------------------------------
+validation errors:
+_a 0.0428657
+_again 0.0226147
+_at 0.0351872
+_b 0.0788235
+_bin 0.0219599
+_blue 0.0274906
+_by 0.0275591
+_e 0.0840708
+_eight 0.0199169
+_f 0.0478998
+_five 0.0510989
+_four 0.0507812
+_green 0.0257668
+_i 0.0705128
+_in 0.0457303
+_j 0.0384615
+_k 0.0608185
+_lay 0.0625722
+_m 0.0564304
+_nine 0.131874
+_now 0.0261668
+_one 0.0820513
+_p 0.056713
+_place 0.0105138
+_please 0.0338734
+_red 0.0333021
+_s 0.0333333
+_set 0.00652018
+_seven 0.00338085
+_six 0.0307733
+_soon 0.0255047
+_three 0.0250682
+_two 0.0855457
+_v 0.0510427
+_white 0.00352001
+_with 0.036035
+_zero 0.0119048
+classificationError 21.2964%
+crossEntropyError 100.818
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 27 took 12 minutes 14.34 seconds (0.73434 secs/seq, 202.451 its/sec, 1393.46 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.029623
+_again 0.00481535
+_at 0.014638
+_b 0.042413
+_bin 0.00454512
+_blue 0.0103098
+_by 0.00731779
+_c 0.0099368
+_d 0.0206641
+_e 0.0496171
+_eight 0.00967821
+_f 0.024151
+_five 0.0087724
+_four 0.011514
+_g 0.0166382
+_green 0.0101952
+_h 0.0173935
+_i 0.0251874
+_in 0.0108893
+_j 0.00892126
+_k 0.0102803
+_l 0.0237925
+_lay 0.00443969
+_m 0.032939
+_n 0.0310055
+_nine 0.00914795
+_now 0.00506305
+_o 0.0151661
+_one 0.0132333
+_p 0.0225981
+_place 0.00251326
+_please 0.00308723
+_q 0.00384762
+_r 0.0259841
+_red 0.00801933
+_s 0.0156307
+_set 0.0019742
+_seven 0.00608897
+_six 0.00607228
+_soon 0.00314854
+_t 0.0170451
+_three 0.00830393
+_two 0.00576698
+_u 0.0235883
+_v 0.0279153
+_white 0.00698017
+_with 0.0140192
+_x 0.0163059
+_y 0.018198
+_z 0.0139023
+_zero 0.00726813
+classificationError 5.77135%
+crossEntropyError 26.7058
+------------------------------
+validation errors:
+_a 0.0663154
+_again 0.0212064
+_at 0.0284035
+_b 0.080585
+_bin 0.0191394
+_blue 0.0322055
+_by 0.0275591
+_e 0.0943953
+_eight 0.0184182
+_f 0.0384953
+_five 0.0487637
+_four 0.0351562
+_green 0.0271995
+_i 0.0820513
+_in 0.0488336
+_j 0.0371795
+_k 0.061212
+_lay 0.0533216
+_m 0.0839895
+_nine 0.127241
+_now 0.0241031
+_one 0.0641026
+_p 0.0763889
+_place 0.010112
+_please 0.0349474
+_red 0.0371965
+_s 0.0448718
+_set 0.0130657
+_seven 0.0176352
+_six 0.0285803
+_soon 0.0228473
+_three 0.0315306
+_two 0.0914454
+_v 0.0391591
+_white 0.00442063
+_with 0.0296544
+_zero 0.0178571
+classificationError 21.4437%
+crossEntropyError 100.48
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 28 took 12 minutes 14.37 seconds (0.73437 secs/seq, 202.443 its/sec, 1393.4 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0168768
+_again 0.00816585
+_at 0.0112121
+_b 0.0373168
+_bin 0.00544858
+_blue 0.0101128
+_by 0.00689193
+_c 0.00852624
+_d 0.0121215
+_e 0.045584
+_eight 0.0100447
+_f 0.0213679
+_five 0.00900182
+_four 0.00851143
+_g 0.0196407
+_green 0.0106581
+_h 0.0132308
+_i 0.01483
+_in 0.00981669
+_j 0.00787973
+_k 0.00595252
+_l 0.0178414
+_lay 0.00237309
+_m 0.0440326
+_n 0.0220141
+_nine 0.0113165
+_now 0.00608655
+_o 0.0121063
+_one 0.0112832
+_p 0.0121378
+_place 0.00326805
+_please 0.00265245
+_q 0.00490383
+_r 0.0248575
+_red 0.00726663
+_s 0.0200054
+_set 0.0019304
+_seven 0.00686735
+_six 0.00739835
+_soon 0.0023773
+_t 0.0120386
+_three 0.0105254
+_two 0.00565596
+_u 0.0214361
+_v 0.0243277
+_white 0.00856222
+_with 0.0135449
+_x 0.0151737
+_y 0.0164188
+_z 0.0102391
+_zero 0.00817674
+classificationError 5.42973%
+crossEntropyError 25.8075
+------------------------------
+validation errors:
+_a 0.0679914
+_again 0.0221019
+_at 0.0364813
+_b 0.0736949
+_bin 0.0212132
+_blue 0.0501723
+_by 0.0314961
+_e 0.10177
+_eight 0.0252528
+_f 0.0566043
+_five 0.0570971
+_four 0.0416667
+_green 0.0257752
+_i 0.0730769
+_in 0.0416939
+_j 0.0307692
+_k 0.078481
+_lay 0.0618364
+_m 0.0656168
+_nine 0.117589
+_now 0.0307816
+_one 0.0807692
+_p 0.0763889
+_place 0.00941289
+_please 0.0374713
+_red 0.0288632
+_s 0.0358974
+_set 0.00413712
+_seven 0.000578704
+_six 0.0303451
+_soon 0.0202265
+_three 0.0188303
+_two 0.0884956
+_v 0.0433384
+_white 0.00294131
+_with 0.0355388
+_zero 0.0107143
+classificationError 21.8016%
+crossEntropyError 101.353
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 29 took 12 minutes 14.37 seconds (0.73437 secs/seq, 202.443 its/sec, 1393.4 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0253136
+_again 0.00636665
+_at 0.0122744
+_b 0.0400584
+_bin 0.00411097
+_blue 0.00955089
+_by 0.00672018
+_c 0.00570028
+_d 0.023953
+_e 0.0459638
+_eight 0.0112173
+_f 0.0196814
+_five 0.0100021
+_four 0.00787847
+_g 0.0172298
+_green 0.00915986
+_h 0.0121762
+_i 0.0176016
+_in 0.00997498
+_j 0.00851867
+_k 0.00958883
+_l 0.0253389
+_lay 0.002174
+_m 0.0359779
+_n 0.0221921
+_nine 0.0100032
+_now 0.00480385
+_o 0.0156415
+_one 0.0112569
+_p 0.022087
+_place 0.00211069
+_please 0.00327839
+_q 0.00998106
+_r 0.0314582
+_red 0.00680368
+_s 0.01303
+_set 0.00234846
+_seven 0.00606598
+_six 0.00560719
+_soon 0.00245363
+_t 0.01498
+_three 0.00829782
+_two 0.00505544
+_u 0.0154604
+_v 0.0270726
+_white 0.00686288
+_with 0.0124553
+_x 0.0134913
+_y 0.0125115
+_z 0.0104502
+_zero 0.00709677
+classificationError 5.2593%
+crossEntropyError 24.2184
+------------------------------
+validation errors:
+_a 0.0561216
+_again 0.0338968
+_at 0.0316123
+_b 0.0534829
+_bin 0.0235501
+_blue 0.0227287
+_by 0.0367454
+_e 0.0899705
+_eight 0.0148429
+_f 0.0535003
+_five 0.0578297
+_four 0.046875
+_green 0.0242481
+_i 0.0846154
+_in 0.0393806
+_j 0.0205128
+_k 0.066987
+_lay 0.0633291
+_m 0.0853018
+_nine 0.133193
+_now 0.0263115
+_one 0.075641
+_p 0.0763889
+_place 0.0096201
+_please 0.0286772
+_red 0.0384474
+_s 0.0397436
+_set 0.0136609
+_seven 0.00399001
+_six 0.0349135
+_soon 0.0331896
+_three 0.0250682
+_two 0.0825959
+_v 0.0504517
+_white 0.00527694
+_with 0.0320001
+_zero 0.0107143
+classificationError 21.7956%
+crossEntropyError 107.101
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 30 took 12 minutes 14.31 seconds (0.73431 secs/seq, 202.459 its/sec, 1393.51 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0195524
+_again 0.00475111
+_at 0.0112028
+_b 0.0376739
+_bin 0.00499959
+_blue 0.00685298
+_by 0.00609225
+_c 0.00678308
+_d 0.010511
+_e 0.0349808
+_eight 0.00979021
+_f 0.0186663
+_five 0.00745228
+_four 0.00594459
+_g 0.0140477
+_green 0.00807443
+_h 0.0120097
+_i 0.0146313
+_in 0.0103647
+_j 0.00805106
+_k 0.00695413
+_l 0.0187543
+_lay 0.00215938
+_m 0.036336
+_n 0.0177471
+_nine 0.00922462
+_now 0.00390011
+_o 0.0113623
+_one 0.00976165
+_p 0.0170304
+_place 0.00249535
+_please 0.00350262
+_q 0.00455903
+_r 0.023421
+_red 0.00612592
+_s 0.0149084
+_set 0.00178744
+_seven 0.00645919
+_six 0.00575401
+_soon 0.00228519
+_t 0.0178123
+_three 0.00793096
+_two 0.00494611
+_u 0.0105566
+_v 0.0244602
+_white 0.00631514
+_with 0.0127039
+_x 0.0123278
+_y 0.0112474
+_z 0.00710271
+_zero 0.0069428
+classificationError 4.67271%
+crossEntropyError 22.0542
+------------------------------
+validation errors:
+_a 0.0663778
+_again 0.0262416
+_at 0.0348466
+_b 0.0721166
+_bin 0.0283848
+_blue 0.0340382
+_by 0.0288714
+_e 0.0958702
+_eight 0.0124955
+_f 0.0636471
+_five 0.0659799
+_four 0.0520833
+_green 0.0227413
+_i 0.103846
+_in 0.0400681
+_j 0.0371795
+_k 0.0832959
+_lay 0.05646
+_m 0.0643045
+_nine 0.127955
+_now 0.0249183
+_one 0.0589744
+_p 0.0763889
+_place 0.0106619
+_please 0.0310069
+_red 0.025417
+_s 0.0307692
+_set 0.00830589
+_seven 0.00511696
+_six 0.0328751
+_soon 0.0153317
+_three 0.0285822
+_two 0.0840708
+_v 0.0444993
+_white 0.00607639
+_with 0.0371488
+_zero 0.0166667
+classificationError 21.8605%
+crossEntropyError 103.577
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 31 took 12 minutes 14.28 seconds (0.73428 secs/seq, 202.468 its/sec, 1393.57 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0255804
+_again 0.00365742
+_at 0.0103358
+_b 0.0298853
+_bin 0.00379859
+_blue 0.00894658
+_by 0.0070902
+_c 0.00772315
+_d 0.0132265
+_e 0.0354345
+_eight 0.00756473
+_f 0.0201823
+_five 0.0107241
+_four 0.00698866
+_g 0.0117249
+_green 0.00739675
+_h 0.010582
+_i 0.0200126
+_in 0.0096559
+_j 0.0104725
+_k 0.00753109
+_l 0.0181909
+_lay 0.00316353
+_m 0.0303005
+_n 0.0192751
+_nine 0.00904849
+_now 0.00337753
+_o 0.0116025
+_one 0.011678
+_p 0.0128558
+_place 0.00205379
+_please 0.00300572
+_q 0.00462145
+_r 0.025039
+_red 0.00724645
+_s 0.0124019
+_set 0.00234046
+_seven 0.00512578
+_six 0.00632635
+_soon 0.00191945
+_t 0.00794402
+_three 0.00719202
+_two 0.00526573
+_u 0.014809
+_v 0.0166345
+_white 0.00553845
+_with 0.0117341
+_x 0.00937987
+_y 0.017523
+_z 0.00902437
+_zero 0.00628168
+classificationError 4.60311%
+crossEntropyError 21.2558
+------------------------------
+validation errors:
+_a 0.0611851
+_again 0.0296491
+_at 0.035958
+_b 0.0587166
+_bin 0.0239741
+_blue 0.0280388
+_by 0.0275591
+_e 0.110619
+_eight 0.0169827
+_f 0.0469973
+_five 0.054533
+_four 0.046875
+_green 0.0249564
+_i 0.0807692
+_in 0.0408496
+_j 0.0320513
+_k 0.0612635
+_lay 0.0498034
+_m 0.0708661
+_nine 0.117735
+_now 0.0322123
+_one 0.0948718
+_p 0.0763889
+_place 0.0109481
+_please 0.0310411
+_red 0.0223083
+_s 0.0320513
+_set 0.0124704
+_seven 0.0022539
+_six 0.0344625
+_soon 0.0179609
+_three 0.0260568
+_two 0.0943953
+_v 0.0575946
+_white 0.00752315
+_with 0.0399929
+_zero 0.0130952
+classificationError 21.5678%
+crossEntropyError 103.69
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 32 took 12 minutes 14.32 seconds (0.73432 secs/seq, 202.457 its/sec, 1393.5 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0181686
+_again 0.0040818
+_at 0.0108314
+_b 0.0273811
+_bin 0.00687701
+_blue 0.00749121
+_by 0.0059862
+_c 0.00615631
+_d 0.0136813
+_e 0.0345834
+_eight 0.00745144
+_f 0.0206427
+_five 0.00590529
+_four 0.00578309
+_g 0.0105787
+_green 0.00778421
+_h 0.0136284
+_i 0.0110716
+_in 0.00886271
+_j 0.00475733
+_k 0.00554673
+_l 0.0146185
+_lay 0.00244304
+_m 0.0277317
+_n 0.0172642
+_nine 0.00925202
+_now 0.00453165
+_o 0.0115943
+_one 0.00921213
+_p 0.0149742
+_place 0.00190257
+_please 0.0034039
+_q 0.00409333
+_r 0.0194748
+_red 0.00719582
+_s 0.0173142
+_set 0.00176639
+_seven 0.00513321
+_six 0.0060376
+_soon 0.0021851
+_t 0.0113132
+_three 0.00926163
+_two 0.00653724
+_u 0.0110745
+_v 0.0176223
+_white 0.00622247
+_with 0.0107988
+_x 0.0174696
+_y 0.00927886
+_z 0.00677839
+_zero 0.00570135
+classificationError 4.43841%
+crossEntropyError 20.711
+------------------------------
+validation errors:
+_a 0.0533804
+_again 0.0243758
+_at 0.0301207
+_b 0.0856912
+_bin 0.0224953
+_blue 0.0382989
+_by 0.0419948
+_e 0.10472
+_eight 0.0163416
+_f 0.0431596
+_five 0.073489
+_four 0.0507812
+_green 0.0254518
+_i 0.0641026
+_in 0.0442519
+_j 0.0410256
+_k 0.0856939
+_lay 0.0612273
+_m 0.0538058
+_nine 0.0919116
+_now 0.0295831
+_one 0.0538462
+_p 0.0763889
+_place 0.00939238
+_please 0.0337707
+_red 0.029456
+_s 0.0294872
+_set 0.0139543
+_seven 0.00520833
+_six 0.0237662
+_soon 0.0173158
+_three 0.039737
+_two 0.0884956
+_v 0.0397374
+_white 0.00781866
+_with 0.0437905
+_zero 0.00833333
+classificationError 21.781%
+crossEntropyError 106.231
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 33 took 12 minutes 14.26 seconds (0.73426 secs/seq, 202.473 its/sec, 1393.61 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0161144
+_again 0.00474761
+_at 0.0100678
+_b 0.0250461
+_bin 0.00434812
+_blue 0.00707105
+_by 0.00564476
+_c 0.00439707
+_d 0.00932078
+_e 0.0322212
+_eight 0.00728345
+_f 0.0160781
+_five 0.00582079
+_four 0.0058644
+_g 0.0149738
+_green 0.00655172
+_h 0.0100426
+_i 0.0181963
+_in 0.0089393
+_j 0.00819982
+_k 0.00712093
+_l 0.0146098
+_lay 0.00305118
+_m 0.0265842
+_n 0.0159982
+_nine 0.00772061
+_now 0.00342198
+_o 0.0109621
+_one 0.00991789
+_p 0.00970893
+_place 0.00249247
+_please 0.00257253
+_q 0.00452878
+_r 0.0154077
+_red 0.00644533
+_s 0.0103891
+_set 0.00199218
+_seven 0.00538922
+_six 0.00527674
+_soon 0.00165993
+_t 0.0125608
+_three 0.00601187
+_two 0.00384037
+_u 0.0121923
+_v 0.0188242
+_white 0.00596525
+_with 0.0105094
+_x 0.00676963
+_y 0.0127309
+_z 0.0059721
+_zero 0.00507676
+classificationError 4.07244%
+crossEntropyError 18.8764
+------------------------------
+validation errors:
+_a 0.0783768
+_again 0.0178914
+_at 0.0345205
+_b 0.0767241
+_bin 0.0135209
+_blue 0.0346335
+_by 0.0288714
+_e 0.0958702
+_eight 0.020874
+_f 0.0524123
+_five 0.0687729
+_four 0.0598958
+_green 0.0246182
+_i 0.0769231
+_in 0.0479186
+_j 0.0320513
+_k 0.0823872
+_lay 0.0588194
+_m 0.0839895
+_nine 0.12279
+_now 0.023641
+_one 0.0525641
+_p 0.0763889
+_place 0.0103928
+_please 0.0310411
+_red 0.028398
+_s 0.0371795
+_set 0.00443473
+_seven 0.00916788
+_six 0.0270613
+_soon 0.0196444
+_three 0.0271533
+_two 0.0855457
+_v 0.0379601
+_white 0.00813441
+_with 0.0400976
+_zero 0.0107143
+classificationError 21.6423%
+crossEntropyError 104.002
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 34 took 12 minutes 14.29 seconds (0.73429 secs/seq, 202.465 its/sec, 1393.55 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0154287
+_again 0.00336641
+_at 0.00935294
+_b 0.0264088
+_bin 0.005288
+_blue 0.00657221
+_by 0.00562994
+_c 0.00456757
+_d 0.0085587
+_e 0.0261362
+_eight 0.00813115
+_f 0.0155532
+_five 0.00434374
+_four 0.00656991
+_g 0.00917294
+_green 0.00647337
+_h 0.00771754
+_i 0.00972204
+_in 0.00762678
+_j 0.00418582
+_k 0.00681729
+_l 0.015355
+_lay 0.00311255
+_m 0.0244561
+_n 0.0182222
+_nine 0.006107
+_now 0.00289144
+_o 0.00947272
+_one 0.0067234
+_p 0.00911738
+_place 0.00170054
+_please 0.0029372
+_q 0.00262954
+_r 0.0204445
+_red 0.0064639
+_s 0.010568
+_set 0.0019524
+_seven 0.00431261
+_six 0.00453075
+_soon 0.00223803
+_t 0.00929322
+_three 0.00611136
+_two 0.00350914
+_u 0.0119234
+_v 0.0170718
+_white 0.00491258
+_with 0.00990542
+_x 0.0118666
+_y 0.0102124
+_z 0.00778098
+_zero 0.00608737
+classificationError 3.78891%
+crossEntropyError 17.5533
+------------------------------
+validation errors:
+_a 0.0600886
+_again 0.0188799
+_at 0.0373982
+_b 0.0767275
+_bin 0.0143644
+_blue 0.0175595
+_by 0.0328084
+_e 0.106195
+_eight 0.0140394
+_f 0.054504
+_five 0.0476648
+_four 0.0429688
+_green 0.0248828
+_i 0.0717949
+_in 0.0392347
+_j 0.025641
+_k 0.0570668
+_lay 0.0624725
+_m 0.0656168
+_nine 0.127882
+_now 0.0264183
+_one 0.0666667
+_p 0.0763889
+_place 0.011588
+_please 0.0318405
+_red 0.0245036
+_s 0.0333333
+_set 0.00562099
+_seven 0.00798002
+_six 0.0321099
+_soon 0.0147456
+_three 0.0283577
+_two 0.0929204
+_v 0.0439041
+_white 0.0111486
+_with 0.0440699
+_zero 0.0107143
+classificationError 20.8707%
+crossEntropyError 98.769
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 35 took 12 minutes 14.32 seconds (0.73432 secs/seq, 202.457 its/sec, 1393.5 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0114984
+_again 0.00338831
+_at 0.00955426
+_b 0.0211883
+_bin 0.00350904
+_blue 0.00673824
+_by 0.00525349
+_c 0.00492455
+_d 0.00568976
+_e 0.0255965
+_eight 0.00693126
+_f 0.0128888
+_five 0.00628107
+_four 0.00669776
+_g 0.0101081
+_green 0.0072971
+_h 0.00706639
+_i 0.01243
+_in 0.00691974
+_j 0.00497573
+_k 0.0085181
+_l 0.0153628
+_lay 0.00172835
+_m 0.0256719
+_n 0.0142142
+_nine 0.00800395
+_now 0.00347335
+_o 0.00758277
+_one 0.00846069
+_p 0.0113514
+_place 0.00168426
+_please 0.0026874
+_q 0.00297432
+_r 0.0207826
+_red 0.00556593
+_s 0.00870545
+_set 0.0016232
+_seven 0.00582135
+_six 0.00559869
+_soon 0.00156365
+_t 0.00974175
+_three 0.00667957
+_two 0.00419289
+_u 0.0113872
+_v 0.0142678
+_white 0.00536399
+_with 0.00913848
+_x 0.0105188
+_y 0.00638376
+_z 0.00431125
+_zero 0.00568521
+classificationError 3.63747%
+crossEntropyError 16.8217
+------------------------------
+validation errors:
+_a 0.0525112
+_again 0.0343995
+_at 0.043661
+_b 0.0767386
+_bin 0.0306262
+_blue 0.0163847
+_by 0.0275591
+_e 0.0943953
+_eight 0.00907367
+_f 0.0646677
+_five 0.0703297
+_four 0.0429688
+_green 0.0291276
+_i 0.0897436
+_in 0.0293128
+_j 0.0166667
+_k 0.0809821
+_lay 0.0602157
+_m 0.0538058
+_nine 0.117334
+_now 0.0233979
+_one 0.0435897
+_p 0.0763889
+_place 0.00817679
+_please 0.0349012
+_red 0.033478
+_s 0.024359
+_set 0.00413923
+_seven 0.0288438
+_six 0.0142251
+_soon 0.0164013
+_three 0.0378937
+_two 0.0752212
+_v 0.0379517
+_white 0.00782291
+_with 0.0401973
+_zero 0.0130952
+classificationError 21.7162%
+crossEntropyError 105.516
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 36 took 12 minutes 14.32 seconds (0.73432 secs/seq, 202.457 its/sec, 1393.5 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0122164
+_again 0.00524962
+_at 0.00979611
+_b 0.0112715
+_bin 0.00375662
+_blue 0.0077111
+_by 0.0054057
+_c 0.00552977
+_d 0.00651653
+_e 0.0197762
+_eight 0.00740105
+_f 0.0136098
+_five 0.00593489
+_four 0.00683362
+_g 0.0139295
+_green 0.00631888
+_h 0.00686452
+_i 0.0123391
+_in 0.00754681
+_j 0.00722045
+_k 0.00512652
+_l 0.0145846
+_lay 0.00196973
+_m 0.0210429
+_n 0.013913
+_nine 0.00810411
+_now 0.00358714
+_o 0.00740228
+_one 0.00756327
+_p 0.0127286
+_place 0.00167636
+_please 0.00287071
+_q 0.00370779
+_r 0.0197245
+_red 0.00573082
+_s 0.00977921
+_set 0.00163426
+_seven 0.00388239
+_six 0.00489808
+_soon 0.00163807
+_t 0.0065327
+_three 0.00527701
+_two 0.00423905
+_u 0.00987457
+_v 0.015517
+_white 0.0056016
+_with 0.0104093
+_x 0.00996654
+_y 0.00930376
+_z 0.00522316
+_zero 0.00508136
+classificationError 3.66394%
+crossEntropyError 16.6245
+------------------------------
+validation errors:
+_a 0.0703136
+_again 0.0232355
+_at 0.0384164
+_b 0.0753292
+_bin 0.0199166
+_blue 0.0125
+_by 0.0301837
+_e 0.0914454
+_eight 0.0142019
+_f 0.0500253
+_five 0.0442308
+_four 0.0416667
+_green 0.0322189
+_i 0.0641026
+_in 0.0350833
+_j 0.0307692
+_k 0.0709776
+_lay 0.0522832
+_m 0.0262467
+_nine 0.111288
+_now 0.025694
+_one 0.0435897
+_p 0.0763889
+_place 0.0103312
+_please 0.0310753
+_red 0.0272124
+_s 0.0320513
+_set 0.00562099
+_seven 0.0129751
+_six 0.0210083
+_soon 0.0194512
+_three 0.0241962
+_two 0.0678466
+_v 0.0397374
+_white 0.00872835
+_with 0.0417188
+_zero 0.00714286
+classificationError 20.1847%
+crossEntropyError 100.524
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+
+epoch 37 took 12 minutes 14.26 seconds (0.73426 secs/seq, 202.473 its/sec, 1393.61 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0176735
+_again 0.00371183
+_at 0.00926176
+_b 0.0199924
+_bin 0.00492019
+_blue 0.00662445
+_by 0.00488328
+_c 0.00469514
+_d 0.0126458
+_e 0.0193124
+_eight 0.00672477
+_f 0.0113998
+_five 0.0048239
+_four 0.00571955
+_g 0.0107068
+_green 0.0063941
+_h 0.00759555
+_i 0.00812415
+_in 0.00668728
+_j 0.00755957
+_k 0.00736132
+_l 0.0133182
+_lay 0.0037827
+_m 0.0170458
+_n 0.011379
+_nine 0.00595257
+_now 0.00322306
+_o 0.00616884
+_one 0.00634064
+_p 0.00565064
+_place 0.00240636
+_please 0.00260925
+_q 0.00404764
+_r 0.0107533
+_red 0.00658625
+_s 0.0108107
+_set 0.00191933
+_seven 0.00371001
+_six 0.00503623
+_soon 0.0023588
+_t 0.00669722
+_three 0.00701661
+_two 0.0055994
+_u 0.00963498
+_v 0.0166014
+_white 0.00484881
+_with 0.0084188
+_x 0.00973541
+_y 0.00727244
+_z 0.00538415
+_zero 0.00430148
+classificationError 3.53373%
+crossEntropyError 16.3042
+------------------------------
+validation errors:
+_a 0.0582522
+_again 0.0244838
+_at 0.0344277
+_b 0.0783607
+_bin 0.022005
+_blue 0.0452538
+_by 0.0446194
+_e 0.10472
+_eight 0.0157006
+_f 0.0616481
+_five 0.0608516
+_four 0.0481771
+_green 0.0252911
+_i 0.0871795
+_in 0.0329529
+_j 0.0166667
+_k 0.0784997
+_lay 0.0492067
+_m 0.0524934
+_nine 0.126782
+_now 0.0237582
+_one 0.0602564
+_p 0.0763889
+_place 0.00995474
+_please 0.031475
+_red 0.0209298
+_s 0.0346154
+_set 0.0133654
+_seven 0.00447734
+_six 0.0280951
+_soon 0.0160691
+_three 0.0273605
+_two 0.0825959
+_v 0.0391422
+_white 0.0113859
+_with 0.0349726
+_zero 0.0166667
+classificationError 21.1351%
+crossEntropyError 105.782
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 38 took 12 minutes 14.26 seconds (0.73426 secs/seq, 202.473 its/sec, 1393.61 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0117198
+_again 0.00300053
+_at 0.00697785
+_b 0.0163183
+_bin 0.00297083
+_blue 0.00597097
+_by 0.00411295
+_c 0.00300979
+_d 0.00708846
+_e 0.0209342
+_eight 0.00770008
+_f 0.0165158
+_five 0.00382877
+_four 0.00576663
+_g 0.00931403
+_green 0.00562884
+_h 0.00679956
+_i 0.00808047
+_in 0.00633978
+_j 0.00661921
+_k 0.00384566
+_l 0.0111818
+_lay 0.00213422
+_m 0.0201699
+_n 0.0115669
+_nine 0.00701725
+_now 0.00216352
+_o 0.0114546
+_one 0.00812819
+_p 0.0118983
+_place 0.00195481
+_please 0.00250789
+_q 0.00544058
+_r 0.0135222
+_red 0.00491599
+_s 0.00894667
+_set 0.00144594
+_seven 0.0044431
+_six 0.00478261
+_soon 0.00190522
+_t 0.0075925
+_three 0.00679927
+_two 0.00456447
+_u 0.0110765
+_v 0.0106306
+_white 0.00481261
+_with 0.00940694
+_x 0.00587059
+_y 0.00939166
+_z 0.00691633
+_zero 0.00464332
+classificationError 3.21426%
+crossEntropyError 14.7724
+------------------------------
+validation errors:
+_a 0.0627674
+_again 0.0192814
+_at 0.0412327
+_b 0.0669633
+_bin 0.0220342
+_blue 0.0389881
+_by 0.0419948
+_e 0.10472
+_eight 0.0124413
+_f 0.0485577
+_five 0.0639652
+_four 0.0377604
+_green 0.0235328
+_i 0.0910256
+_in 0.0405038
+_j 0.0205128
+_k 0.0596195
+_lay 0.0702514
+_m 0.0590551
+_nine 0.129201
+_now 0.0273855
+_one 0.0435897
+_p 0.0763889
+_place 0.0101369
+_please 0.0324803
+_red 0.0200165
+_s 0.0358974
+_set 0.00473446
+_seven 0.0130361
+_six 0.0329036
+_soon 0.0182012
+_three 0.0399529
+_two 0.0811209
+_v 0.0564041
+_white 0.00320984
+_with 0.0348927
+_zero 0.0142857
+classificationError 21.3645%
+crossEntropyError 108.757
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 39 took 12 minutes 14.3 seconds (0.7343 secs/seq, 202.462 its/sec, 1393.53 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00832235
+_again 0.00360694
+_at 0.00754904
+_b 0.018848
+_bin 0.00273573
+_blue 0.00515981
+_by 0.00429664
+_c 0.00474541
+_d 0.00736281
+_e 0.0157257
+_eight 0.0061261
+_f 0.00862943
+_five 0.00443119
+_four 0.00538717
+_g 0.00815385
+_green 0.0049317
+_h 0.00769193
+_i 0.00912122
+_in 0.00563443
+_j 0.00340568
+_k 0.00600152
+_l 0.00785525
+_lay 0.001953
+_m 0.0170422
+_n 0.0120952
+_nine 0.00763797
+_now 0.00262452
+_o 0.00641663
+_one 0.00532548
+_p 0.00514443
+_place 0.00142551
+_please 0.00240586
+_q 0.00395142
+_r 0.0124852
+_red 0.00490163
+_s 0.00975467
+_set 0.00153889
+_seven 0.00464188
+_six 0.00442103
+_soon 0.00155706
+_t 0.00526838
+_three 0.0050119
+_two 0.00392155
+_u 0.00832836
+_v 0.00936729
+_white 0.00501357
+_with 0.00764083
+_x 0.00810625
+_y 0.00510658
+_z 0.00587249
+_zero 0.00512505
+classificationError 2.9279%
+crossEntropyError 13.5206
+------------------------------
+validation errors:
+_a 0.0645726
+_again 0.0162045
+_at 0.0339135
+_b 0.0710503
+_bin 0.0155722
+_blue 0.0495144
+_by 0.0341207
+_e 0.0958702
+_eight 0.00817082
+_f 0.0493927
+_five 0.0644689
+_four 0.0455729
+_green 0.0211568
+_i 0.108974
+_in 0.0462878
+_j 0.0307692
+_k 0.0725373
+_lay 0.0556657
+_m 0.0603675
+_nine 0.125464
+_now 0.0292944
+_one 0.0512821
+_p 0.0763889
+_place 0.0113487
+_please 0.03264
+_red 0.0235421
+_s 0.0307692
+_set 0.00473446
+_seven 0.00618299
+_six 0.0262962
+_soon 0.0164671
+_three 0.0326271
+_two 0.0958702
+_v 0.0439041
+_white 0.00666125
+_with 0.0358523
+_zero 0.0119048
+classificationError 20.956%
+crossEntropyError 102.462
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 40 took 12 minutes 14.35 seconds (0.73435 secs/seq, 202.448 its/sec, 1393.44 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00754253
+_again 0.00277603
+_at 0.00712637
+_b 0.0147917
+_bin 0.00263469
+_blue 0.00553522
+_by 0.00412926
+_c 0.00618758
+_d 0.00731321
+_e 0.0118202
+_eight 0.00658794
+_f 0.00675601
+_five 0.00495376
+_four 0.00572108
+_g 0.00851278
+_green 0.00452592
+_h 0.00821671
+_i 0.0076998
+_in 0.0051049
+_j 0.00721977
+_k 0.00491367
+_l 0.00945697
+_lay 0.00192533
+_m 0.0146856
+_n 0.0100052
+_nine 0.00610774
+_now 0.00310269
+_o 0.00562972
+_one 0.00648008
+_p 0.00555597
+_place 0.00219514
+_please 0.0028824
+_q 0.00409046
+_r 0.0158688
+_red 0.00412012
+_s 0.00669027
+_set 0.00154475
+_seven 0.00389456
+_six 0.00419354
+_soon 0.00200287
+_t 0.00725731
+_three 0.00614125
+_two 0.00404912
+_u 0.00918232
+_v 0.0125036
+_white 0.00461181
+_with 0.00726882
+_x 0.00656205
+_y 0.00670649
+_z 0.00653015
+_zero 0.00478963
+classificationError 2.8907%
+crossEntropyError 13.2167
+------------------------------
+validation errors:
+_a 0.0506748
+_again 0.0122099
+_at 0.0402326
+_b 0.077595
+_bin 0.0239741
+_blue 0.0257989
+_by 0.0288714
+_e 0.10767
+_eight 0.0170368
+_f 0.0276231
+_five 0.0517857
+_four 0.0299479
+_green 0.0180779
+_i 0.102564
+_in 0.0399832
+_j 0.0230769
+_k 0.0562612
+_lay 0.0499957
+_m 0.0301837
+_nine 0.125318
+_now 0.02467
+_one 0.0410256
+_p 0.0763889
+_place 0.0113193
+_please 0.0303788
+_red 0.0295836
+_s 0.0358974
+_set 0.00621201
+_seven 0.0256762
+_six 0.0349819
+_soon 0.0293373
+_three 0.0241962
+_two 0.0619469
+_v 0.0379559
+_white 0.00147798
+_with 0.0374848
+_zero 0.0107143
+classificationError 19.967%
+crossEntropyError 100.212
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+
+epoch 41 took 12 minutes 14.26 seconds (0.73426 secs/seq, 202.473 its/sec, 1393.61 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00974695
+_again 0.00360613
+_at 0.00738051
+_b 0.0164034
+_bin 0.003142
+_blue 0.00606704
+_by 0.00438011
+_c 0.00558243
+_d 0.00501876
+_e 0.0101877
+_eight 0.00732771
+_f 0.0141982
+_five 0.00351504
+_four 0.00562071
+_g 0.0104194
+_green 0.00617065
+_h 0.00561501
+_i 0.00763338
+_in 0.00668205
+_j 0.00372916
+_k 0.0075254
+_l 0.00698611
+_lay 0.00308378
+_m 0.0139062
+_n 0.0103998
+_nine 0.00722269
+_now 0.00286293
+_o 0.00618099
+_one 0.00610323
+_p 0.00820186
+_place 0.0029397
+_please 0.0023067
+_q 0.00402974
+_r 0.0140645
+_red 0.0047205
+_s 0.00879066
+_set 0.0017263
+_seven 0.00329903
+_six 0.0053209
+_soon 0.00155979
+_t 0.00599952
+_three 0.00508965
+_two 0.00418295
+_u 0.00843867
+_v 0.00874243
+_white 0.00544047
+_with 0.0080177
+_x 0.00676076
+_y 0.00586646
+_z 0.00591054
+_zero 0.00582597
+classificationError 3.10621%
+crossEntropyError 14.3281
+------------------------------
+validation errors:
+_a 0.053737
+_again 0.0111134
+_at 0.0311389
+_b 0.0755963
+_bin 0.0196814
+_blue 0.0142857
+_by 0.0419948
+_e 0.0943953
+_eight 0.0150054
+_f 0.0352986
+_five 0.0566392
+_four 0.0507812
+_green 0.0216538
+_i 0.0923077
+_in 0.0375289
+_j 0.0307692
+_k 0.0588139
+_lay 0.0850473
+_m 0.0708661
+_nine 0.121472
+_now 0.0251612
+_one 0.0576923
+_p 0.0763889
+_place 0.0084627
+_please 0.031875
+_red 0.0286703
+_s 0.0282051
+_set 0.0112821
+_seven 0.00941155
+_six 0.0310476
+_soon 0.0266348
+_three 0.037652
+_two 0.0663717
+_v 0.0391422
+_white 0.00261032
+_with 0.0410219
+_zero 0.0166667
+classificationError 20.6476%
+crossEntropyError 106.895
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 42 took 12 minutes 14.28 seconds (0.73428 secs/seq, 202.468 its/sec, 1393.57 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0116499
+_again 0.0031077
+_at 0.00648243
+_b 0.00971099
+_bin 0.00264697
+_blue 0.00470091
+_by 0.00480592
+_c 0.00434589
+_d 0.0061823
+_e 0.0105905
+_eight 0.00527355
+_f 0.0111107
+_five 0.00462799
+_four 0.00601529
+_g 0.0111555
+_green 0.00470896
+_h 0.00758804
+_i 0.00876832
+_in 0.00576307
+_j 0.00418586
+_k 0.00364282
+_l 0.0104285
+_lay 0.00193193
+_m 0.01242
+_n 0.00901425
+_nine 0.00569427
+_now 0.00293912
+_o 0.00578852
+_one 0.00624926
+_p 0.011243
+_place 0.00151433
+_please 0.00276472
+_q 0.00546051
+_r 0.0120396
+_red 0.00435729
+_s 0.00923435
+_set 0.00123493
+_seven 0.00367746
+_six 0.00415037
+_soon 0.00156991
+_t 0.0080198
+_three 0.00728327
+_two 0.00340586
+_u 0.00849839
+_v 0.00980581
+_white 0.00411555
+_with 0.00628343
+_x 0.00684056
+_y 0.00630646
+_z 0.00405046
+_zero 0.0038903
+classificationError 2.78593%
+crossEntropyError 12.6597
+------------------------------
+validation errors:
+_a 0.0478979
+_again 0.0228306
+_at 0.0390242
+_b 0.0677407
+_bin 0.0145095
+_blue 0.0207393
+_by 0.0314961
+_e 0.0943953
+_eight 0.0195468
+_f 0.0325489
+_five 0.0410714
+_four 0.0442708
+_green 0.0231867
+_i 0.0820513
+_in 0.0351504
+_j 0.00512821
+_k 0.0533152
+_lay 0.0467081
+_m 0.0223097
+_nine 0.130483
+_now 0.0299313
+_one 0.0512821
+_p 0.0763889
+_place 0.0122299
+_please 0.0462773
+_red 0.0245518
+_s 0.0333333
+_set 0.00621412
+_seven 0.00338085
+_six 0.0427435
+_soon 0.0176792
+_three 0.016538
+_two 0.0693215
+_v 0.0433088
+_white 0.00347356
+_with 0.0401457
+_zero 0.00833333
+classificationError 19.5558%
+crossEntropyError 102.759
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+
+epoch 43 took 12 minutes 14.42 seconds (0.73442 secs/seq, 202.429 its/sec, 1393.31 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00887868
+_again 0.00288157
+_at 0.0068948
+_b 0.0126295
+_bin 0.00281685
+_blue 0.0066298
+_by 0.00437496
+_c 0.00504478
+_d 0.00932655
+_e 0.00877095
+_eight 0.00556475
+_f 0.00983664
+_five 0.00557708
+_four 0.00583887
+_g 0.0059597
+_green 0.00582453
+_h 0.00481968
+_i 0.00712742
+_in 0.00546158
+_j 0.00294674
+_k 0.00886827
+_l 0.00710085
+_lay 0.00186768
+_m 0.0116285
+_n 0.00605086
+_nine 0.00662279
+_now 0.0026082
+_o 0.0062115
+_one 0.00850618
+_p 0.00531874
+_place 0.00208979
+_please 0.00229439
+_q 0.00501795
+_r 0.0107469
+_red 0.00469993
+_s 0.00963006
+_set 0.00223238
+_seven 0.00373322
+_six 0.00440479
+_soon 0.00160257
+_t 0.00667244
+_three 0.00553944
+_two 0.00392155
+_u 0.00677244
+_v 0.00932126
+_white 0.00432453
+_with 0.00700652
+_x 0.00493961
+_y 0.0106755
+_z 0.00572873
+_zero 0.00524166
+classificationError 2.88816%
+crossEntropyError 13.0932
+------------------------------
+validation errors:
+_a 0.042157
+_again 0.021002
+_at 0.0367576
+_b 0.0699538
+_bin 0.0122614
+_blue 0.0227287
+_by 0.0301837
+_e 0.0943953
+_eight 0.0242958
+_f 0.0378543
+_five 0.0454212
+_four 0.0429688
+_green 0.0255437
+_i 0.0628205
+_in 0.0386474
+_j 0.0269231
+_k 0.0575633
+_lay 0.0640558
+_m 0.0774278
+_nine 0.119549
+_now 0.0285778
+_one 0.0679487
+_p 0.0763889
+_place 0.0106042
+_please 0.0405782
+_red 0.0280293
+_s 0.0346154
+_set 0.00473235
+_seven 0.00615253
+_six 0.0365301
+_soon 0.0321325
+_three 0.0243041
+_two 0.0575221
+_v 0.046285
+_white 0.00841818
+_with 0.0342932
+_zero 0.0107143
+classificationError 20.5142%
+crossEntropyError 106.23
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 44 took 12 minutes 14.34 seconds (0.73434 secs/seq, 202.451 its/sec, 1393.46 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00983444
+_again 0.00310972
+_at 0.00673421
+_b 0.00750272
+_bin 0.00260491
+_blue 0.00604651
+_by 0.00417758
+_c 0.00460317
+_d 0.00543164
+_e 0.00768662
+_eight 0.00598571
+_f 0.0117374
+_five 0.00485693
+_four 0.00437743
+_g 0.0047573
+_green 0.0047193
+_h 0.00644163
+_i 0.00836415
+_in 0.00546537
+_j 0.00758466
+_k 0.00692491
+_l 0.00585476
+_lay 0.00187183
+_m 0.0119112
+_n 0.00926931
+_nine 0.00676321
+_now 0.00252319
+_o 0.0111595
+_one 0.00766958
+_p 0.00540964
+_place 0.00143128
+_please 0.00198393
+_q 0.00457672
+_r 0.00938266
+_red 0.00539275
+_s 0.00768786
+_set 0.00120705
+_seven 0.00461546
+_six 0.00412475
+_soon 0.00123054
+_t 0.00858849
+_three 0.00452923
+_two 0.00336524
+_u 0.00566771
+_v 0.00860359
+_white 0.00530624
+_with 0.00674209
+_x 0.00604504
+_y 0.00496335
+_z 0.0049933
+_zero 0.00415272
+classificationError 2.74371%
+crossEntropyError 12.384
+------------------------------
+validation errors:
+_a 0.0744099
+_again 0.0397031
+_at 0.0339402
+_b 0.0698822
+_bin 0.0163414
+_blue 0.0141447
+_by 0.0485564
+_e 0.0929204
+_eight 0.0195919
+_f 0.0414389
+_five 0.047619
+_four 0.0416667
+_green 0.0261256
+_i 0.0769231
+_in 0.0368134
+_j 0.0102564
+_k 0.0673805
+_lay 0.0787951
+_m 0.0406824
+_nine 0.125318
+_now 0.0236444
+_one 0.0987179
+_p 0.0763889
+_place 0.0110173
+_please 0.0340675
+_red 0.027116
+_s 0.0423077
+_set 0.00680724
+_seven 0.0120005
+_six 0.0233437
+_soon 0.0200307
+_three 0.0398449
+_two 0.0619469
+_v 0.039138
+_white 0.00872835
+_with 0.0389402
+_zero 0.0047619
+classificationError 21.4395%
+crossEntropyError 109.654
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 45 took 12 minutes 14.45 seconds (0.73445 secs/seq, 202.421 its/sec, 1393.25 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.011719
+_again 0.00345586
+_at 0.00603609
+_b 0.00995375
+_bin 0.00286826
+_blue 0.00545975
+_by 0.00399085
+_c 0.00413877
+_d 0.00545948
+_e 0.0105429
+_eight 0.0101526
+_f 0.0105592
+_five 0.00456044
+_four 0.00568675
+_g 0.00686374
+_green 0.00422516
+_h 0.00698174
+_i 0.00609637
+_in 0.00496027
+_j 0.00369429
+_k 0.00485436
+_l 0.00815986
+_lay 0.00196528
+_m 0.0112844
+_n 0.00816098
+_nine 0.00494746
+_now 0.0020282
+_o 0.00559284
+_one 0.00548052
+_p 0.0129262
+_place 0.00134432
+_please 0.00221618
+_q 0.00367236
+_r 0.0109093
+_red 0.0043882
+_s 0.00662402
+_set 0.0015032
+_seven 0.00369844
+_six 0.00457182
+_soon 0.00154583
+_t 0.00449731
+_three 0.00424654
+_two 0.00353597
+_u 0.00460499
+_v 0.00926562
+_white 0.00426133
+_with 0.00665241
+_x 0.00569206
+_y 0.00516032
+_z 0.00370346
+_zero 0.00404842
+classificationError 2.62383%
+crossEntropyError 11.7767
+------------------------------
+validation errors:
+_a 0.0768926
+_again 0.0311775
+_at 0.0351467
+_b 0.0659049
+_bin 0.0120792
+_blue 0.0369674
+_by 0.0446194
+_e 0.079646
+_eight 0.0111051
+_f 0.054057
+_five 0.0581502
+_four 0.0442708
+_green 0.0223902
+_i 0.0769231
+_in 0.0405654
+_j 0.0205128
+_k 0.0747293
+_lay 0.0570058
+_m 0.0524934
+_nine 0.132406
+_now 0.0275305
+_one 0.0717949
+_p 0.0763889
+_place 0.0105998
+_please 0.0294764
+_red 0.023318
+_s 0.0346154
+_set 0.00502786
+_seven 0.0149854
+_six 0.0248683
+_soon 0.0227499
+_three 0.0426941
+_two 0.0855457
+_v 0.0409279
+_white 0.00841336
+_with 0.0357899
+_zero 0.0130952
+classificationError 21.2462%
+crossEntropyError 110.808
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 46 took 12 minutes 14.35 seconds (0.73435 secs/seq, 202.448 its/sec, 1393.44 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00658395
+_again 0.003983
+_at 0.00573725
+_b 0.00590427
+_bin 0.00264944
+_blue 0.00546779
+_by 0.0042239
+_c 0.00325538
+_d 0.00461954
+_e 0.00775777
+_eight 0.00527368
+_f 0.0054064
+_five 0.00412455
+_four 0.0048119
+_g 0.00848531
+_green 0.00453123
+_h 0.00532119
+_i 0.00550721
+_in 0.00546437
+_j 0.00275939
+_k 0.00842624
+_l 0.00607741
+_lay 0.00174455
+_m 0.00834708
+_n 0.0096362
+_nine 0.00786729
+_now 0.00361272
+_o 0.00904738
+_one 0.00587028
+_p 0.00655946
+_place 0.001459
+_please 0.00250927
+_q 0.00325637
+_r 0.00788262
+_red 0.00448925
+_s 0.00676415
+_set 0.00136908
+_seven 0.00314043
+_six 0.00489186
+_soon 0.00145441
+_t 0.00837624
+_three 0.00480106
+_two 0.0039029
+_u 0.00754638
+_v 0.0077559
+_white 0.0043382
+_with 0.0067371
+_x 0.00527708
+_y 0.0046752
+_z 0.00531471
+_zero 0.00476987
+classificationError 2.61571%
+crossEntropyError 11.5006
+------------------------------
+validation errors:
+_a 0.0633469
+_again 0.0236052
+_at 0.0347291
+_b 0.0523315
+_bin 0.0130823
+_blue 0.0100251
+_by 0.0341207
+_e 0.106195
+_eight 0.00923619
+_f 0.0369518
+_five 0.041163
+_four 0.0572917
+_green 0.0318677
+_i 0.1
+_in 0.0380405
+_j 0.0435897
+_k 0.0614696
+_lay 0.0661537
+_m 0.0761155
+_nine 0.127846
+_now 0.0186877
+_one 0.0448718
+_p 0.0763889
+_place 0.0103396
+_please 0.0338049
+_red 0.0289114
+_s 0.0320513
+_set 0.0100853
+_seven 0.0277169
+_six 0.0196602
+_soon 0.0214131
+_three 0.0320875
+_two 0.0575221
+_v 0.0468803
+_white 0.0111203
+_with 0.0381507
+_zero 0.0142857
+classificationError 20.5813%
+crossEntropyError 105.227
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 47 took 12 minutes 14.34 seconds (0.73434 secs/seq, 202.451 its/sec, 1393.46 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.0104802
+_again 0.0032581
+_at 0.00539905
+_b 0.00787793
+_bin 0.00227824
+_blue 0.00495299
+_by 0.00346236
+_c 0.00382674
+_d 0.00290249
+_e 0.0107064
+_eight 0.00657075
+_f 0.00652838
+_five 0.00306782
+_four 0.00478393
+_g 0.00416955
+_green 0.00535652
+_h 0.00516978
+_i 0.00601564
+_in 0.00422444
+_j 0.00298868
+_k 0.00418519
+_l 0.00714972
+_lay 0.00143045
+_m 0.00695014
+_n 0.00494839
+_nine 0.00516929
+_now 0.00219532
+_o 0.00518152
+_one 0.00403977
+_p 0.00978291
+_place 0.00133
+_please 0.00230051
+_q 0.00290707
+_r 0.00502313
+_red 0.00416428
+_s 0.00690128
+_set 0.00143497
+_seven 0.00370415
+_six 0.00329801
+_soon 0.00143171
+_t 0.00393054
+_three 0.00675497
+_two 0.0029154
+_u 0.00720514
+_v 0.00562948
+_white 0.00394598
+_with 0.00569024
+_x 0.00554611
+_y 0.00312875
+_z 0.00429438
+_zero 0.00444766
+classificationError 2.3215%
+crossEntropyError 10.4109
+------------------------------
+validation errors:
+_a 0.0496095
+_again 0.0176586
+_at 0.0380819
+_b 0.0735432
+_bin 0.0158286
+_blue 0.0387531
+_by 0.0328084
+_e 0.100295
+_eight 0.0110509
+_f 0.0519484
+_five 0.0518773
+_four 0.0429688
+_green 0.0203738
+_i 0.0884615
+_in 0.0262804
+_j 0.0217949
+_k 0.077933
+_lay 0.0463297
+_m 0.0643045
+_nine 0.115557
+_now 0.0180067
+_one 0.0512821
+_p 0.0763889
+_place 0.0111867
+_please 0.032206
+_red 0.0228528
+_s 0.0141026
+_set 0.00502575
+_seven 0.00563475
+_six 0.0317786
+_soon 0.0211811
+_three 0.0255085
+_two 0.0663717
+_v 0.0432877
+_white 0.00203587
+_with 0.0362845
+_zero 0.00952381
+classificationError 19.1995%
+crossEntropyError 100.705
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+
+epoch 48 took 12 minutes 14.28 seconds (0.73428 secs/seq, 202.468 its/sec, 1393.57 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00587054
+_again 0.00422292
+_at 0.00579374
+_b 0.00744815
+_bin 0.0025008
+_blue 0.00545291
+_by 0.00339909
+_c 0.00385297
+_d 0.00398363
+_e 0.00744818
+_eight 0.00586235
+_f 0.00999467
+_five 0.00312722
+_four 0.00412918
+_g 0.00617503
+_green 0.00466168
+_h 0.00542789
+_i 0.00500602
+_in 0.00431903
+_j 0.00395075
+_k 0.00819954
+_l 0.00541079
+_lay 0.00170499
+_m 0.0103774
+_n 0.00835495
+_nine 0.00503235
+_now 0.00227821
+_o 0.00700704
+_one 0.00439008
+_p 0.00538713
+_place 0.00140791
+_please 0.00225878
+_q 0.0036093
+_r 0.00613711
+_red 0.00359369
+_s 0.0053655
+_set 0.00147888
+_seven 0.00324828
+_six 0.00422693
+_soon 0.00169626
+_t 0.00474523
+_three 0.00426796
+_two 0.00326357
+_u 0.00438915
+_v 0.00920419
+_white 0.00394977
+_with 0.00533041
+_x 0.00452513
+_y 0.00429205
+_z 0.00411962
+_zero 0.0039765
+classificationError 2.35299%
+crossEntropyError 10.5287
+------------------------------
+validation errors:
+_a 0.0647019
+_again 0.0193185
+_at 0.0395893
+_b 0.0768729
+_bin 0.0123131
+_blue 0.0399906
+_by 0.0328084
+_e 0.109145
+_eight 0.0182647
+_f 0.034025
+_five 0.0417125
+_four 0.0455729
+_green 0.0243039
+_i 0.0987179
+_in 0.0302711
+_j 0.0141026
+_k 0.0823029
+_lay 0.0452874
+_m 0.0459318
+_nine 0.129201
+_now 0.0354031
+_one 0.0615385
+_p 0.0763889
+_place 0.0104013
+_please 0.031772
+_red 0.0212985
+_s 0.0358974
+_set 0.00443896
+_seven 0.00392909
+_six 0.0210937
+_soon 0.0156142
+_three 0.0153336
+_two 0.0766962
+_v 0.0361702
+_white 0.00204203
+_with 0.0336603
+_zero 0.0119048
+classificationError 19.7242%
+crossEntropyError 103.592
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 49 took 12 minutes 14.3 seconds (0.7343 secs/seq, 202.462 its/sec, 1393.53 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00681564
+_again 0.00257858
+_at 0.00613887
+_b 0.00473971
+_bin 0.00229585
+_blue 0.00480303
+_by 0.00378295
+_c 0.00419715
+_d 0.00338396
+_e 0.00830508
+_eight 0.00679011
+_f 0.00730814
+_five 0.0037629
+_four 0.00458546
+_g 0.0060397
+_green 0.00466731
+_h 0.00462865
+_i 0.00456716
+_in 0.00453515
+_j 0.00294417
+_k 0.00573129
+_l 0.00466944
+_lay 0.00163326
+_m 0.00925793
+_n 0.00384723
+_nine 0.00558551
+_now 0.00202833
+_o 0.00517528
+_one 0.00491724
+_p 0.00718882
+_place 0.00123336
+_please 0.0023246
+_q 0.00236694
+_r 0.00565869
+_red 0.00393706
+_s 0.00680645
+_set 0.00143246
+_seven 0.0032765
+_six 0.00354216
+_soon 0.00137758
+_t 0.00374993
+_three 0.00509455
+_two 0.00397653
+_u 0.00475686
+_v 0.00656834
+_white 0.00347161
+_with 0.00632355
+_x 0.00605843
+_y 0.00316793
+_z 0.00363506
+_zero 0.00382618
+classificationError 2.27243%
+crossEntropyError 10.0574
+------------------------------
+validation errors:
+_a 0.0600574
+_again 0.0175236
+_at 0.042265
+_b 0.0714728
+_bin 0.0131194
+_blue 0.0330827
+_by 0.0301837
+_e 0.106195
+_eight 0.0124413
+_f 0.0364879
+_five 0.0422161
+_four 0.0390625
+_green 0.0265912
+_i 0.05
+_in 0.0496615
+_j 0.0102564
+_k 0.0725373
+_lay 0.0510323
+_m 0.0393701
+_nine 0.129091
+_now 0.0257398
+_one 0.0602564
+_p 0.0763889
+_place 0.01208
+_please 0.0306756
+_red 0.0241831
+_s 0.0320513
+_set 0.0142519
+_seven 0.0056652
+_six 0.0255366
+_soon 0.0168533
+_three 0.0254006
+_two 0.0575221
+_v 0.0403242
+_white 0.0037928
+_with 0.0299909
+_zero 0.0119048
+classificationError 19.8858%
+crossEntropyError 105.986
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 50 took 12 minutes 14.33 seconds (0.73433 secs/seq, 202.454 its/sec, 1393.48 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00853577
+_again 0.00238651
+_at 0.00593747
+_b 0.00530423
+_bin 0.00232596
+_blue 0.00466382
+_by 0.00355484
+_c 0.00294158
+_d 0.00604874
+_e 0.00827109
+_eight 0.00463837
+_f 0.00627506
+_five 0.0037698
+_four 0.00373691
+_g 0.00518718
+_green 0.00321169
+_h 0.0047275
+_i 0.00526439
+_in 0.00459266
+_j 0.00318207
+_k 0.00647152
+_l 0.0047626
+_lay 0.00149304
+_m 0.00887055
+_n 0.00446499
+_nine 0.0044883
+_now 0.00227787
+_o 0.00445872
+_one 0.00447614
+_p 0.004089
+_place 0.00133332
+_please 0.00187408
+_q 0.0062476
+_r 0.0069337
+_red 0.00348025
+_s 0.00474106
+_set 0.00122132
+_seven 0.00371906
+_six 0.00568033
+_soon 0.00145226
+_t 0.0058686
+_three 0.00438791
+_two 0.00341323
+_u 0.0086004
+_v 0.00818695
+_white 0.00336738
+_with 0.00574323
+_x 0.00398782
+_y 0.004659
+_z 0.00314115
+_zero 0.00387839
+classificationError 2.19672%
+crossEntropyError 9.86651
+------------------------------
+validation errors:
+_a 0.0597677
+_again 0.0106377
+_at 0.036222
+_b 0.0660011
+_bin 0.0107534
+_blue 0.0281015
+_by 0.0328084
+_e 0.0943953
+_eight 0.0132449
+_f 0.0370361
+_five 0.0459707
+_four 0.0325521
+_green 0.0293971
+_i 0.0910256
+_in 0.0382338
+_j 0.0230769
+_k 0.0688699
+_lay 0.0757871
+_m 0.0603675
+_nine 0.111841
+_now 0.0276762
+_one 0.0435897
+_p 0.0763889
+_place 0.0118318
+_please 0.031041
+_red 0.0223083
+_s 0.0333333
+_set 0.0139543
+_seven 0.00341131
+_six 0.0211507
+_soon 0.0212359
+_three 0.0315306
+_two 0.0766962
+_v 0.0379517
+_white 0.00408215
+_with 0.0371552
+_zero 0.0119048
+classificationError 19.9083%
+crossEntropyError 102.852
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 51 took 12 minutes 14.27 seconds (0.73427 secs/seq, 202.47 its/sec, 1393.59 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00650906
+_again 0.00268804
+_at 0.00493475
+_b 0.00437365
+_bin 0.00219636
+_blue 0.00469146
+_by 0.0033518
+_c 0.00353419
+_d 0.00318168
+_e 0.0101903
+_eight 0.00431725
+_f 0.00626955
+_five 0.00351106
+_four 0.00419936
+_g 0.00415375
+_green 0.00384188
+_h 0.00400667
+_i 0.00519294
+_in 0.00368554
+_j 0.00453582
+_k 0.00326825
+_l 0.00602696
+_lay 0.00248702
+_m 0.00949451
+_n 0.00630944
+_nine 0.00482012
+_now 0.00198989
+_o 0.00366887
+_one 0.00559024
+_p 0.00406106
+_place 0.00139079
+_please 0.00230211
+_q 0.00322755
+_r 0.00766161
+_red 0.00429029
+_s 0.00473839
+_set 0.00131716
+_seven 0.0037685
+_six 0.00393845
+_soon 0.0014575
+_t 0.00231992
+_three 0.00391841
+_two 0.00360828
+_u 0.00306265
+_v 0.00426112
+_white 0.00354595
+_with 0.00447059
+_x 0.00435463
+_y 0.00474262
+_z 0.0032812
+_zero 0.00347781
+classificationError 2.10661%
+crossEntropyError 9.32426
+------------------------------
+validation errors:
+_a 0.0604452
+_again 0.012726
+_at 0.0346774
+_b 0.0652131
+_bin 0.0144949
+_blue 0.0155075
+_by 0.0314961
+_e 0.100295
+_eight 0.0124955
+_f 0.0355769
+_five 0.0473443
+_four 0.0403646
+_green 0.017119
+_i 0.110256
+_in 0.0422049
+_j 0.0179487
+_k 0.0672774
+_lay 0.0442264
+_m 0.0459318
+_nine 0.131874
+_now 0.0235753
+_one 0.0474359
+_p 0.0763889
+_place 0.0108191
+_please 0.0314406
+_red 0.0258339
+_s 0.0205128
+_set 0.00532337
+_seven 0.0215643
+_six 0.0233151
+_soon 0.0188227
+_three 0.0321954
+_two 0.0855457
+_v 0.0468676
+_white 0.00175693
+_with 0.0335023
+_zero 0.0130952
+classificationError 19.0918%
+crossEntropyError 102.709
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+
+epoch 52 took 12 minutes 14.31 seconds (0.73431 secs/seq, 202.459 its/sec, 1393.51 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00672979
+_again 0.00234933
+_at 0.00458088
+_b 0.00431422
+_bin 0.00212926
+_blue 0.00410783
+_by 0.00308113
+_c 0.00406476
+_d 0.00340711
+_e 0.0056701
+_eight 0.0047865
+_f 0.00427131
+_five 0.00420136
+_four 0.00448138
+_g 0.00839327
+_green 0.00342777
+_h 0.00477394
+_i 0.00449252
+_in 0.00356937
+_j 0.00395194
+_k 0.00419924
+_l 0.00442008
+_lay 0.0024935
+_m 0.00692712
+_n 0.0040182
+_nine 0.00437778
+_now 0.0020239
+_o 0.00303497
+_one 0.0043468
+_p 0.00529252
+_place 0.00118844
+_please 0.00191583
+_q 0.00290224
+_r 0.00599883
+_red 0.0032468
+_s 0.0047028
+_set 0.00135028
+_seven 0.00258122
+_six 0.00348408
+_soon 0.00131763
+_t 0.00428664
+_three 0.00363866
+_two 0.00335687
+_u 0.00576115
+_v 0.00523239
+_white 0.0034576
+_with 0.00481815
+_x 0.00569893
+_y 0.00382999
+_z 0.0028061
+_zero 0.00324399
+classificationError 1.97393%
+crossEntropyError 8.84
+------------------------------
+validation errors:
+_a 0.059478
+_again 0.0234211
+_at 0.0349674
+_b 0.0715333
+_bin 0.0105779
+_blue 0.0322212
+_by 0.0341207
+_e 0.112094
+_eight 0.00929036
+_f 0.0305499
+_five 0.0531136
+_four 0.0299479
+_green 0.0201619
+_i 0.0641026
+_in 0.0460477
+_j 0.0294872
+_k 0.0756894
+_lay 0.038449
+_m 0.0380577
+_nine 0.120758
+_now 0.0259071
+_one 0.0461538
+_p 0.0763889
+_place 0.0118735
+_please 0.0306069
+_red 0.0265231
+_s 0.0346154
+_set 0.00532337
+_seven 0.00395955
+_six 0.0240461
+_soon 0.0191383
+_three 0.0240883
+_two 0.0870206
+_v 0.0403116
+_white 0.0072442
+_with 0.0332293
+_zero 0.00952381
+classificationError 19.3734%
+crossEntropyError 101.053
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 53 took 12 minutes 14.35 seconds (0.73435 secs/seq, 202.448 its/sec, 1393.44 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00632677
+_again 0.00280293
+_at 0.00521978
+_b 0.00956831
+_bin 0.0037023
+_blue 0.0041088
+_by 0.0036704
+_c 0.00307617
+_d 0.0040376
+_e 0.007014
+_eight 0.00401608
+_f 0.00683291
+_five 0.0047293
+_four 0.00425388
+_g 0.00507813
+_green 0.00412261
+_h 0.00479123
+_i 0.00534002
+_in 0.00430613
+_j 0.0022415
+_k 0.00416964
+_l 0.00303594
+_lay 0.0018953
+_m 0.00940432
+_n 0.00277643
+_nine 0.00434457
+_now 0.00213899
+_o 0.00586992
+_one 0.00419032
+_p 0.00730718
+_place 0.0014746
+_please 0.00186694
+_q 0.00209546
+_r 0.0101007
+_red 0.0043492
+_s 0.00700592
+_set 0.00179124
+_seven 0.00286645
+_six 0.00362329
+_soon 0.00166121
+_t 0.00307512
+_three 0.00365485
+_two 0.00287417
+_u 0.00547393
+_v 0.005092
+_white 0.00369531
+_with 0.00465112
+_x 0.00317048
+_y 0.0043761
+_z 0.00423287
+_zero 0.00320372
+classificationError 2.16816%
+crossEntropyError 9.561
+------------------------------
+validation errors:
+_a 0.0564782
+_again 0.0108941
+_at 0.0339283
+_b 0.0668552
+_bin 0.0139112
+_blue 0.0292763
+_by 0.0341207
+_e 0.106195
+_eight 0.0112676
+_f 0.0327429
+_five 0.0466117
+_four 0.0221354
+_green 0.0257038
+_i 0.074359
+_in 0.0359457
+_j 0.0192308
+_k 0.0661299
+_lay 0.0827008
+_m 0.0472441
+_nine 0.12107
+_now 0.0211092
+_one 0.0461538
+_p 0.0763889
+_place 0.0106122
+_please 0.0314065
+_red 0.0254652
+_s 0.0346154
+_set 0.00978766
+_seven 0.0105385
+_six 0.0219786
+_soon 0.0182164
+_three 0.0254006
+_two 0.0648968
+_v 0.0373565
+_white 0.00962147
+_with 0.0384904
+_zero 0.0107143
+classificationError 19.4664%
+crossEntropyError 102.358
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 54 took 12 minutes 14.31 seconds (0.73431 secs/seq, 202.459 its/sec, 1393.51 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00520572
+_again 0.00315444
+_at 0.00455572
+_b 0.00640915
+_bin 0.00205275
+_blue 0.00464931
+_by 0.00344378
+_c 0.00349267
+_d 0.00165123
+_e 0.00600196
+_eight 0.00658785
+_f 0.00595273
+_five 0.00403815
+_four 0.00396096
+_g 0.0047657
+_green 0.00431378
+_h 0.00363196
+_i 0.00572308
+_in 0.00425506
+_j 0.00500004
+_k 0.00351332
+_l 0.00616494
+_lay 0.00146827
+_m 0.00684076
+_n 0.0045489
+_nine 0.0050957
+_now 0.00227328
+_o 0.00447341
+_one 0.00555611
+_p 0.00607465
+_place 0.00118975
+_please 0.00202527
+_q 0.00253319
+_r 0.0055579
+_red 0.0031986
+_s 0.00643933
+_set 0.00125203
+_seven 0.00362174
+_six 0.00330906
+_soon 0.00126358
+_t 0.0034951
+_three 0.00398911
+_two 0.00300857
+_u 0.00422331
+_v 0.00532818
+_white 0.00349162
+_with 0.00483839
+_x 0.0055476
+_y 0.00397505
+_z 0.00489611
+_zero 0.00364408
+classificationError 2.0888%
+crossEntropyError 9.02289
+------------------------------
+validation errors:
+_a 0.0595092
+_again 0.0121019
+_at 0.0364509
+_b 0.0595448
+_bin 0.0165978
+_blue 0.00883459
+_by 0.0341207
+_e 0.106195
+_eight 0.0118545
+_f 0.0285341
+_five 0.0613553
+_four 0.0416667
+_green 0.0301676
+_i 0.102564
+_in 0.0395801
+_j 0.00897436
+_k 0.0675678
+_lay 0.0598099
+_m 0.0643045
+_nine 0.127168
+_now 0.0180434
+_one 0.0307692
+_p 0.0763889
+_place 0.0111089
+_please 0.0322402
+_red 0.0264267
+_s 0.024359
+_set 0.00681147
+_seven 0.0206506
+_six 0.0226412
+_soon 0.0252068
+_three 0.0206909
+_two 0.0752212
+_v 0.0403158
+_white 0.0052916
+_with 0.0325516
+_zero 0.00833333
+classificationError 19.5489%
+crossEntropyError 103.284
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 55 took 12 minutes 14.33 seconds (0.73433 secs/seq, 202.454 its/sec, 1393.48 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00403594
+_again 0.00254924
+_at 0.0039261
+_b 0.00343404
+_bin 0.00233509
+_blue 0.00387987
+_by 0.00294944
+_c 0.0030913
+_d 0.00181364
+_e 0.00739333
+_eight 0.00518869
+_f 0.00907901
+_five 0.00417809
+_four 0.00364069
+_g 0.00371554
+_green 0.00296088
+_h 0.00377551
+_i 0.0048039
+_in 0.00341574
+_j 0.00289064
+_k 0.00317495
+_l 0.00280794
+_lay 0.00118457
+_m 0.00658907
+_n 0.00482896
+_nine 0.00418411
+_now 0.00212955
+_o 0.0058195
+_one 0.00467584
+_p 0.0030649
+_place 0.00108803
+_please 0.00229317
+_q 0.0019579
+_r 0.0054495
+_red 0.00364652
+_s 0.00342138
+_set 0.00135065
+_seven 0.0032331
+_six 0.00380868
+_soon 0.00142226
+_t 0.0037849
+_three 0.00441433
+_two 0.00289795
+_u 0.003757
+_v 0.00465677
+_white 0.00277798
+_with 0.00453579
+_x 0.00373968
+_y 0.00358573
+_z 0.00233288
+_zero 0.00419806
+classificationError 1.86631%
+crossEntropyError 8.39092
+------------------------------
+validation errors:
+_a 0.0547042
+_again 0.0172301
+_at 0.0341708
+_b 0.0619583
+_bin 0.0127517
+_blue 0.0239192
+_by 0.0354331
+_e 0.10767
+_eight 0.0124413
+_f 0.0367746
+_five 0.0530678
+_four 0.0403646
+_green 0.020205
+_i 0.0641026
+_in 0.032686
+_j 0.0307692
+_k 0.0593104
+_lay 0.0792651
+_m 0.0708661
+_nine 0.125813
+_now 0.0305675
+_one 0.0512821
+_p 0.0763889
+_place 0.0118284
+_please 0.0298761
+_red 0.0275811
+_s 0.025641
+_set 0.00532337
+_seven 0.00502558
+_six 0.0240461
+_soon 0.018471
+_three 0.016538
+_two 0.0693215
+_v 0.0462724
+_white 0.00290393
+_with 0.0404617
+_zero 0.0107143
+classificationError 19.5702%
+crossEntropyError 104.592
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 56 took 12 minutes 14.28 seconds (0.73428 secs/seq, 202.468 its/sec, 1393.57 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00620938
+_again 0.0029003
+_at 0.00411275
+_b 0.0048511
+_bin 0.00250347
+_blue 0.00472855
+_by 0.00347693
+_c 0.00307621
+_d 0.0039402
+_e 0.00604019
+_eight 0.00432786
+_f 0.00410818
+_five 0.00344252
+_four 0.00494878
+_g 0.00308603
+_green 0.00420179
+_h 0.00492019
+_i 0.00404294
+_in 0.00389167
+_j 0.00298937
+_k 0.00459464
+_l 0.00211558
+_lay 0.00232595
+_m 0.00686362
+_n 0.00705356
+_nine 0.00436795
+_now 0.00189118
+_o 0.00264786
+_one 0.00368449
+_p 0.00335418
+_place 0.00126836
+_please 0.00186283
+_q 0.00146899
+_r 0.00852645
+_red 0.00329973
+_s 0.00424226
+_set 0.00130108
+_seven 0.00295584
+_six 0.00346595
+_soon 0.00118028
+_t 0.00414562
+_three 0.00340242
+_two 0.00324558
+_u 0.003536
+_v 0.00638719
+_white 0.00372344
+_with 0.00489925
+_x 0.0042515
+_y 0.0042576
+_z 0.00524863
+_zero 0.00341443
+classificationError 2.00507%
+crossEntropyError 8.77153
+------------------------------
+validation errors:
+_a 0.059157
+_again 0.0136775
+_at 0.0410869
+_b 0.0728319
+_bin 0.0140337
+_blue 0.0513001
+_by 0.0249344
+_e 0.10472
+_eight 0.0213615
+_f 0.0369349
+_five 0.0370421
+_four 0.015625
+_green 0.0208631
+_i 0.120513
+_in 0.0306731
+_j 0.0166667
+_k 0.0733757
+_lay 0.0558906
+_m 0.0564304
+_nine 0.131765
+_now 0.0227886
+_one 0.0551282
+_p 0.0763889
+_place 0.0111128
+_please 0.0318405
+_red 0.0237662
+_s 0.0269231
+_set 0.00502575
+_seven 0.00740132
+_six 0.0259021
+_soon 0.0218887
+_three 0.0200347
+_two 0.0575221
+_v 0.0385469
+_white 0.00145717
+_with 0.0350624
+_zero 0.0047619
+classificationError 19.4747%
+crossEntropyError 106.079
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 57 took 12 minutes 47.44 seconds (0.76744 secs/seq, 193.719 its/sec, 1333.36 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00658817
+_again 0.00206678
+_at 0.00429946
+_b 0.00470182
+_bin 0.00233308
+_blue 0.0036895
+_by 0.00312093
+_c 0.00286332
+_d 0.00391435
+_e 0.00500596
+_eight 0.00485623
+_f 0.00399247
+_five 0.00480212
+_four 0.00404913
+_g 0.00260107
+_green 0.00377753
+_h 0.00397569
+_i 0.00615726
+_in 0.00343802
+_j 0.00365511
+_k 0.00311226
+_l 0.0040517
+_lay 0.00155032
+_m 0.00425595
+_n 0.00402704
+_nine 0.00521969
+_now 0.00190964
+_o 0.00337762
+_one 0.00450959
+_p 0.0049881
+_place 0.00102917
+_please 0.00199061
+_q 0.00260436
+_r 0.00527951
+_red 0.00360934
+_s 0.00492575
+_set 0.00145665
+_seven 0.00259402
+_six 0.00313152
+_soon 0.00139618
+_t 0.00417228
+_three 0.00362771
+_two 0.00307725
+_u 0.00353824
+_v 0.00359146
+_white 0.00315393
+_with 0.00437503
+_x 0.00322874
+_y 0.0032157
+_z 0.00314608
+_zero 0.00406776
+classificationError 1.87223%
+crossEntropyError 8.34207
+------------------------------
+validation errors:
+_a 0.0575435
+_again 0.0156545
+_at 0.0396377
+_b 0.0643225
+_bin 0.0170736
+_blue 0.029104
+_by 0.0341207
+_e 0.10472
+_eight 0.0118545
+_f 0.0262483
+_five 0.0548077
+_four 0.0416667
+_green 0.0216243
+_i 0.0487179
+_in 0.0324148
+_j 0.0153846
+_k 0.0836893
+_lay 0.0619755
+_m 0.0643045
+_nine 0.124494
+_now 0.02796
+_one 0.0474359
+_p 0.0763889
+_place 0.00988052
+_please 0.0298076
+_red 0.0244072
+_s 0.0371795
+_set 0.00502786
+_seven 0.00395955
+_six 0.0211507
+_soon 0.0197793
+_three 0.0187224
+_two 0.060472
+_v 0.0486533
+_white 0.00930089
+_with 0.0329012
+_zero 0.0107143
+classificationError 19.3748%
+crossEntropyError 100.776
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 58 took 12 minutes 53.06 seconds (0.77306 secs/seq, 192.311 its/sec, 1323.66 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00364034
+_again 0.00227483
+_at 0.00436662
+_b 0.00559231
+_bin 0.00166864
+_blue 0.00357759
+_by 0.00308212
+_c 0.00336306
+_d 0.0020696
+_e 0.00533737
+_eight 0.00449189
+_f 0.00507933
+_five 0.00362215
+_four 0.00356949
+_g 0.0066606
+_green 0.00294373
+_h 0.00304003
+_i 0.00252406
+_in 0.00397827
+_j 0.00196902
+_k 0.00355694
+_l 0.00405632
+_lay 0.00137498
+_m 0.00483306
+_n 0.00348231
+_nine 0.0041516
+_now 0.00185739
+_o 0.00441563
+_one 0.0038528
+_p 0.00314594
+_place 0.00103854
+_please 0.0015868
+_q 0.00166229
+_r 0.00439336
+_red 0.00393126
+_s 0.00494697
+_set 0.001128
+_seven 0.00300433
+_six 0.00379097
+_soon 0.00123074
+_t 0.00373208
+_three 0.00432119
+_two 0.00262462
+_u 0.00470534
+_v 0.00728778
+_white 0.00321908
+_with 0.00428341
+_x 0.00327826
+_y 0.00520786
+_z 0.00304834
+_zero 0.00364437
+classificationError 1.80612%
+crossEntropyError 7.97402
+------------------------------
+validation errors:
+_a 0.0786666
+_again 0.0154723
+_at 0.0319535
+_b 0.0668754
+_bin 0.0131194
+_blue 0.0227287
+_by 0.0275591
+_e 0.0943953
+_eight 0.0131365
+_f 0.0347588
+_five 0.044826
+_four 0.0416667
+_green 0.0240189
+_i 0.0512821
+_in 0.0366752
+_j 0.0128205
+_k 0.0662657
+_lay 0.0566758
+_m 0.0761155
+_nine 0.12008
+_now 0.0312515
+_one 0.0435897
+_p 0.0763889
+_place 0.0106412
+_please 0.0302072
+_red 0.0244554
+_s 0.0358974
+_set 0.0136609
+_seven 0.00560429
+_six 0.0236521
+_soon 0.0190817
+_three 0.0236479
+_two 0.0811209
+_v 0.039729
+_white 0.00868614
+_with 0.0378644
+_zero 0.00714286
+classificationError 19.5742%
+crossEntropyError 101.051
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 59 took 12 minutes 53.04 seconds (0.77304 secs/seq, 192.316 its/sec, 1323.7 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00623759
+_again 0.00200366
+_at 0.0042022
+_b 0.00428785
+_bin 0.00167374
+_blue 0.00352513
+_by 0.00334019
+_c 0.00335474
+_d 0.00324481
+_e 0.00493561
+_eight 0.00443069
+_f 0.00427721
+_five 0.00298133
+_four 0.00368722
+_g 0.00301319
+_green 0.00278593
+_h 0.00405991
+_i 0.00384592
+_in 0.00338973
+_j 0.00253807
+_k 0.00237493
+_l 0.00373309
+_lay 0.00123717
+_m 0.00779971
+_n 0.005544
+_nine 0.00402037
+_now 0.00177128
+_o 0.00271811
+_one 0.00492751
+_p 0.00408381
+_place 0.00105423
+_please 0.00175224
+_q 0.00213462
+_r 0.00577507
+_red 0.00276226
+_s 0.00522653
+_set 0.00128494
+_seven 0.00372771
+_six 0.00366927
+_soon 0.00144387
+_t 0.00377204
+_three 0.00380249
+_two 0.00250245
+_u 0.0034143
+_v 0.00385824
+_white 0.00302069
+_with 0.00365378
+_x 0.00309734
+_y 0.00416461
+_z 0.00567174
+_zero 0.00244276
+classificationError 1.74164%
+crossEntropyError 7.5996
+------------------------------
+validation errors:
+_a 0.0772491
+_again 0.0137146
+_at 0.0413639
+_b 0.0646052
+_bin 0.0142159
+_blue 0.0407268
+_by 0.0341207
+_e 0.103245
+_eight 0.0130823
+_f 0.0363023
+_five 0.0530678
+_four 0.0273438
+_green 0.0229845
+_i 0.1
+_in 0.0291828
+_j 0.00769231
+_k 0.0667622
+_lay 0.0485347
+_m 0.0498688
+_nine 0.129237
+_now 0.0254809
+_one 0.0397436
+_p 0.0763889
+_place 0.0121464
+_please 0.0302414
+_red 0.0240867
+_s 0.0282051
+_set 0.00591861
+_seven 0.0028326
+_six 0.0262676
+_soon 0.0318196
+_three 0.0202506
+_two 0.0766962
+_v 0.0450861
+_white 0.00290393
+_with 0.0360268
+_zero 0.0142857
+classificationError 19.7503%
+crossEntropyError 103.869
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 60 took 12 minutes 53.04 seconds (0.77304 secs/seq, 192.316 its/sec, 1323.7 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00437395
+_again 0.00336426
+_at 0.00368363
+_b 0.00478449
+_bin 0.00195715
+_blue 0.00377156
+_by 0.00284461
+_c 0.00329027
+_d 0.00246019
+_e 0.00577019
+_eight 0.00492729
+_f 0.00500879
+_five 0.00240274
+_four 0.00372628
+_g 0.00454702
+_green 0.00270851
+_h 0.00336043
+_i 0.00331379
+_in 0.00374205
+_j 0.00244575
+_k 0.00279611
+_l 0.00322277
+_lay 0.00123996
+_m 0.00860961
+_n 0.00372791
+_nine 0.0061724
+_now 0.00272471
+_o 0.00331819
+_one 0.00379194
+_p 0.00552142
+_place 0.00114901
+_please 0.0017122
+_q 0.00199072
+_r 0.00594257
+_red 0.00324365
+_s 0.00569636
+_set 0.00153563
+_seven 0.00306782
+_six 0.00340341
+_soon 0.00146737
+_t 0.00261321
+_three 0.00454063
+_two 0.00225169
+_u 0.00400966
+_v 0.00421953
+_white 0.00266443
+_with 0.00402414
+_x 0.00445463
+_y 0.00327105
+_z 0.00236071
+_zero 0.00325918
+classificationError 1.8126%
+crossEntropyError 7.90245
+------------------------------
+validation errors:
+_a 0.0811181
+_again 0.0240047
+_at 0.0343545
+_b 0.0707933
+_bin 0.0181363
+_blue 0.0203477
+_by 0.0341207
+_e 0.109145
+_eight 0.0137234
+_f 0.0397942
+_five 0.0461996
+_four 0.0442708
+_green 0.0169847
+_i 0.0551282
+_in 0.0288263
+_j 0.0128205
+_k 0.0858485
+_lay 0.0666492
+_m 0.0472441
+_nine 0.129878
+_now 0.0208855
+_one 0.0448718
+_p 0.0763889
+_place 0.0107948
+_please 0.0314408
+_red 0.0282533
+_s 0.0320513
+_set 0.00473235
+_seven 0.00907651
+_six 0.0219102
+_soon 0.0293526
+_three 0.0232076
+_two 0.0648968
+_v 0.0379517
+_white 0.0060868
+_with 0.0395697
+_zero 0.00833333
+classificationError 19.9162%
+crossEntropyError 109.649
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 61 took 12 minutes 43.41 seconds (0.76341 secs/seq, 194.742 its/sec, 1340.4 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00390383
+_again 0.00288665
+_at 0.00407408
+_b 0.00351481
+_bin 0.0019273
+_blue 0.00384547
+_by 0.0028855
+_c 0.00323079
+_d 0.00405866
+_e 0.00441906
+_eight 0.0062723
+_f 0.00880804
+_five 0.00288113
+_four 0.00505299
+_g 0.00507058
+_green 0.00354489
+_h 0.00397043
+_i 0.00399207
+_in 0.00349865
+_j 0.00259752
+_k 0.00402298
+_l 0.00434664
+_lay 0.00265115
+_m 0.00510709
+_n 0.00510602
+_nine 0.00438003
+_now 0.00271911
+_o 0.00394407
+_one 0.00317902
+_p 0.00511428
+_place 0.00234954
+_please 0.00223739
+_q 0.00226327
+_r 0.00608824
+_red 0.00298884
+_s 0.00469139
+_set 0.00122258
+_seven 0.00292054
+_six 0.00479751
+_soon 0.00109728
+_t 0.00300373
+_three 0.00331873
+_two 0.00325421
+_u 0.00405237
+_v 0.00530417
+_white 0.00332393
+_with 0.00386932
+_x 0.00395834
+_y 0.00355577
+_z 0.00425868
+_zero 0.00295887
+classificationError 1.9471%
+crossEntropyError 8.67423
+------------------------------
+validation errors:
+_a 0.0763131
+_again 0.0207456
+_at 0.0342453
+_b 0.0679976
+_bin 0.0222389
+_blue 0.0274906
+_by 0.0328084
+_e 0.109145
+_eight 0.0237089
+_f 0.0567139
+_five 0.0498626
+_four 0.0403646
+_green 0.0229014
+_i 0.0858974
+_in 0.034584
+_j 0.00641026
+_k 0.095956
+_lay 0.0626965
+_m 0.0800525
+_nine 0.100943
+_now 0.0270066
+_one 0.05
+_p 0.0763889
+_place 0.0106165
+_please 0.0306413
+_red 0.0254652
+_s 0.0320513
+_set 0.00443473
+_seven 0.00338085
+_six 0.0196887
+_soon 0.0186828
+_three 0.0252927
+_two 0.0678466
+_v 0.0385469
+_white 0.00290393
+_with 0.0327433
+_zero 0.0047619
+classificationError 20.2154%
+crossEntropyError 105.807
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 62 took 12 minutes 14.42 seconds (0.73442 secs/seq, 202.429 its/sec, 1393.31 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00543161
+_again 0.0030373
+_at 0.00401455
+_b 0.0040165
+_bin 0.00174715
+_blue 0.00384852
+_by 0.00294052
+_c 0.00292095
+_d 0.00285196
+_e 0.00476455
+_eight 0.00356565
+_f 0.00367186
+_five 0.00263782
+_four 0.00371044
+_g 0.00268767
+_green 0.00317884
+_h 0.00494686
+_i 0.00313812
+_in 0.00312971
+_j 0.0041618
+_k 0.00196336
+_l 0.00460331
+_lay 0.00116554
+_m 0.00675108
+_n 0.00675784
+_nine 0.00510836
+_now 0.00158751
+_o 0.00407621
+_one 0.00360244
+_p 0.00275118
+_place 0.00102237
+_please 0.00225705
+_q 0.00159869
+_r 0.005481
+_red 0.00299266
+_s 0.00368588
+_set 0.00124488
+_seven 0.00264461
+_six 0.00335801
+_soon 0.00182201
+_t 0.00194365
+_three 0.00376881
+_two 0.00264945
+_u 0.00352521
+_v 0.00318001
+_white 0.00294286
+_with 0.00369422
+_x 0.00377359
+_y 0.00407183
+_z 0.00343749
+_zero 0.00340986
+classificationError 1.74333%
+crossEntropyError 7.63211
+------------------------------
+validation errors:
+_a 0.0609622
+_again 0.0133468
+_at 0.0327687
+_b 0.0684403
+_bin 0.0178799
+_blue 0.0142387
+_by 0.0328084
+_e 0.103245
+_eight 0.018048
+_f 0.0321019
+_five 0.0403846
+_four 0.0221354
+_green 0.0253981
+_i 0.0641026
+_in 0.0286409
+_j 0.0320513
+_k 0.0817362
+_lay 0.0623184
+_m 0.0472441
+_nine 0.128487
+_now 0.0231332
+_one 0.0782051
+_p 0.0763889
+_place 0.0110757
+_please 0.0306413
+_red 0.0254652
+_s 0.0397436
+_set 0.00532548
+_seven 0.00392909
+_six 0.0211507
+_soon 0.0186289
+_three 0.0209067
+_two 0.0766962
+_v 0.0403327
+_white 0.00174652
+_with 0.0345347
+_zero 0.00714286
+classificationError 19.0105%
+crossEntropyError 104.237
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+
+epoch 63 took 12 minutes 14.37 seconds (0.73437 secs/seq, 202.443 its/sec, 1393.4 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00336455
+_again 0.00214932
+_at 0.00378712
+_b 0.00273939
+_bin 0.00210077
+_blue 0.00365587
+_by 0.00310842
+_c 0.00244214
+_d 0.00328831
+_e 0.00500064
+_eight 0.00518947
+_f 0.00270577
+_five 0.00304443
+_four 0.00314937
+_g 0.00276573
+_green 0.00287731
+_h 0.00333495
+_i 0.00506718
+_in 0.00353279
+_j 0.00191339
+_k 0.00362474
+_l 0.00399884
+_lay 0.00158955
+_m 0.00577083
+_n 0.00514462
+_nine 0.00382778
+_now 0.00177911
+_o 0.00349854
+_one 0.00396155
+_p 0.00406292
+_place 0.00113506
+_please 0.00200435
+_q 0.00162106
+_r 0.0053813
+_red 0.00273053
+_s 0.00658901
+_set 0.00120865
+_seven 0.00217383
+_six 0.00271647
+_soon 0.00200719
+_t 0.00273673
+_three 0.00311346
+_two 0.00270577
+_u 0.00240932
+_v 0.00485136
+_white 0.00290463
+_with 0.00390333
+_x 0.00444256
+_y 0.00675622
+_z 0.00281289
+_zero 0.00304731
+classificationError 1.72337%
+crossEntropyError 7.31512
+------------------------------
+validation errors:
+_a 0.0786354
+_again 0.0159109
+_at 0.0331863
+_b 0.0603934
+_bin 0.0144386
+_blue 0.0268954
+_by 0.0314961
+_e 0.10177
+_eight 0.0162875
+_f 0.0450995
+_five 0.047207
+_four 0.0260417
+_green 0.0211784
+_i 0.0538462
+_in 0.030896
+_j 0.00897436
+_k 0.0676709
+_lay 0.0643469
+_m 0.0472441
+_nine 0.125208
+_now 0.0322788
+_one 0.05
+_p 0.0763889
+_place 0.0103767
+_please 0.0306413
+_red 0.0238144
+_s 0.0294872
+_set 0.00473235
+_seven 0.00560429
+_six 0.0196887
+_soon 0.0145912
+_three 0.0249603
+_two 0.0589971
+_v 0.0397205
+_white 0.00378239
+_with 0.0352839
+_zero 0.00714286
+classificationError 18.8362%
+crossEntropyError 102.249
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+
+epoch 64 took 12 minutes 14.38 seconds (0.73438 secs/seq, 202.44 its/sec, 1393.38 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00305735
+_again 0.00194372
+_at 0.00343283
+_b 0.00326647
+_bin 0.00334115
+_blue 0.00341322
+_by 0.00244386
+_c 0.00237514
+_d 0.00250589
+_e 0.00312176
+_eight 0.00470813
+_f 0.00401543
+_five 0.00210781
+_four 0.00260786
+_g 0.00327387
+_green 0.0034822
+_h 0.00424489
+_i 0.00342394
+_in 0.00335933
+_j 0.00234502
+_k 0.00221718
+_l 0.00276683
+_lay 0.00166165
+_m 0.00560911
+_n 0.00210996
+_nine 0.00485777
+_now 0.00210388
+_o 0.00296052
+_one 0.00311333
+_p 0.00395
+_place 0.000874096
+_please 0.00153865
+_q 0.00269873
+_r 0.00466344
+_red 0.00265475
+_s 0.00524333
+_set 0.00102071
+_seven 0.00283941
+_six 0.00312417
+_soon 0.00100833
+_t 0.00221623
+_three 0.00329437
+_two 0.00311292
+_u 0.00339021
+_v 0.00395505
+_white 0.00307611
+_with 0.00349034
+_x 0.00278469
+_y 0.00211577
+_z 0.00302525
+_zero 0.00241119
+classificationError 1.60834%
+crossEntropyError 6.99651
+------------------------------
+validation errors:
+_a 0.0780871
+_again 0.0126147
+_at 0.0379247
+_b 0.0733153
+_bin 0.012276
+_blue 0.020943
+_by 0.0328084
+_e 0.106195
+_eight 0.012974
+_f 0.0232287
+_five 0.0649725
+_four 0.0429688
+_green 0.0134922
+_i 0.0769231
+_in 0.031465
+_j 0.00641026
+_k 0.0761344
+_lay 0.0742551
+_m 0.0511811
+_nine 0.112461
+_now 0.0240382
+_one 0.0525641
+_p 0.0763889
+_place 0.0229778
+_please 0.0310068
+_red 0.0245036
+_s 0.0371795
+_set 0.00562099
+_seven 0.00341131
+_six 0.0208137
+_soon 0.0165715
+_three 0.021347
+_two 0.060472
+_v 0.0391422
+_white 0.00262498
+_with 0.032753
+_zero 0.00952381
+classificationError 19.1535%
+crossEntropyError 103.357
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 65 took 12 minutes 15.42 seconds (0.73542 secs/seq, 202.154 its/sec, 1391.41 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00374321
+_again 0.00191048
+_at 0.00471918
+_b 0.0032093
+_bin 0.00206828
+_blue 0.00275816
+_by 0.00285345
+_c 0.00262392
+_d 0.00231888
+_e 0.00332167
+_eight 0.00321242
+_f 0.00456076
+_five 0.0031542
+_four 0.00464994
+_g 0.00204136
+_green 0.00325195
+_h 0.00418699
+_i 0.0035177
+_in 0.00347699
+_j 0.00210445
+_k 0.00422669
+_l 0.00494483
+_lay 0.00119352
+_m 0.0074527
+_n 0.00247396
+_nine 0.00354666
+_now 0.00161515
+_o 0.0042859
+_one 0.00417793
+_p 0.00353218
+_place 0.00128736
+_please 0.00206891
+_q 0.00219672
+_r 0.00530456
+_red 0.00286443
+_s 0.00447917
+_set 0.000973006
+_seven 0.00263937
+_six 0.00290869
+_soon 0.00107726
+_t 0.00300168
+_three 0.00328791
+_two 0.00278653
+_u 0.00495982
+_v 0.00337088
+_white 0.0031238
+_with 0.00341001
+_x 0.00315846
+_y 0.00250995
+_z 0.00234673
+_zero 0.00310467
+classificationError 1.65701%
+crossEntropyError 7.12046
+------------------------------
+validation errors:
+_a 0.0842159
+_again 0.0116633
+_at 0.0325812
+_b 0.0649449
+_bin 0.00999874
+_blue 0.0134555
+_by 0.0314961
+_e 0.0958702
+_eight 0.0143644
+_f 0.0375084
+_five 0.0600275
+_four 0.0182292
+_green 0.0211975
+_i 0.0769231
+_in 0.0263708
+_j 0.0179487
+_k 0.0676193
+_lay 0.0701675
+_m 0.0301837
+_nine 0.103836
+_now 0.0221559
+_one 0.0487179
+_p 0.0763889
+_place 0.0101203
+_please 0.0302416
+_red 0.0225806
+_s 0.0333333
+_set 0.00473235
+_seven 0.0045078
+_six 0.0233722
+_soon 0.0204717
+_three 0.026605
+_two 0.0530973
+_v 0.0379517
+_white 0.00813308
+_with 0.0375448
+_zero 0.00595238
+classificationError 18.3018%
+crossEntropyError 97.9678
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+best network (classificationError)
+saving to classification@2014.10.25-07.51.41.157093.best_classificationError.save
+best network (crossEntropyError)
+saving to classification@2014.10.25-07.51.41.157093.best_crossEntropyError.save
+
+epoch 66 took 12 minutes 16.22 seconds (0.73622 secs/seq, 201.934 its/sec, 1389.9 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00406436
+_again 0.00178555
+_at 0.0037906
+_b 0.00323801
+_bin 0.0016283
+_blue 0.00345014
+_by 0.00283162
+_c 0.00129541
+_d 0.00204925
+_e 0.00490088
+_eight 0.00419369
+_f 0.00546428
+_five 0.00321181
+_four 0.00336006
+_g 0.00383662
+_green 0.00370045
+_h 0.00348506
+_i 0.00451808
+_in 0.00325809
+_j 0.0015624
+_k 0.00359773
+_l 0.00348165
+_lay 0.00110147
+_m 0.00328636
+_n 0.00379514
+_nine 0.00407061
+_now 0.00160788
+_o 0.00330072
+_one 0.00297854
+_p 0.00206196
+_place 0.00091588
+_please 0.00168011
+_q 0.00194856
+_r 0.00388663
+_red 0.00292503
+_s 0.00395139
+_set 0.000994969
+_seven 0.00230124
+_six 0.00308979
+_soon 0.00138038
+_t 0.00191979
+_three 0.003055
+_two 0.00224302
+_u 0.0031686
+_v 0.00347198
+_white 0.00280652
+_with 0.00375116
+_x 0.00278105
+_y 0.00328531
+_z 0.0024876
+_zero 0.0022839
+classificationError 1.56506%
+crossEntropyError 6.84341
+------------------------------
+validation errors:
+_a 0.0663154
+_again 0.0113698
+_at 0.0360253
+_b 0.0560025
+_bin 0.0133758
+_blue 0.0106673
+_by 0.0341207
+_e 0.106195
+_eight 0.00795414
+_f 0.0365891
+_five 0.0516941
+_four 0.0273438
+_green 0.0241313
+_i 0.0987179
+_in 0.0311682
+_j 0.0179487
+_k 0.0562612
+_lay 0.0504115
+_m 0.0459318
+_nine 0.12856
+_now 0.0260931
+_one 0.0487179
+_p 0.0763889
+_place 0.0108604
+_please 0.0302416
+_red 0.0239108
+_s 0.0320513
+_set 0.00473235
+_seven 0.00505604
+_six 0.0295856
+_soon 0.017297
+_three 0.0224435
+_two 0.0781711
+_v 0.046285
+_white 0.00319328
+_with 0.0322168
+_zero 0.00595238
+classificationError 18.4761%
+crossEntropyError 99.8172
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 67 took 12 minutes 14.84 seconds (0.73484 secs/seq, 202.313 its/sec, 1392.51 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00512608
+_again 0.00197784
+_at 0.00326722
+_b 0.00356078
+_bin 0.0019403
+_blue 0.00426997
+_by 0.00281404
+_c 0.00287646
+_d 0.00318904
+_e 0.00398783
+_eight 0.00516809
+_f 0.00579597
+_five 0.0032403
+_four 0.0033204
+_g 0.00333356
+_green 0.00423524
+_h 0.00244058
+_i 0.00403486
+_in 0.00360427
+_j 0.00266169
+_k 0.00341888
+_l 0.00328164
+_lay 0.00128284
+_m 0.00361848
+_n 0.00495219
+_nine 0.00442953
+_now 0.0021396
+_o 0.00401309
+_one 0.00326882
+_p 0.00362209
+_place 0.000788616
+_please 0.00207628
+_q 0.00299226
+_r 0.00508185
+_red 0.00288455
+_s 0.00315364
+_set 0.00126955
+_seven 0.00257576
+_six 0.00279855
+_soon 0.00112164
+_t 0.00317931
+_three 0.0034136
+_two 0.00315861
+_u 0.00293153
+_v 0.00464587
+_white 0.00248816
+_with 0.00337489
+_x 0.00315666
+_y 0.00398269
+_z 0.0034509
+_zero 0.00328116
+classificationError 1.70283%
+crossEntropyError 7.33618
+------------------------------
+validation errors:
+_a 0.081537
+_again 0.0126518
+_at 0.0325541
+_b 0.0631689
+_bin 0.0149514
+_blue 0.0203947
+_by 0.0341207
+_e 0.109145
+_eight 0.00864933
+_f 0.0276231
+_five 0.0556319
+_four 0.0351562
+_green 0.0186266
+_i 0.0705128
+_in 0.0337727
+_j 0.0307692
+_k 0.0661627
+_lay 0.0775944
+_m 0.0564304
+_nine 0.121967
+_now 0.0251127
+_one 0.0615385
+_p 0.0763889
+_place 0.0108564
+_please 0.031041
+_red 0.0254652
+_s 0.0205128
+_set 0.00473235
+_seven 0.00395955
+_six 0.0222757
+_soon 0.0189265
+_three 0.0193699
+_two 0.0722714
+_v 0.0421184
+_white 0.00407174
+_with 0.0365324
+_zero 0.00952381
+classificationError 19.1842%
+crossEntropyError 103.005
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 68 took 12 minutes 14.53 seconds (0.73453 secs/seq, 202.399 its/sec, 1393.1 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00452993
+_again 0.00179615
+_at 0.00356877
+_b 0.00342736
+_bin 0.00143335
+_blue 0.00355969
+_by 0.00233527
+_c 0.0020456
+_d 0.00218893
+_e 0.00374425
+_eight 0.00350904
+_f 0.00403889
+_five 0.00252466
+_four 0.00312532
+_g 0.00255927
+_green 0.00275643
+_h 0.00291127
+_i 0.00318426
+_in 0.00288289
+_j 0.00325043
+_k 0.00339348
+_l 0.00227285
+_lay 0.00127518
+_m 0.00420586
+_n 0.00253084
+_nine 0.00278509
+_now 0.00167596
+_o 0.00316815
+_one 0.0028815
+_p 0.00571961
+_place 0.000980217
+_please 0.00158825
+_q 0.00246623
+_r 0.00430866
+_red 0.00279495
+_s 0.00288694
+_set 0.000993945
+_seven 0.00284749
+_six 0.00245938
+_soon 0.00112232
+_t 0.00240326
+_three 0.00337255
+_two 0.00205417
+_u 0.00345061
+_v 0.00388315
+_white 0.0025356
+_with 0.00326464
+_x 0.00324488
+_y 0.0027906
+_z 0.00255657
+_zero 0.00273154
+classificationError 1.46359%
+crossEntropyError 6.3957
+------------------------------
+validation errors:
+_a 0.0841178
+_again 0.0186201
+_at 0.0359706
+_b 0.0634975
+_bin 0.0157207
+_blue 0.0251096
+_by 0.0354331
+_e 0.10472
+_eight 0.00976887
+_f 0.0300017
+_five 0.0531136
+_four 0.0377604
+_green 0.019376
+_i 0.0807692
+_in 0.0320246
+_j 0.0230769
+_k 0.0645187
+_lay 0.0661293
+_m 0.0419948
+_nine 0.121784
+_now 0.0254409
+_one 0.0423077
+_p 0.0763889
+_place 0.0103767
+_please 0.0310068
+_red 0.0262026
+_s 0.0320513
+_set 0.00473235
+_seven 0.0172088
+_six 0.0200257
+_soon 0.0167994
+_three 0.0232076
+_two 0.0752212
+_v 0.0397374
+_white 0.00845365
+_with 0.0346211
+_zero 0.00595238
+classificationError 19.3825%
+crossEntropyError 105.659
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 69 took 12 minutes 15.22 seconds (0.73522 secs/seq, 202.209 its/sec, 1391.79 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00204811
+_again 0.00177219
+_at 0.00343231
+_b 0.00326666
+_bin 0.00164861
+_blue 0.00315692
+_by 0.00254919
+_c 0.00272658
+_d 0.00198327
+_e 0.00440685
+_eight 0.00316423
+_f 0.00444338
+_five 0.00302242
+_four 0.00285039
+_g 0.00215434
+_green 0.00264529
+_h 0.00366932
+_i 0.00390693
+_in 0.00244547
+_j 0.00138884
+_k 0.00300492
+_l 0.00267101
+_lay 0.00110431
+_m 0.00457836
+_n 0.00431474
+_nine 0.00429743
+_now 0.00182309
+_o 0.00322509
+_one 0.00338835
+_p 0.00287272
+_place 0.000739337
+_please 0.00170735
+_q 0.00137188
+_r 0.0042573
+_red 0.00249838
+_s 0.00338924
+_set 0.00103878
+_seven 0.00180633
+_six 0.00266013
+_soon 0.0011285
+_t 0.00127445
+_three 0.00361378
+_two 0.00255785
+_u 0.00375032
+_v 0.00675215
+_white 0.00253629
+_with 0.00363296
+_x 0.00263932
+_y 0.00248447
+_z 0.00329727
+_zero 0.00241913
+classificationError 1.4552%
+crossEntropyError 6.20967
+------------------------------
+validation errors:
+_a 0.0538662
+_again 0.014666
+_at 0.0340134
+_b 0.0806622
+_bin 0.0190169
+_blue 0.0105263
+_by 0.0314961
+_e 0.113569
+_eight 0.0116919
+_f 0.0217696
+_five 0.0438187
+_four 0.0234375
+_green 0.0219882
+_i 0.0666667
+_in 0.0315895
+_j 0.0205128
+_k 0.0602705
+_lay 0.0625036
+_m 0.0511811
+_nine 0.129878
+_now 0.0254609
+_one 0.0628205
+_p 0.0763889
+_place 0.0103191
+_please 0.0306413
+_red 0.0248724
+_s 0.0294872
+_set 0.00473235
+_seven 0.0172393
+_six 0.0191865
+_soon 0.0189037
+_three 0.0182734
+_two 0.0722714
+_v 0.0349755
+_white 0.00290393
+_with 0.0373118
+_zero 0.00714286
+classificationError 18.7885%
+crossEntropyError 103.16
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
+
+epoch 70 took 12 minutes 16.38 seconds (0.73638 secs/seq, 201.89 its/sec, 1389.6 MwtOps/sec)
+------------------------------
+train errors (running):
+_a 0.00461905
+_again 0.00188288
+_at 0.00337824
+_b 0.00439004
+_bin 0.00176223
+_blue 0.00319383
+_by 0.00263955
+_c 0.00175526
+_d 0.00295793
+_e 0.0033782
+_eight 0.00382607
+_f 0.00342499
+_five 0.00244771
+_four 0.00543469
+_g 0.00272999
+_green 0.00304422
+_h 0.00392731
+_i 0.0033382
+_in 0.00359658
+_j 0.00170407
+_k 0.00213904
+_l 0.00319162
+_lay 0.00107095
+_m 0.00505004
+_n 0.00445553
+_nine 0.00417808
+_now 0.00173841
+_o 0.00362216
+_one 0.00296295
+_p 0.00352749
+_place 0.00073953
+_please 0.00158079
+_q 0.00192776
+_r 0.00321142
+_red 0.00254973
+_s 0.00560512
+_set 0.000913476
+_seven 0.00273667
+_six 0.00252479
+_soon 0.000896367
+_t 0.00236632
+_three 0.00292962
+_two 0.00243377
+_u 0.00255065
+_v 0.00614367
+_white 0.00224774
+_with 0.00337435
+_x 0.00366931
+_y 0.00343564
+_z 0.00266479
+_zero 0.00269369
+classificationError 1.5344%
+crossEntropyError 6.71082
+------------------------------
+validation errors:
+_a 0.0873761
+_again 0.015948
+_at 0.0290885
+_b 0.0668496
+_bin 0.0108197
+_blue 0.0177162
+_by 0.0341207
+_e 0.0929204
+_eight 0.00811665
+_f 0.0465503
+_five 0.0541209
+_four 0.0195312
+_green 0.0239753
+_i 0.0948718
+_in 0.0351428
+_j 0.0153846
+_k 0.0641065
+_lay 0.0842209
+_m 0.0511811
+_nine 0.129201
+_now 0.028005
+_one 0.0474359
+_p 0.0763889
+_place 0.0115757
+_please 0.031041
+_red 0.0246483
+_s 0.00641026
+_set 0.00473235
+_seven 0.00904605
+_six 0.0229049
+_soon 0.0210309
+_three 0.0264971
+_two 0.0648968
+_v 0.0379517
+_white 0.00406133
+_with 0.0376965
+_zero 0.0107143
+classificationError 19.685%
+crossEntropyError 109.061
+------------------------------
+saving to classification@2014.10.25-07.51.41.157093.last.save
