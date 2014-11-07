@@ -1,0 +1,21 @@
+Using gpu device 0: GeForce GTX 780 Ti
+Loading data...
+Computing updates...
+Compiling functions...
+/home/craffel/Theano/theano/scan_module/scan_perform_ext.py:133: RuntimeWarning: numpy.ndarray size changed, may indicate binary incompatibility
+  from scan_perform.scan_perform import *
+Training...
+Epoch 0 took 10.0382819176, cost = 0.127617426217, error = 1.0
+Epoch 1 took 10.1063899994, cost = 0.126578062773, error = 1.0
+Epoch 2 took 10.119314909, cost = 0.126417160034, error = 1.0
+Epoch 3 took 10.127808094, cost = 0.126527659595, error = 1.0
+Epoch 4 took 10.1128530502, cost = 0.126525975764, error = 1.0
+Epoch 5 took 10.1222131252, cost = 0.126523934305, error = 1.0
+Epoch 6 took 10.1109950542, cost = 0.126520961523, error = 1.0
+Epoch 7 took 10.0993289948, cost = 0.126518003643, error = 1.0
+Epoch 8 took 10.1083109379, cost = 0.126517646015, error = 1.0
+Epoch 9 took 10.1148850918, cost = 0.126516364515, error = 1.0
+Epoch 10 took 10.09522295, cost = 0.126514397562, error = 1.0
+Epoch 11 took 10.1246540546, cost = 0.126512415707, error = 1.0
+Epoch 12 took 10.1154370308, cost = 0.126510538161, error = 1.0
+Epoch 13 took 10.1230449677, cost = 0.126508615911, error = 1.0
