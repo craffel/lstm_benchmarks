@@ -90,15 +90,20 @@ def make_batches(X, length, batch_size=BATCH_SIZE):
         - X_batch : np.ndarray
             Tensor of time series matrix batches,
             shape=(n_batches, batch_size, length, n_features)
+        - X_mask : np.ndarray
+            Mask denoting whether to include each time step of each time series
+            matrix
     '''
     n_batches = len(X)//batch_size
     X_batch = np.zeros((n_batches, batch_size, length, X[0].shape[1]),
                        dtype=theano.config.floatX)
+    X_mask = np.zeros(X_batch.shape, dtype=np.bool)
     for b in range(n_batches):
         for n in range(batch_size):
             X_m = X[b*batch_size + n]
             X_batch[b, n, :X_m.shape[0]] = X_m[:length]
-    return X_batch
+            X_mask[b, n, :X_m.shape[0]] = 1
+    return X_batch, X_mask
 
 
 logger.info('Loading data...')
@@ -113,10 +118,10 @@ y_val = y_val
 length = max(max([X.shape[0] for X in X_train]),
              max([X.shape[0] for X in X_val]))
 # Convert to batches of time series of uniform length
-X_train = make_batches(X_train, length)
-y_train = make_batches(y_train, length)
-X_val = make_batches(X_val, length)
-y_val = make_batches(y_val, length)
+X_train, _ = make_batches(X_train, length)
+y_train, train_mask = make_batches(y_train, length)
+X_val, _ = make_batches(X_val, length)
+y_val, val_mask = make_batches(y_val, length)
 
 n_epochs = 500
 learning_rate = 10
@@ -137,33 +142,36 @@ l_out = nntools.layers.ReshapeLayer(l_rec_out,
 # Cost function is mean squared error
 input = T.tensor3('input')
 target_output = T.tensor3('target_output')
-cost = nntools.objectives.crossentropy(l_out.get_output(input), target_output)
+mask = T.tensor3('mask')
+cost = -T.sum(mask*target_output*T.log(l_out.get_output(input)))/T.sum(mask)
 # Use SGD for training
 all_params = nntools.layers.get_all_params(l_out)
 logger.info('Computing updates...')
 updates = nntools.updates.momentum(cost, all_params, learning_rate, momentum)
 logger.info('Compiling functions...')
 # Theano functions for training, getting output, and computing cost
-train = theano.function([input, target_output], cost, updates=updates)
+train = theano.function([input, target_output, mask], cost, updates=updates)
 y_pred = theano.function([input], l_out.get_output(input))
-compute_cost = theano.function([input, target_output], cost)
+compute_cost = theano.function([input, target_output, mask], cost)
 
 logger.info('Training...')
 # Train the net
 for epoch in range(n_epochs):
     start_time = time.time()
-    for sequence, labels in zip(X_train, y_train):
-        train(sequence, labels)
+    for sequence, labels, sequence_mask in zip(X_train, y_train, train_mask):
+        train(sequence, labels, sequence_mask)
         l_recurrent_1.c.set_value(np.zeros(l_recurrent_1.c.get_value().shape,
                                            dtype=theano.config.floatX))
         l_recurrent_1.h.set_value(np.zeros(l_recurrent_1.h.get_value().shape,
                                            dtype=theano.config.floatX))
     end_time = time.time()
-    cost_val = sum([compute_cost(X_val_n, y_val_n) for X_val_n, y_val_n
-                    in zip(X_val, y_val)])
-    y_val_pred = [y_pred(X_val_n) for X_val_n in X_val]
-    y_val_labels = np.argmax(y_val, axis=-1).flatten()
-    y_val_pred_labels = np.argmax(np.vstack(y_val_pred), axis=-1).flatten()
-    error = np.mean(y_val_labels != y_val_pred_labels)
+    cost_val = sum([compute_cost(X_val_n, y_val_n, mask_n)
+                    for X_val_n, y_val_n, mask_n,
+                    in zip(X_val, y_val, val_mask)])
+    y_val_pred = np.array([y_pred(X_val_n) for X_val_n in X_val])
+    y_val_labels = np.argmax(y_val*val_mask, axis=-1).flatten()
+    y_val_pred_labels = np.argmax(y_val_pred*val_mask, axis=-1).flatten()
+    n_time_steps = np.sum(val_mask)/val_mask.shape[-1]
+    error = np.sum(y_val_labels != y_val_pred_labels)/float(n_time_steps)
     logger.info("Epoch {} took {}, cost = {}, error = {}".format(
         epoch, end_time - start_time, cost_val, error))
