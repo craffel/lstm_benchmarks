@@ -118,16 +118,16 @@ y_train = make_batches(y_train, length)
 X_val = make_batches(X_val, length)
 y_val = make_batches(y_val, length)
 
-n_epochs = 50
-learning_rate = 1
+n_epochs = 500
+learning_rate = 10
 momentum = .9
 
 l_in = nntools.layers.InputLayer(shape=(BATCH_SIZE, length, X_val.shape[-1]))
 l_recurrent_1 = nntools.layers.LSTMLayer(l_in, num_units=156)
-# l_recurrent_2 = nntools.layers.LSTMLayer(l_recurrent_1, num_units=300)
-# l_recurrent_3 = nntools.layers.LSTMLayer(l_recurrent_2, num_units=102)
-l_reshape = nntools.layers.ReshapeLayer(l_recurrent_1,
-                                       (BATCH_SIZE*length, 156))
+l_recurrent_2 = nntools.layers.LSTMLayer(l_recurrent_1, num_units=300)
+l_recurrent_3 = nntools.layers.LSTMLayer(l_recurrent_2, num_units=102)
+l_reshape = nntools.layers.ReshapeLayer(l_recurrent_3,
+                                       (BATCH_SIZE*length, 102))
 nonlinearity = nntools.nonlinearities.softmax
 l_rec_out = nntools.layers.DenseLayer(l_reshape, num_units=y_val.shape[-1],
                                       nonlinearity=nonlinearity)
@@ -156,11 +156,14 @@ for epoch in range(n_epochs):
         train(sequence, labels)
         l_recurrent_1.c.set_value(np.zeros(l_recurrent_1.c.get_value().shape,
                                            dtype=theano.config.floatX))
+        l_recurrent_1.h.set_value(np.zeros(l_recurrent_1.h.get_value().shape,
+                                           dtype=theano.config.floatX))
     end_time = time.time()
     cost_val = sum([compute_cost(X_val_n, y_val_n) for X_val_n, y_val_n
                     in zip(X_val, y_val)])
     y_val_pred = [y_pred(X_val_n) for X_val_n in X_val]
-    error = np.mean(np.argmax(y_val, axis=-1)
-                    != np.argmax(np.vstack(y_val_pred), axis=-1))
+    y_val_labels = np.argmax(y_val, axis=-1).flatten()
+    y_val_pred_labels = np.argmax(np.vstack(y_val_pred), axis=-1).flatten()
+    error = np.mean(y_val_labels != y_val_pred_labels)
     logger.info("Epoch {} took {}, cost = {}, error = {}".format(
         epoch, end_time - start_time, cost_val, error))
