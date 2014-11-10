@@ -124,11 +124,12 @@ X_val, _ = make_batches(X_val, length)
 y_val, val_mask = make_batches(y_val, length)
 
 n_epochs = 500
-learning_rate = 10
+learning_rate = 1
 momentum = .9
 
 l_in = nntools.layers.InputLayer(shape=(BATCH_SIZE, length, X_val.shape[-1]))
-l_recurrent_1 = nntools.layers.LSTMLayer(l_in, num_units=156)
+l_noise = nntools.layers.GaussianNoiseLayer(l_in, sigma=0.6)
+l_recurrent_1 = nntools.layers.LSTMLayer(l_noise, num_units=156)
 l_recurrent_2 = nntools.layers.LSTMLayer(l_recurrent_1, num_units=300)
 l_recurrent_3 = nntools.layers.LSTMLayer(l_recurrent_2, num_units=102)
 l_reshape = nntools.layers.ReshapeLayer(l_recurrent_3,
@@ -143,16 +144,26 @@ l_out = nntools.layers.ReshapeLayer(l_rec_out,
 input = T.tensor3('input')
 target_output = T.tensor3('target_output')
 mask = T.tensor3('mask')
-cost = -T.sum(mask*target_output*T.log(l_out.get_output(input)))/T.sum(mask)
+
+
+def cost(output):
+    return -T.sum(mask*target_output*T.log(output))/T.sum(mask)
+
+cost_train = cost(l_out.get_output(input, deterministic=False))
+cost_eval = cost(l_out.get_output(input, deterministic=True))
+
+
 # Use SGD for training
 all_params = nntools.layers.get_all_params(l_out)
 logger.info('Computing updates...')
-updates = nntools.updates.momentum(cost, all_params, learning_rate, momentum)
+updates = nntools.updates.momentum(cost_train, all_params,
+                                   learning_rate, momentum)
 logger.info('Compiling functions...')
 # Theano functions for training, getting output, and computing cost
-train = theano.function([input, target_output, mask], cost, updates=updates)
-y_pred = theano.function([input], l_out.get_output(input))
-compute_cost = theano.function([input, target_output, mask], cost)
+train = theano.function([input, target_output, mask], cost_train,
+                        updates=updates)
+y_pred = theano.function([input], l_out.get_output(input, deterministic=True))
+compute_cost = theano.function([input, target_output, mask], cost_eval)
 
 logger.info('Training...')
 # Train the net
