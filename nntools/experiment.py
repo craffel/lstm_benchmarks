@@ -169,8 +169,14 @@ logger.info('Training...')
 # Train the net
 for epoch in range(n_epochs):
     start_time = time.time()
-    for sequence, labels, sequence_mask in zip(X_train, y_train, train_mask):
-        train(sequence, labels, sequence_mask)
+    batch_shuffle = np.random.choice(X_train.shape[0], X_train.shape[0], False)
+    for sequences, labels, sequence_mask in zip(X_train[batch_shuffle],
+                                                y_train[batch_shuffle],
+                                                train_mask[batch_shuffle]):
+        sequence_shuffle = np.random.choice(sequences.shape[0],
+                                            sequences.shape[0], False)
+        train(sequences[sequence_shuffle], labels[sequence_shuffle],
+              sequence_mask[sequence_shuffle])
     end_time = time.time()
     cost_val = sum([compute_cost(X_val_n, y_val_n, mask_n)
                     for X_val_n, y_val_n, mask_n,
