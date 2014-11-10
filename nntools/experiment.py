@@ -160,10 +160,6 @@ for epoch in range(n_epochs):
     start_time = time.time()
     for sequence, labels, sequence_mask in zip(X_train, y_train, train_mask):
         train(sequence, labels, sequence_mask)
-        l_recurrent_1.c.set_value(np.zeros(l_recurrent_1.c.get_value().shape,
-                                           dtype=theano.config.floatX))
-        l_recurrent_1.h.set_value(np.zeros(l_recurrent_1.h.get_value().shape,
-                                           dtype=theano.config.floatX))
     end_time = time.time()
     cost_val = sum([compute_cost(X_val_n, y_val_n, mask_n)
                     for X_val_n, y_val_n, mask_n,
