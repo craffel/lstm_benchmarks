@@ -124,7 +124,7 @@ X_val, _ = make_batches(X_val, length)
 y_val, val_mask = make_batches(y_val, length)
 
 n_epochs = 500
-learning_rate = 1
+learning_rate = 10
 momentum = .9
 
 l_in = nntools.layers.InputLayer(shape=(BATCH_SIZE, length, X_val.shape[-1]))
