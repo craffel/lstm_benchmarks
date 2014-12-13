@@ -129,9 +129,22 @@ momentum = .9
 
 l_in = nntools.layers.InputLayer(shape=(BATCH_SIZE, length, X_val.shape[-1]))
 l_noise = nntools.layers.GaussianNoiseLayer(l_in, sigma=0.6)
-l_recurrent_1 = nntools.layers.LSTMLayer(l_noise, num_units=156)
-l_recurrent_2 = nntools.layers.LSTMLayer(l_recurrent_1, num_units=300)
-l_recurrent_3 = nntools.layers.LSTMLayer(l_recurrent_2, num_units=102)
+
+l_forward_1 = nntools.layers.LSTMLayer(l_noise, num_units=156)
+l_backward_1 = nntools.layers.LSTMLayer(l_noise, num_units=156)
+l_recurrent_1 = nntools.layers.BidirectionalLayer(l_noise, l_forward_1,
+                                                  l_backward_1)
+
+l_forward_2 = nntools.layers.LSTMLayer(l_recurrent_1, num_units=300)
+l_backward_2 = nntools.layers.LSTMLayer(l_recurrent_1, num_units=300)
+l_recurrent_2 = nntools.layers.BidirectionalLayer(l_recurrent_1, l_forward_2,
+                                                  l_backward_2)
+
+l_forward_3 = nntools.layers.LSTMLayer(l_recurrent_2, num_units=102)
+l_backward_3 = nntools.layers.LSTMLayer(l_recurrent_2, num_units=102)
+l_recurrent_3 = nntools.layers.BidirectionalLayer(l_recurrent_2, l_forward_3,
+                                                  l_backward_3)
+
 l_reshape = nntools.layers.ReshapeLayer(l_recurrent_3,
                                        (BATCH_SIZE*length, 102))
 nonlinearity = nntools.nonlinearities.softmax
