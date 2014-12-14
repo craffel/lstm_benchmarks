@@ -21,7 +21,7 @@ logger.addHandler(fh)
 
 TRAIN_NC = '../data/train_1_speaker.nc'
 VAL_NC = '../data/val_1_speaker.nc'
-BATCH_SIZE = 100
+BATCH_SIZE = 50
 
 
 def one_hot(labels, n_classes):
