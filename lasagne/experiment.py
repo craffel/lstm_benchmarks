@@ -1,5 +1,5 @@
 import scipy.io
-import nntools
+import lasagne
 import theano
 import theano.tensor as T
 import numpy as np
@@ -127,30 +127,30 @@ n_epochs = 500
 learning_rate = 10
 momentum = .9
 
-l_in = nntools.layers.InputLayer(shape=(BATCH_SIZE, length, X_val.shape[-1]))
-l_noise = nntools.layers.GaussianNoiseLayer(l_in, sigma=0.6)
+l_in = lasagne.layers.InputLayer(shape=(BATCH_SIZE, length, X_val.shape[-1]))
+l_noise = lasagne.layers.GaussianNoiseLayer(l_in, sigma=0.6)
 
-l_forward_1 = nntools.layers.LSTMLayer(l_noise, num_units=156)
-l_backward_1 = nntools.layers.LSTMLayer(l_noise, num_units=156)
-l_recurrent_1 = nntools.layers.BidirectionalLayer(l_noise, l_forward_1,
+l_forward_1 = lasagne.layers.LSTMLayer(l_noise, num_units=156)
+l_backward_1 = lasagne.layers.LSTMLayer(l_noise, num_units=156)
+l_recurrent_1 = lasagne.layers.BidirectionalLayer(l_noise, l_forward_1,
                                                   l_backward_1)
 
-l_forward_2 = nntools.layers.LSTMLayer(l_recurrent_1, num_units=300)
-l_backward_2 = nntools.layers.LSTMLayer(l_recurrent_1, num_units=300)
-l_recurrent_2 = nntools.layers.BidirectionalLayer(l_recurrent_1, l_forward_2,
+l_forward_2 = lasagne.layers.LSTMLayer(l_recurrent_1, num_units=300)
+l_backward_2 = lasagne.layers.LSTMLayer(l_recurrent_1, num_units=300)
+l_recurrent_2 = lasagne.layers.BidirectionalLayer(l_recurrent_1, l_forward_2,
                                                   l_backward_2)
 
-l_forward_3 = nntools.layers.LSTMLayer(l_recurrent_2, num_units=102)
-l_backward_3 = nntools.layers.LSTMLayer(l_recurrent_2, num_units=102)
-l_recurrent_3 = nntools.layers.BidirectionalLayer(l_recurrent_2, l_forward_3,
+l_forward_3 = lasagne.layers.LSTMLayer(l_recurrent_2, num_units=102)
+l_backward_3 = lasagne.layers.LSTMLayer(l_recurrent_2, num_units=102)
+l_recurrent_3 = lasagne.layers.BidirectionalLayer(l_recurrent_2, l_forward_3,
                                                   l_backward_3)
 
-l_reshape = nntools.layers.ReshapeLayer(l_recurrent_3,
+l_reshape = lasagne.layers.ReshapeLayer(l_recurrent_3,
                                        (BATCH_SIZE*length, 102))
-nonlinearity = nntools.nonlinearities.softmax
-l_rec_out = nntools.layers.DenseLayer(l_reshape, num_units=y_val.shape[-1],
+nonlinearity = lasagne.nonlinearities.softmax
+l_rec_out = lasagne.layers.DenseLayer(l_reshape, num_units=y_val.shape[-1],
                                       nonlinearity=nonlinearity)
-l_out = nntools.layers.ReshapeLayer(l_rec_out,
+l_out = lasagne.layers.ReshapeLayer(l_rec_out,
                                     (BATCH_SIZE, length, y_val.shape[-1]))
 
 # Cost function is mean squared error
@@ -167,9 +167,9 @@ cost_eval = cost(l_out.get_output(input, deterministic=True))
 
 
 # Use SGD for training
-all_params = nntools.layers.get_all_params(l_out)
+all_params = lasagne.layers.get_all_params(l_out)
 logger.info('Computing updates...')
-updates = nntools.updates.momentum(cost_train, all_params,
+updates = lasagne.updates.momentum(cost_train, all_params,
                                    learning_rate, momentum)
 logger.info('Compiling functions...')
 # Theano functions for training, getting output, and computing cost
