@@ -97,7 +97,7 @@ def make_batches(X, length, batch_size=BATCH_SIZE):
     n_batches = len(X)//batch_size
     X_batch = np.zeros((n_batches, batch_size, length, X[0].shape[1]),
                        dtype=theano.config.floatX)
-    X_mask = np.zeros(X_batch.shape, dtype=np.bool)
+    X_mask = np.zeros((n_batches, batch_size, length), dtype=np.bool)
     for b in range(n_batches):
         for n in range(batch_size):
             X_m = X[b*batch_size + n]
@@ -124,50 +124,69 @@ X_val, _ = make_batches(X_val, length)
 y_val, val_mask = make_batches(y_val, length)
 
 n_epochs = 500
-learning_rate = 10
+learning_rate = .02
 momentum = .9
 
-l_in = lasagne.layers.InputLayer(shape=(BATCH_SIZE, length, X_val.shape[-1]))
-l_noise = lasagne.layers.GaussianNoiseLayer(l_in, sigma=0.6)
 
-l_forward_1 = lasagne.layers.LSTMLayer(l_noise, num_units=156)
-l_backward_1 = lasagne.layers.LSTMLayer(l_noise, num_units=156)
-l_recurrent_1 = lasagne.layers.BidirectionalLayer(l_noise, l_forward_1,
-                                                  l_backward_1)
+l_in = lasagne.layers.InputLayer(
+    shape=(BATCH_SIZE, length, X_val.shape[-1]), name='Input')
+l_mask = lasagne.layers.InputLayer(
+    shape=(BATCH_SIZE, length), name='Mask input')
+l_noise = lasagne.layers.GaussianNoiseLayer(l_in, sigma=0.6, name='Noise')
 
-l_forward_2 = lasagne.layers.LSTMLayer(l_recurrent_1, num_units=300)
-l_backward_2 = lasagne.layers.LSTMLayer(l_recurrent_1, num_units=300)
-l_recurrent_2 = lasagne.layers.BidirectionalLayer(l_recurrent_1, l_forward_2,
-                                                  l_backward_2)
+l_forward_1 = lasagne.layers.LSTMLayer(
+    l_noise, num_units=78, name='Forward LSTM 1', mask_input=l_mask)
+l_backward_1 = lasagne.layers.LSTMLayer(
+    l_noise, num_units=78, backwards=True, name='Backwards LSTM 1',
+    mask_input=l_mask)
+l_recurrent_1 = lasagne.layers.ConcatLayer(
+    [l_forward_1, l_backward_1], axis=-1, name='Sum 1')
 
-l_forward_3 = lasagne.layers.LSTMLayer(l_recurrent_2, num_units=102)
-l_backward_3 = lasagne.layers.LSTMLayer(l_recurrent_2, num_units=102)
-l_recurrent_3 = lasagne.layers.BidirectionalLayer(l_recurrent_2, l_forward_3,
-                                                  l_backward_3)
+l_forward_2 = lasagne.layers.LSTMLayer(
+    l_recurrent_1, num_units=150, name='Forward LSTM 2', mask_input=l_mask)
+l_backward_2 = lasagne.layers.LSTMLayer(
+    l_recurrent_1, num_units=150, backwards=True, name='Backwards LSTM 2',
+    mask_input=l_mask)
+l_recurrent_2 = lasagne.layers.ConcatLayer(
+    [l_forward_2, l_backward_2], axis=-1, name='Sum 2')
 
-l_reshape = lasagne.layers.ReshapeLayer(l_recurrent_3,
-                                       (BATCH_SIZE*length, 102))
+l_forward_3 = lasagne.layers.LSTMLayer(
+    l_recurrent_2, num_units=51, name='Forward LSTM 3', mask_input=l_mask)
+l_backward_3 = lasagne.layers.LSTMLayer(
+    l_recurrent_2, num_units=51, backwards=True, name='Backwards LSTM 3',
+    mask_input=l_mask)
+l_recurrent_3 = lasagne.layers.ConcatLayer(
+    [l_forward_3, l_backward_3], axis=-1, name='Sum 3')
+
+l_reshape = lasagne.layers.ReshapeLayer(
+    l_recurrent_3, (BATCH_SIZE*length, 51*2), name='Pre-dense Reshape')
 nonlinearity = lasagne.nonlinearities.softmax
-l_rec_out = lasagne.layers.DenseLayer(l_reshape, num_units=y_val.shape[-1],
-                                      nonlinearity=nonlinearity)
-l_out = lasagne.layers.ReshapeLayer(l_rec_out,
-                                    (BATCH_SIZE, length, y_val.shape[-1]))
+l_rec_out = lasagne.layers.DenseLayer(
+    l_reshape, num_units=y_val.shape[-1], nonlinearity=nonlinearity,
+    name='Dense Softmax')
+l_out = lasagne.layers.ReshapeLayer(
+    l_rec_out, (BATCH_SIZE, length, y_val.shape[-1]), name='Output Reshape')
 
-# Cost function is mean squared error
 input = T.tensor3('input')
 target_output = T.tensor3('target_output')
-mask = T.tensor3('mask')
+mask = T.matrix('mask')
 
 
+# Cost function is mean squared error
 def cost(output):
-    return -T.sum(mask*target_output*T.log(output))/T.sum(mask)
+    return -T.sum(mask.dimshuffle(0, 1, 'x') *
+                  target_output*T.log(output))/T.sum(mask)
 
-cost_train = cost(l_out.get_output(input, deterministic=False))
-cost_eval = cost(l_out.get_output(input, deterministic=True))
-
+cost_train = cost(lasagne.layers.get_output(
+    l_out, {l_in: input, l_mask: mask}, deterministic=False))
+cost_eval = cost(lasagne.layers.get_output(
+    l_out, {l_in: input, l_mask: mask}, deterministic=True))
 
 # Use SGD for training
 all_params = lasagne.layers.get_all_params(l_out)
+
+logger.info("Total params: {}".format(len(all_params)))
+
 logger.info('Computing updates...')
 updates = lasagne.updates.momentum(cost_train, all_params,
                                    learning_rate, momentum)
@@ -175,7 +194,9 @@ logger.info('Compiling functions...')
 # Theano functions for training, getting output, and computing cost
 train = theano.function([input, target_output, mask], cost_train,
                         updates=updates)
-y_pred = theano.function([input], l_out.get_output(input, deterministic=True))
+y_pred = theano.function(
+    [input, mask], lasagne.layers.get_output(
+        l_out, {l_in: input, l_mask: mask}, deterministic=True))
 compute_cost = theano.function([input, target_output, mask], cost_eval)
 
 logger.info('Training...')
@@ -194,10 +215,14 @@ for epoch in range(n_epochs):
     cost_val = sum([compute_cost(X_val_n, y_val_n, mask_n)
                     for X_val_n, y_val_n, mask_n,
                     in zip(X_val, y_val, val_mask)])
-    y_val_pred = np.array([y_pred(X_val_n) for X_val_n in X_val])
-    y_val_labels = np.argmax(y_val*val_mask, axis=-1).flatten()
-    y_val_pred_labels = np.argmax(y_val_pred*val_mask, axis=-1).flatten()
-    n_time_steps = np.sum(val_mask)/val_mask.shape[-1]
+    y_val_pred = np.array([y_pred(X_val_n, mask_n)
+                           for X_val_n, mask_n
+                           in zip(X_val, val_mask)])
+    y_val_labels = np.argmax(y_val*val_mask[:, :, :, np.newaxis],
+                             axis=-1).flatten()
+    y_val_pred_labels = np.argmax(y_val_pred*val_mask[:, :, :, np.newaxis],
+                                  axis=-1).flatten()
+    n_time_steps = np.sum(val_mask)
     error = np.sum(y_val_labels != y_val_pred_labels)/float(n_time_steps)
     logger.info("Epoch {} took {}, cost = {}, error = {}".format(
         epoch, end_time - start_time, cost_val, error))
