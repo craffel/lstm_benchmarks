@@ -89,3 +89,7 @@ Temporary Items
 # Temporary data
 .ipynb_checkpoints/
 
+### Spyder ###
+.spyderworkspace
+.spyderproject
+
